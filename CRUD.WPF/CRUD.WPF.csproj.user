@@ -7,6 +7,24 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Components\Dashboard\FemaleStudents.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dashboard\MaleStudents.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dashboard\OldestStudent.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dashboard\OutstandingStudents.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dashboard\TotalStudents.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Dashboard\YoungestStudent.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Components\Records\RecordsDetails.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -16,11 +34,35 @@
     <Compile Update="Components\Records\RecordsListingItem.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\AccountView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DashboardView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\RecordsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Components\Dashboard\FemaleStudents.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dashboard\MaleStudents.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dashboard\OldestStudent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dashboard\OutstandingStudents.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dashboard\TotalStudents.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\Dashboard\YoungestStudent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Components\Records\RecordsDetails.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -31,6 +73,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AccountView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DashboardView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\RecordsView.xaml">

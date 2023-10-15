@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace CRUD.WPF.ViewModels
+namespace CRUD.WPF.ViewModels.Records
 {
     public class RecordsListingViewModel : ViewModelBase
     {
@@ -18,9 +18,9 @@ namespace CRUD.WPF.ViewModels
         {
             _recordsListingItemViewModel = new ObservableCollection<RecordsListingItemViewModel>();
 
-            _recordsListingItemViewModel.Add(new RecordsListingItemViewModel("John", "Doe"));
-            _recordsListingItemViewModel.Add(new RecordsListingItemViewModel("Johan", "Liebert"));
-            _recordsListingItemViewModel.Add(new RecordsListingItemViewModel("Jordan", "Faciol"));
+            _recordsListingItemViewModel.Add(new RecordsListingItemViewModel("John", "Doe", true));
+            _recordsListingItemViewModel.Add(new RecordsListingItemViewModel("Johan", "Liebert", true));
+            _recordsListingItemViewModel.Add(new RecordsListingItemViewModel("Jordan", "Faciol", true));
         }
         #endregion
     }

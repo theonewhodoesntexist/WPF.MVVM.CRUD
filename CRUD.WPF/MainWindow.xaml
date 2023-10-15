@@ -12,6 +12,8 @@
     FontSize="14"
     mc:Ignorable="d">
     <Grid>
-        <views:RecordsView Margin="20" />
+        <views:DashboardView Margin="20" />
+        <!--<views:RecordsView Margin="20" />-->
+        <!--<views:AccountView Margin="20" />-->
     </Grid>
 </Window>

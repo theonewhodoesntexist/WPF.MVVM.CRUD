@@ -1,4 +1,4 @@
-﻿namespace CRUD.WPF.ViewModels
+﻿namespace CRUD.WPF.ViewModels.Records
 {
     public class RecordsViewModel : ViewModelBase
     {

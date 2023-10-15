@@ -1,4 +1,6 @@
-﻿using CRUD.WPF.ViewModels;
+﻿using CRUD.WPF.ViewModels.Account;
+using CRUD.WPF.ViewModels.Dashboard;
+using CRUD.WPF.ViewModels.Records;
 using System.Windows;
 
 namespace CRUD.WPF
@@ -13,7 +15,7 @@ namespace CRUD.WPF
         {
             MainWindow = new MainWindow()
             {
-                DataContext = new RecordsViewModel() 
+                DataContext = new DashboardViewModel() 
             };
             MainWindow.Show();
         }
