@@ -2,18 +2,29 @@
     x:Class="CRUD.WPF.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:accountViewModel="clr-namespace:CRUD.WPF.ViewModels.Account"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dashboardViewModel="clr-namespace:CRUD.WPF.ViewModels.Dashboard"
     xmlns:local="clr-namespace:CRUD.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:recordsViewModel="clr-namespace:CRUD.WPF.ViewModels.Records"
     xmlns:views="clr-namespace:CRUD.WPF.Views"
     Title="MainWindow"
     Width="800"
     Height="450"
     FontSize="14"
     mc:Ignorable="d">
-    <Grid>
-        <views:DashboardView Margin="20" />
-        <!--<views:RecordsView Margin="20" />-->
-        <!--<views:AccountView Margin="20" />-->
-    </Grid>
+    <ContentControl Margin="20" Content="{Binding CurrentViewModel}">
+        <ContentControl.Resources>
+            <DataTemplate DataType="{x:Type dashboardViewModel:DashboardViewModel}">
+                <views:DashboardView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type recordsViewModel:RecordsViewModel}">
+                <views:RecordsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type accountViewModel:AccountViewModel}">
+                <views:AccountView />
+            </DataTemplate>
+        </ContentControl.Resources>
+    </ContentControl>
 </Window>

@@ -9,63 +9,69 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-
-        <TextBlock
-            Grid.Row="0"
-            Style="{StaticResource PageHeader}"
-            Text="Dashboard" />
-
-        <Grid Grid.Row="1" Margin="0,20,0,0">
+    <WrapPanel>
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
-
-            <dashboard:TotalStudents
+            <TextBlock
                 Grid.Row="0"
-                Grid.Column="0"
-                DataContext="{Binding TotalStudentsViewModel}" />
+                Style="{StaticResource PageHeader}"
+                Text="Dashboard" />
 
-            <dashboard:MaleStudents
-                Grid.Row="0"
-                Grid.Column="1"
-                Margin="20,0,20,0"
-                DataContext="{Binding MaleStudentsViewModel}" />
+            <Grid Grid.Row="1" Margin="0,20,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
 
-            <dashboard:FemaleStudents
-                Grid.Row="0"
-                Grid.Column="2"
-                DataContext="{Binding FemaleStudentsViewModel}" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
 
-            <dashboard:OldestStudent
-                Grid.Row="1"
-                Grid.Column="0"
-                Margin="0,20,0,0"
-                DataContext="{Binding OldestStudentViewModel}" />
+                <dashboard:TotalStudents
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    DataContext="{Binding TotalStudentsViewModel}" />
 
-            <dashboard:YoungestStudent
-                Grid.Row="1"
-                Grid.Column="1"
-                Margin="20,20,20,0"
-                DataContext="{Binding YoungestStudentViewModel}" />
+                <dashboard:MaleStudents
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="20,0,20,0"
+                    DataContext="{Binding MaleStudentsViewModel}" />
 
-            <dashboard:OutstandingStudents
-                Grid.Row="1"
-                Grid.Column="2"
-                Margin="0,20,0,0"
-                DataContext="{Binding OutstandingStudentsViewModel}" />
+                <dashboard:FemaleStudents
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    DataContext="{Binding FemaleStudentsViewModel}" />
+
+                <dashboard:OldestStudent
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="0,20,0,0"
+                    DataContext="{Binding OldestStudentViewModel}" />
+
+                <dashboard:YoungestStudent
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="20,20,20,0"
+                    DataContext="{Binding YoungestStudentViewModel}" />
+
+                <dashboard:OutstandingStudents
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Margin="0,20,0,0"
+                    DataContext="{Binding OutstandingStudentsViewModel}" />
+            </Grid>
         </Grid>
-    </Grid>
+        <StackPanel>
+            <Button Command="{Binding NavigateAccountCommand}" Content="Account" />
+            <Button Command="{Binding NavigateRecordsCommand}" Content="Records" />
+        </StackPanel>
+    </WrapPanel>
 </UserControl>
