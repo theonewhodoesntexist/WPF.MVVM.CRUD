@@ -11,6 +11,7 @@ namespace CRUD.WPF.ViewModels.Dashboard
     {
         #region Fields
         private readonly NavigationStore _navigationStore;
+        private readonly AccountStore _accountStore;
         #endregion
 
         #region Properties
@@ -25,7 +26,7 @@ namespace CRUD.WPF.ViewModels.Dashboard
         #endregion
 
         #region Constructor
-        public DashboardViewModel(NavigationStore navigationStore)
+        public DashboardViewModel(NavigationStore navigationStore, AccountStore accountStore)
         {
             TotalStudentsViewModel = new TotalStudentsViewModel();
             MaleStudentsViewModel = new MaleStudentsViewModel();
@@ -35,8 +36,9 @@ namespace CRUD.WPF.ViewModels.Dashboard
             OutstandingStudentsViewModel = new OutstandingStudentsViewModel();
 
             _navigationStore = navigationStore;
-            NavigateAccountCommand = new NavigateCommand<AccountViewModel>(new NavigationService<AccountViewModel>(_navigationStore, () => new AccountViewModel(_navigationStore)));
-            NavigateRecordsCommand = new NavigateCommand<RecordsViewModel>(new NavigationService<RecordsViewModel>(_navigationStore, () => new RecordsViewModel(_navigationStore)));
+            _accountStore = accountStore;
+            NavigateAccountCommand = new NavigateCommand<AccountViewModel>(new NavigationService<AccountViewModel>(_navigationStore, () => new AccountViewModel(_navigationStore, _accountStore)));
+            NavigateRecordsCommand = new NavigateCommand<RecordsViewModel>(new NavigationService<RecordsViewModel>(_navigationStore, () => new RecordsViewModel(_navigationStore, _accountStore)));
         }
         #endregion
     }

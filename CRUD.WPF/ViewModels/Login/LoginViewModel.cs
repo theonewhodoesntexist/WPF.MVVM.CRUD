@@ -1,9 +1,7 @@
-﻿using CRUD.WPF.Commands;
-using CRUD.WPF.Commands.Login;
+﻿using CRUD.WPF.Commands.Login;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores;
 using CRUD.WPF.ViewModels.Dashboard;
-using CRUD.WPF.ViewModels.Records;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Login
@@ -12,6 +10,7 @@ namespace CRUD.WPF.ViewModels.Login
     {
         #region Fields
         private readonly NavigationStore _navigationStore;
+        private readonly AccountStore _accountStore;
         #endregion
 
         #region Properties
@@ -45,10 +44,11 @@ namespace CRUD.WPF.ViewModels.Login
         #endregion
 
         #region Constructor
-        public LoginViewModel(NavigationStore navigationStore)
+        public LoginViewModel(NavigationStore navigationStore, AccountStore accountStore)
         {
             _navigationStore = navigationStore;
-			LoginCommand = new LoginCommand(new NavigationService<DashboardViewModel>(_navigationStore, () => new DashboardViewModel(_navigationStore)), this);
+            _accountStore = accountStore;
+            LoginCommand = new LoginCommand(new NavigationService<DashboardViewModel>(_navigationStore, () => new DashboardViewModel(_navigationStore, _accountStore)), this, _accountStore);
         }
         #endregion
     }

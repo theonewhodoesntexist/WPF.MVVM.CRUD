@@ -1,0 +1,20 @@
+﻿namespace CRUD.WPF.Models
+{
+    public class AccountModel
+    {
+        #region Properties
+        public string Username { get; }
+        public string Password { get; }
+        public string FirstName { get; }
+        public string LastName { get; }
+        #endregion
+
+        #region Constructor
+        public AccountModel(string username, string password)
+        {
+            Username = username;
+            Password = password;
+        }
+        #endregion
+    }
+}
