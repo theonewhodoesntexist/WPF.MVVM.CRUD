@@ -1,4 +1,5 @@
 ﻿using CRUD.WPF.Commands;
+using CRUD.WPF.Services;
 using CRUD.WPF.Stores;
 using CRUD.WPF.ViewModels.Account;
 using CRUD.WPF.ViewModels.Records;
@@ -34,8 +35,8 @@ namespace CRUD.WPF.ViewModels.Dashboard
             OutstandingStudentsViewModel = new OutstandingStudentsViewModel();
 
             _navigationStore = navigationStore;
-            NavigateAccountCommand = new NavigateCommand<AccountViewModel>(_navigationStore, () => new AccountViewModel(_navigationStore));
-            NavigateRecordsCommand = new NavigateCommand<RecordsViewModel>(_navigationStore, () => new RecordsViewModel(_navigationStore));
+            NavigateAccountCommand = new NavigateCommand<AccountViewModel>(new NavigationService<AccountViewModel>(_navigationStore, () => new AccountViewModel(_navigationStore)));
+            NavigateRecordsCommand = new NavigateCommand<RecordsViewModel>(new NavigationService<RecordsViewModel>(_navigationStore, () => new RecordsViewModel(_navigationStore)));
         }
         #endregion
     }

@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dashboardViewModel="clr-namespace:CRUD.WPF.ViewModels.Dashboard"
     xmlns:local="clr-namespace:CRUD.WPF"
+    xmlns:loginViewModel="clr-namespace:CRUD.WPF.ViewModels.Login"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:recordsViewModel="clr-namespace:CRUD.WPF.ViewModels.Records"
     xmlns:views="clr-namespace:CRUD.WPF.Views"
@@ -16,6 +17,9 @@
     mc:Ignorable="d">
     <ContentControl Margin="20" Content="{Binding CurrentViewModel}">
         <ContentControl.Resources>
+            <DataTemplate DataType="{x:Type loginViewModel:LoginViewModel}">
+                <views:LoginView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type dashboardViewModel:DashboardViewModel}">
                 <views:DashboardView />
             </DataTemplate>

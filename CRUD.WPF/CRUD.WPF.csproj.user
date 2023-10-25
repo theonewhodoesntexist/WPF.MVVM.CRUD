@@ -34,13 +34,16 @@
     <Compile Update="Components\Records\RecordsListingItem.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\AccountView.xaml.cs">
+    <Compile Update="Views\Account\AccountView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\DashboardView.xaml.cs">
+    <Compile Update="Views\Dashboard\DashboardView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\RecordsView.xaml.cs">
+    <Compile Update="Views\Login\LoginView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Records\RecordsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -75,13 +78,16 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\AccountView.xaml">
+    <Page Update="Views\Account\AccountView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\DashboardView.xaml">
+    <Page Update="Views\Dashboard\DashboardView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\RecordsView.xaml">
+    <Page Update="Views\Login\LoginView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Records\RecordsView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

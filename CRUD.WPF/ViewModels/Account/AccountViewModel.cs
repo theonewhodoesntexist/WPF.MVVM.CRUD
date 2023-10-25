@@ -1,4 +1,5 @@
 ﻿using CRUD.WPF.Commands;
+using CRUD.WPF.Services;
 using CRUD.WPF.Stores;
 using CRUD.WPF.ViewModels.Dashboard;
 using CRUD.WPF.ViewModels.Records;
@@ -27,8 +28,8 @@ namespace CRUD.WPF.ViewModels.Account
             Name = "Jim Moriarity";
 
             _navigationStore = navigationStore;
-            NavigateDashboardCommand = new NavigateCommand<DashboardViewModel>(_navigationStore, () => new DashboardViewModel(_navigationStore));
-            NavigateRecordsCommand = new NavigateCommand<RecordsViewModel>(_navigationStore, () => new RecordsViewModel(_navigationStore));
+            NavigateDashboardCommand = new NavigateCommand<DashboardViewModel>(new NavigationService<DashboardViewModel>(_navigationStore, () => new DashboardViewModel(_navigationStore)));
+            NavigateRecordsCommand = new NavigateCommand<RecordsViewModel>(new NavigationService<RecordsViewModel>(_navigationStore, () => new RecordsViewModel(_navigationStore)));
         }
         #endregion
     }

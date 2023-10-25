@@ -1,4 +1,5 @@
-﻿using CRUD.WPF.Stores;
+﻿using CRUD.WPF.Services;
+using CRUD.WPF.Stores;
 using CRUD.WPF.ViewModels;
 using System;
 
@@ -8,22 +9,20 @@ namespace CRUD.WPF.Commands
         where TViewModel : ViewModelBase
     {
         #region Fields
-        private readonly NavigationStore _navigationStore;
-        private readonly Func<TViewModel> _createViewModel;
+        private readonly NavigationService<TViewModel> _navigationService;
         #endregion
 
         #region Constructor
-        public NavigateCommand(NavigationStore navigationStore, Func<TViewModel> createViewModel)
+        public NavigateCommand(NavigationService<TViewModel> navigationService)
         {
-            _navigationStore = navigationStore;
-            _createViewModel = createViewModel;
+            _navigationService = navigationService;
         }
         #endregion
 
         #region CommandBase
         public override void Execute(object? parameter)
         {
-            _navigationStore.CurrentViewModel = _createViewModel();
+            _navigationService.Navigate();
         }
         #endregion
     }
