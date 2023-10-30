@@ -17,6 +17,8 @@ namespace CRUD.WPF.Stores
                 _currentAccount = value;
             }
 		}
-		#endregion
+
+		public bool IsLoggedIn => CurrentAccount != null;
+        #endregion
     }
 }

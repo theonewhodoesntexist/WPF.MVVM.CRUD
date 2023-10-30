@@ -9,11 +9,11 @@ namespace CRUD.WPF.Commands
         where TViewModel : ViewModelBase
     {
         #region Fields
-        private readonly NavigationService<TViewModel> _navigationService;
+        private readonly INavigationService<TViewModel> _navigationService;
         #endregion
 
         #region Constructor
-        public NavigateCommand(NavigationService<TViewModel> navigationService)
+        public NavigateCommand(INavigationService<TViewModel> navigationService)
         {
             _navigationService = navigationService;
         }

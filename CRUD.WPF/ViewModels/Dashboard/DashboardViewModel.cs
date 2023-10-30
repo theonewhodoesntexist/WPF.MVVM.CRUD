@@ -1,9 +1,5 @@
-﻿using CRUD.WPF.Commands;
-using CRUD.WPF.Services;
-using CRUD.WPF.Stores;
-using CRUD.WPF.ViewModels.Account;
-using CRUD.WPF.ViewModels.Records;
-using System.Windows.Input;
+﻿using CRUD.WPF.Stores;
+using CRUD.WPF.ViewModels.Layout;
 
 namespace CRUD.WPF.ViewModels.Dashboard
 {
@@ -21,8 +17,6 @@ namespace CRUD.WPF.ViewModels.Dashboard
         public OldestStudentViewModel OldestStudentViewModel { get; }
         public YoungestStudentViewModel YoungestStudentViewModel { get; }
         public OutstandingStudentsViewModel OutstandingStudentsViewModel { get; }
-        public ICommand NavigateAccountCommand { get; }
-        public ICommand NavigateRecordsCommand { get; }
         #endregion
 
         #region Constructor
@@ -37,8 +31,6 @@ namespace CRUD.WPF.ViewModels.Dashboard
 
             _navigationStore = navigationStore;
             _accountStore = accountStore;
-            NavigateAccountCommand = new NavigateCommand<AccountViewModel>(new NavigationService<AccountViewModel>(_navigationStore, () => new AccountViewModel(_navigationStore, _accountStore)));
-            NavigateRecordsCommand = new NavigateCommand<RecordsViewModel>(new NavigationService<RecordsViewModel>(_navigationStore, () => new RecordsViewModel(_navigationStore, _accountStore)));
         }
         #endregion
     }

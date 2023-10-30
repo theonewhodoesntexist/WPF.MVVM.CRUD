@@ -1,8 +1,5 @@
-﻿using CRUD.WPF.Commands;
-using CRUD.WPF.Services;
-using CRUD.WPF.Stores;
-using CRUD.WPF.ViewModels.Dashboard;
-using CRUD.WPF.ViewModels.Records;
+﻿using CRUD.WPF.Stores;
+using CRUD.WPF.ViewModels.Layout;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Account
@@ -20,8 +17,6 @@ namespace CRUD.WPF.ViewModels.Account
         public string FirstName => _accountStore.CurrentAccount?.FirstName ?? "None";
         public string LastName => _accountStore.CurrentAccount?.LastName ?? string.Empty;
         public ICommand EditAccountCommand { get; }
-        public ICommand NavigateDashboardCommand { get; }
-        public ICommand NavigateRecordsCommand { get; }
         #endregion
 
         #region Constructor
@@ -29,8 +24,6 @@ namespace CRUD.WPF.ViewModels.Account
         {
             _navigationStore = navigationStore;
             _accountStore = accountStore;
-            NavigateDashboardCommand = new NavigateCommand<DashboardViewModel>(new NavigationService<DashboardViewModel>(_navigationStore, () => new DashboardViewModel(_navigationStore, _accountStore)));
-            NavigateRecordsCommand = new NavigateCommand<RecordsViewModel>(new NavigationService<RecordsViewModel>(_navigationStore, () => new RecordsViewModel(_navigationStore, _accountStore)));
         }
         #endregion
     }

@@ -5,17 +5,20 @@
     xmlns:accountViewModel="clr-namespace:CRUD.WPF.ViewModels.Account"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dashboardViewModel="clr-namespace:CRUD.WPF.ViewModels.Dashboard"
+    xmlns:layout="clr-namespace:CRUD.WPF.Components.Layout"
+    xmlns:layoutViewModel="clr-namespace:CRUD.WPF.ViewModels.Layout"
     xmlns:local="clr-namespace:CRUD.WPF"
     xmlns:loginViewModel="clr-namespace:CRUD.WPF.ViewModels.Login"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:recordsViewModel="clr-namespace:CRUD.WPF.ViewModels.Records"
     xmlns:views="clr-namespace:CRUD.WPF.Views"
     Title="MainWindow"
-    Width="800"
-    Height="450"
+    Width="1000"
+    Height="600"
     FontSize="14"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <ContentControl Margin="20" Content="{Binding CurrentViewModel}">
+    <ContentControl Content="{Binding CurrentViewModel}">
         <ContentControl.Resources>
             <DataTemplate DataType="{x:Type loginViewModel:LoginViewModel}">
                 <views:LoginView />
@@ -28,6 +31,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type accountViewModel:AccountViewModel}">
                 <views:AccountView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type layoutViewModel:LayoutViewModel}">
+                <layout:Layout />
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>

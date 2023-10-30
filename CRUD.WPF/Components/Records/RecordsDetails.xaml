@@ -9,6 +9,7 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Border
+        MinWidth="300"
         Padding="20"
         BorderBrush="Gray"
         BorderThickness="1"

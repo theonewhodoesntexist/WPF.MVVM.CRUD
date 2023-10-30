@@ -1,8 +1,5 @@
-﻿using CRUD.WPF.Commands;
-using CRUD.WPF.Services;
-using CRUD.WPF.Stores;
-using CRUD.WPF.ViewModels.Account;
-using CRUD.WPF.ViewModels.Dashboard;
+﻿using CRUD.WPF.Stores;
+using CRUD.WPF.ViewModels.Layout;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Records
@@ -17,8 +14,8 @@ namespace CRUD.WPF.ViewModels.Records
         #region Properties
         public RecordsListingViewModel RecordsListingViewModel { get; }
         public RecordsDetailsViewModel RecordsDetailsViewModel { get; }
-        public ICommand NavigateDashboardCommand { get; }
-        public ICommand NavigateAccountCommand { get; }
+        public ICommand CreateCommand { get; }
+        public bool IsLoggedIn => _accountStore.IsLoggedIn;
         #endregion
 
         #region Constructor
@@ -29,8 +26,6 @@ namespace CRUD.WPF.ViewModels.Records
 
             _navigationStore = navigationStore;
             _accountStore = accountStore;
-            NavigateDashboardCommand = new NavigateCommand<DashboardViewModel>(new NavigationService<DashboardViewModel>(_navigationStore, () => new DashboardViewModel(_navigationStore, _accountStore )));
-            NavigateAccountCommand = new NavigateCommand<AccountViewModel>(new NavigationService<AccountViewModel>(_navigationStore, () => new AccountViewModel(_navigationStore, _accountStore)));
         }
         #endregion
     }

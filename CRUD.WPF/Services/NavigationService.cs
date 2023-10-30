@@ -4,7 +4,7 @@ using System;
 
 namespace CRUD.WPF.Services
 {
-    public class NavigationService<TViewModel>
+    public class NavigationService<TViewModel> : INavigationService<TViewModel> 
         where TViewModel : ViewModelBase
     {
         #region Fields
@@ -20,7 +20,7 @@ namespace CRUD.WPF.Services
         }
         #endregion
 
-        #region Helper methods
+        #region INavigationService
         public void Navigate()
         {
             _navigationStore.CurrentViewModel = _createViewModel();

@@ -3,19 +3,21 @@ using CRUD.WPF.Services;
 using CRUD.WPF.Stores;
 using CRUD.WPF.ViewModels.Dashboard;
 using CRUD.WPF.ViewModels.Login;
+using CRUD.WPF.ViewModels.Records;
+using System.Windows;
 
 namespace CRUD.WPF.Commands.Login
 {
     public class LoginCommand : CommandBase
     {
         #region Fields
-        private readonly NavigationService<DashboardViewModel> _navigationService;
+        private readonly INavigationService<RecordsViewModel> _navigationService;
         private readonly LoginViewModel _loginViewModel;
         private readonly AccountStore _accountStore;
         #endregion
 
         #region Contructor
-        public LoginCommand(NavigationService<DashboardViewModel> navigationService, LoginViewModel loginViewModel, AccountStore accountStore)
+        public LoginCommand(INavigationService<RecordsViewModel> navigationService, LoginViewModel loginViewModel, AccountStore accountStore)
         {
             _navigationService = navigationService;
             _loginViewModel = loginViewModel;
@@ -26,7 +28,12 @@ namespace CRUD.WPF.Commands.Login
         #region CommandBase
         public override void Execute(object? parameter)
         {
-            AccountModel accountModel = new AccountModel(_loginViewModel.Username, _loginViewModel.Password);
+            if (_loginViewModel.Username != "99" && _loginViewModel.Password != "99")
+            {
+                MessageBox.Show("Wrong username or password!", "Login Authentication", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            AccountModel accountModel = new AccountModel("moriarity99", "99", "Jim", "Moriarity");
             _accountStore.CurrentAccount = accountModel;
 
             _navigationService.Navigate();

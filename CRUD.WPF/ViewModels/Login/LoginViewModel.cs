@@ -2,6 +2,8 @@
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores;
 using CRUD.WPF.ViewModels.Dashboard;
+using CRUD.WPF.ViewModels.Records;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Login
@@ -44,11 +46,11 @@ namespace CRUD.WPF.ViewModels.Login
         #endregion
 
         #region Constructor
-        public LoginViewModel(NavigationStore navigationStore, AccountStore accountStore)
+        public LoginViewModel(NavigationStore navigationStore, AccountStore accountStore, INavigationService<RecordsViewModel> recordsNavigationService)
         {
             _navigationStore = navigationStore;
             _accountStore = accountStore;
-            LoginCommand = new LoginCommand(new NavigationService<DashboardViewModel>(_navigationStore, () => new DashboardViewModel(_navigationStore, _accountStore)), this, _accountStore);
+            LoginCommand = new LoginCommand(recordsNavigationService, this, _accountStore);
         }
         #endregion
     }

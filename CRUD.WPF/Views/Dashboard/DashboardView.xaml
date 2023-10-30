@@ -4,74 +4,57 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dashboard="clr-namespace:CRUD.WPF.Components.Dashboard"
+    xmlns:layout="clr-namespace:CRUD.WPF.Components.Layout"
     xmlns:local="clr-namespace:CRUD.WPF.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <WrapPanel>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
 
-            <TextBlock
-                Grid.Row="0"
-                Style="{StaticResource PageHeader}"
-                Text="Dashboard" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="1" Margin="0,20,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
+        <dashboard:TotalStudents
+            Grid.Row="0"
+            Grid.Column="0"
+            DataContext="{Binding TotalStudentsViewModel}" />
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
+        <dashboard:MaleStudents
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="20,0,20,0"
+            DataContext="{Binding MaleStudentsViewModel}" />
 
-                <dashboard:TotalStudents
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    DataContext="{Binding TotalStudentsViewModel}" />
+        <dashboard:FemaleStudents
+            Grid.Row="0"
+            Grid.Column="2"
+            DataContext="{Binding FemaleStudentsViewModel}" />
 
-                <dashboard:MaleStudents
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Margin="20,0,20,0"
-                    DataContext="{Binding MaleStudentsViewModel}" />
+        <dashboard:OldestStudent
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="0,20,0,0"
+            DataContext="{Binding OldestStudentViewModel}" />
 
-                <dashboard:FemaleStudents
-                    Grid.Row="0"
-                    Grid.Column="2"
-                    DataContext="{Binding FemaleStudentsViewModel}" />
+        <dashboard:YoungestStudent
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="20,20,20,0"
+            DataContext="{Binding YoungestStudentViewModel}" />
 
-                <dashboard:OldestStudent
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Margin="0,20,0,0"
-                    DataContext="{Binding OldestStudentViewModel}" />
-
-                <dashboard:YoungestStudent
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Margin="20,20,20,0"
-                    DataContext="{Binding YoungestStudentViewModel}" />
-
-                <dashboard:OutstandingStudents
-                    Grid.Row="1"
-                    Grid.Column="2"
-                    Margin="0,20,0,0"
-                    DataContext="{Binding OutstandingStudentsViewModel}" />
-            </Grid>
-        </Grid>
-        <StackPanel>
-            <Button Command="{Binding NavigateAccountCommand}" Content="Account" />
-            <Button Command="{Binding NavigateRecordsCommand}" Content="Records" />
-        </StackPanel>
-    </WrapPanel>
+        <dashboard:OutstandingStudents
+            Grid.Row="1"
+            Grid.Column="2"
+            Margin="0,20,0,0"
+            DataContext="{Binding OutstandingStudentsViewModel}" />
+    </Grid>
 </UserControl>

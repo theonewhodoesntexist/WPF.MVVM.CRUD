@@ -10,10 +10,12 @@
         #endregion
 
         #region Constructor
-        public AccountModel(string username, string password)
+        public AccountModel(string username, string password, string firstName, string lastName)
         {
             Username = username;
             Password = password;
+            FirstName = firstName;
+            LastName = lastName;
         }
         #endregion
     }

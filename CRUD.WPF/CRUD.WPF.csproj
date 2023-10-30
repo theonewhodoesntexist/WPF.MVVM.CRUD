@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="DropdownMenu.WPF" Version="1.0.0" />
+    <PackageReference Include="HamburgerMenu.WPF" Version="1.0.1" />
   </ItemGroup>
 
 </Project>
