@@ -1,4 +1,5 @@
 ﻿using CRUD.WPF.Commands;
+using CRUD.WPF.Commands.Login;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores;
 using CRUD.WPF.ViewModels.Account;
@@ -22,8 +23,8 @@ namespace CRUD.WPF.ViewModels.Layout
         public ICommand LoginCommand { get; }
         public ICommand LogoutCommand { get; }
         public ViewModelBase ContentViewModel { get; }
-        public bool IsLoggedIn => !_accountStore.IsLoggedIn;
-        public bool IsLoggedOut => _accountStore.IsLoggedIn;
+        public bool ToLogin => !_accountStore.IsLoggedIn;
+        public bool ToLogout => _accountStore.IsLoggedIn;
         #endregion
 
         #region Constructor
@@ -35,13 +36,34 @@ namespace CRUD.WPF.ViewModels.Layout
             ViewModelBase contentViewModel,
             AccountStore accountStore)
         {
+            ContentViewModel = contentViewModel;
+            _accountStore = accountStore;
+
             NavigateDashboardCommand = new NavigateCommand<DashboardViewModel>(dashboardNavigationService);
             NavigateRecordsCommand = new NavigateCommand<RecordsViewModel>(recordsNavigationService);
             NavigateAccountCommand = new NavigateCommand<AccountViewModel>(accountNavigationService);
             LoginCommand = new NavigateCommand<LoginViewModel>(loginNavigationService);
+            LogoutCommand = new LogoutCommand(_accountStore, recordsNavigationService);
 
-            ContentViewModel = contentViewModel;
-            _accountStore = accountStore;
+            _accountStore.CurrentAccountChanged += AccountStore_CurrentAccountChanged;
+        }
+        #endregion
+
+        #region Subscribers
+        private void AccountStore_CurrentAccountChanged()
+        {
+            OnPropertyChanged(nameof(ToLogin));
+            OnPropertyChanged(nameof(ToLogout));
+        }
+        #endregion
+
+        #region Dispose
+        public override void Dispose()
+        {
+            ContentViewModel.Dispose();
+            _accountStore.CurrentAccountChanged -= AccountStore_CurrentAccountChanged;
+
+            base.Dispose();
         }
         #endregion
     }

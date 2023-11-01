@@ -163,7 +163,7 @@
                                     Content="Dashboard"
                                     GroupName="MenuGroup"
                                     Style="{StaticResource RadioButtonStyle}"
-                                    Visibility="{Binding IsLoggedOut, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    Visibility="{Binding ToLogout, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             </hamburgermenucontrol:HamburgerMenuItem>
                             <hamburgermenucontrol:HamburgerMenuItem>
                                 <RadioButton
@@ -171,7 +171,7 @@
                                     Content="Records"
                                     GroupName="MenuGroup"
                                     Style="{StaticResource RadioButtonStyle}"
-                                    Visibility="{Binding IsLoggedOut, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    Visibility="{Binding ToLogout, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             </hamburgermenucontrol:HamburgerMenuItem>
                             <hamburgermenucontrol:HamburgerMenuItem>
                                 <RadioButton
@@ -179,7 +179,7 @@
                                     Content="Account"
                                     GroupName="MenuGroup"
                                     Style="{StaticResource RadioButtonStyle}"
-                                    Visibility="{Binding IsLoggedOut, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    Visibility="{Binding ToLogout, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             </hamburgermenucontrol:HamburgerMenuItem>
                         </StackPanel>
 
@@ -189,14 +189,14 @@
                                     Command="{Binding LoginCommand}"
                                     Content="Log In"
                                     Style="{StaticResource ButtonStyle}"
-                                    Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    Visibility="{Binding ToLogin, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             </hamburgermenucontrol:HamburgerMenuItem>
                             <hamburgermenucontrol:HamburgerMenuItem>
                                 <Button
                                     Command="{Binding LogoutCommand}"
                                     Content="Log Out"
                                     Style="{StaticResource ButtonStyle}"
-                                    Visibility="{Binding IsLoggedOut, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    Visibility="{Binding ToLogout, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             </hamburgermenucontrol:HamburgerMenuItem>
                         </StackPanel>
                     </Grid>

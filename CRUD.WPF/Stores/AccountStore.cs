@@ -1,4 +1,5 @@
 ﻿using CRUD.WPF.Models;
+using System;
 
 namespace CRUD.WPF.Stores
 {
@@ -15,10 +16,22 @@ namespace CRUD.WPF.Stores
 			set
 			{
                 _currentAccount = value;
+				CurrentAccountChanged?.Invoke();
             }
 		}
 
 		public bool IsLoggedIn => CurrentAccount != null;
+		#endregion
+
+		#region Events
+		public event Action CurrentAccountChanged;
+        #endregion
+
+        #region Helper methods
+        public void Logout()
+		{
+			CurrentAccount = null;
+        }
         #endregion
     }
 }

@@ -11,15 +11,15 @@ namespace CRUD.WPF.Commands.Login
     public class LoginCommand : CommandBase
     {
         #region Fields
-        private readonly INavigationService<RecordsViewModel> _navigationService;
+        private readonly INavigationService<RecordsViewModel> _recordsNavigationService;
         private readonly LoginViewModel _loginViewModel;
         private readonly AccountStore _accountStore;
         #endregion
 
         #region Contructor
-        public LoginCommand(INavigationService<RecordsViewModel> navigationService, LoginViewModel loginViewModel, AccountStore accountStore)
+        public LoginCommand(INavigationService<RecordsViewModel> recordsNavigationService, LoginViewModel loginViewModel, AccountStore accountStore)
         {
-            _navigationService = navigationService;
+            _recordsNavigationService = recordsNavigationService;
             _loginViewModel = loginViewModel;
             _accountStore = accountStore;
         }
@@ -36,7 +36,7 @@ namespace CRUD.WPF.Commands.Login
             AccountModel accountModel = new AccountModel("moriarity99", "99", "Jim", "Moriarity");
             _accountStore.CurrentAccount = accountModel;
 
-            _navigationService.Navigate();
+            _recordsNavigationService.Navigate();
         }
         #endregion
     }

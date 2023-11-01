@@ -24,6 +24,27 @@ namespace CRUD.WPF.ViewModels.Account
         {
             _navigationStore = navigationStore;
             _accountStore = accountStore;
+
+            _accountStore.CurrentAccountChanged += AccountStore_CurrentAccountChanged;
+        }
+        #endregion
+
+        #region Subscribers
+        private void AccountStore_CurrentAccountChanged()
+        {
+            OnPropertyChanged(nameof(Username));
+            OnPropertyChanged(nameof(FullName));
+            OnPropertyChanged(nameof(FirstName));
+            OnPropertyChanged(nameof(LastName));
+        }
+        #endregion
+
+        #region Dispose
+        public override void Dispose()
+        {
+            _accountStore.CurrentAccountChanged -= AccountStore_CurrentAccountChanged;
+
+            base.Dispose();
         }
         #endregion
     }
