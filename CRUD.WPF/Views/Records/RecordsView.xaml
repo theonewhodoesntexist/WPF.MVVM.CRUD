@@ -23,13 +23,14 @@
 
         <Button
             Grid.Row="0"
+            Margin="0,0,0,10"
             HorizontalAlignment="Left"
             Command="{Binding CreateCommand}"
-            Content="Add Record"
+            Content="Create a new student record"
             FontSize="16"
             Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-        <Grid Grid.Row="1" Margin="0,20,0,0">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />

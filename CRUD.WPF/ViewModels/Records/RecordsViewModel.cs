@@ -1,5 +1,4 @@
 ﻿using CRUD.WPF.Stores;
-using CRUD.WPF.ViewModels.Layout;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Records

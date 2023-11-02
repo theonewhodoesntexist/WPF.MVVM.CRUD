@@ -20,7 +20,7 @@ namespace CRUD.WPF.ViewModels.Records
 
             _recordsListingItemViewModel.Add(new RecordsListingItemViewModel("John", "Doe", true));
             _recordsListingItemViewModel.Add(new RecordsListingItemViewModel("Johan", "Liebert", true));
-            _recordsListingItemViewModel.Add(new RecordsListingItemViewModel("Jordan", "Faciol", true));
+            _recordsListingItemViewModel.Add(new RecordsListingItemViewModel("Jordan", "Faciol", false));
         }
         #endregion
     }

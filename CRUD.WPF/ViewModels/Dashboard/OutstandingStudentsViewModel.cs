@@ -19,7 +19,6 @@ namespace CRUD.WPF.ViewModels.Dashboard
             _outstandingStudents = new ObservableCollection<string>();
 
             _outstandingStudents.Add("Johan Liebert");
-            _outstandingStudents.Add("Jordan Faciol");
             _outstandingStudents.Add("John Doe");
         }
         #endregion
