@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using CRUD.WPF.Models;
+using CRUD.WPF.Services;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace CRUD.WPF.ViewModels.Records
@@ -14,13 +16,12 @@ namespace CRUD.WPF.ViewModels.Records
         #endregion
 
         #region Constructor
-        public RecordsListingViewModel()
+        public RecordsListingViewModel(INavigationService updateRecordsNavigationService)
         {
             _recordsListingItemViewModel = new ObservableCollection<RecordsListingItemViewModel>();
 
-            _recordsListingItemViewModel.Add(new RecordsListingItemViewModel("John", "Doe", true));
-            _recordsListingItemViewModel.Add(new RecordsListingItemViewModel("Johan", "Liebert", true));
-            _recordsListingItemViewModel.Add(new RecordsListingItemViewModel("Jordan", "Faciol", false));
+            StudentModel studentModel = new StudentModel("John", "Doe", 24, "Male", true);
+            _recordsListingItemViewModel.Add(new RecordsListingItemViewModel(studentModel, updateRecordsNavigationService));
         }
         #endregion
     }

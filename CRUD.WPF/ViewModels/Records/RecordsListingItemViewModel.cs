@@ -1,25 +1,29 @@
-﻿using System.Windows.Input;
+﻿using CRUD.WPF.Commands;
+using CRUD.WPF.Models;
+using CRUD.WPF.Services;
+using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Records
 {
     public class RecordsListingItemViewModel : ViewModelBase
     {
         #region Properties
+        public StudentModel StudentModel { get; }
         public string FullName => $"{FirstName} {LastName}";
-        public string FirstName { get; }
-        public string LastName { get; }
-        public bool IsOutstanding { get; }
+        public string FirstName => StudentModel.FirstName;
+        public string LastName => StudentModel.LastName;
+        public bool IsOutstanding => StudentModel.IsOutstanding;
         public ICommand OutstandingCommand { get; }
         public ICommand UpdateCommand { get; }
         public ICommand DeleteCommand { get; }
         #endregion
 
         #region Constructor
-        public RecordsListingItemViewModel(string firstName, string lastName, bool isOutstanding)
+        public RecordsListingItemViewModel(StudentModel studentModel, INavigationService updateRecordsNavigationService)
         {
-            FirstName = firstName;
-            LastName = lastName;
-            IsOutstanding = isOutstanding;
+            StudentModel = studentModel;
+
+            UpdateCommand = new NavigateCommand(updateRecordsNavigationService);
         }
         #endregion
     }

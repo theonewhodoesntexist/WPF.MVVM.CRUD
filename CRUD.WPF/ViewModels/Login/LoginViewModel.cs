@@ -1,9 +1,7 @@
-﻿using CRUD.WPF.Commands.Login;
+﻿using CRUD.WPF.Commands;
+using CRUD.WPF.Commands.Login;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores;
-using CRUD.WPF.ViewModels.Dashboard;
-using CRUD.WPF.ViewModels.Records;
-using System.Windows;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Login
@@ -43,14 +41,16 @@ namespace CRUD.WPF.ViewModels.Login
 		}
 		
 		public ICommand LoginCommand { get; }
+		public ICommand CancelCommand { get; }
         #endregion
 
         #region Constructor
-        public LoginViewModel(NavigationStore navigationStore, AccountStore accountStore, INavigationService<RecordsViewModel> recordsNavigationService)
+        public LoginViewModel(NavigationStore navigationStore, AccountStore accountStore, INavigationService recordsNavigationService)
         {
             _navigationStore = navigationStore;
             _accountStore = accountStore;
             LoginCommand = new LoginCommand(recordsNavigationService, this, _accountStore);
+			CancelCommand = new NavigateCommand(recordsNavigationService);
         }
         #endregion
     }

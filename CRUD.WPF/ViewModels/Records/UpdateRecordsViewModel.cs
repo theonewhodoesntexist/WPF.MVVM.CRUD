@@ -1,4 +1,9 @@
-﻿namespace CRUD.WPF.ViewModels.Records
+﻿using CRUD.WPF.Commands;
+using CRUD.WPF.Services;
+using CRUD.WPF.Stores;
+using System.Windows.Input;
+
+namespace CRUD.WPF.ViewModels.Records
 {
     public class UpdateRecordsViewModel : ViewModelBase
     {
@@ -7,9 +12,12 @@
         #endregion
 
         #region Contructor
-        public UpdateRecordsViewModel()
+        public UpdateRecordsViewModel(INavigationService closeModalNavigationService)
         {
-            RecordsDetailsFormViewModel = new RecordsDetailsFormViewModel();
+            ICommand submitCommand = null;
+            ICommand cancelCommand = new CloseModalCommand(closeModalNavigationService);
+
+            RecordsDetailsFormViewModel = new RecordsDetailsFormViewModel(submitCommand, cancelCommand);
         }
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using CRUD.WPF.Services;
+using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Records
 {
@@ -16,6 +17,7 @@ namespace CRUD.WPF.ViewModels.Records
 			{
 				_firstName = value;
 				OnPropertyChanged(nameof(FirstName));
+				OnPropertyChanged(nameof(CanSubmit));
 			}
 		}
 
@@ -30,6 +32,7 @@ namespace CRUD.WPF.ViewModels.Records
 			{
 				_lastName = value;
 				OnPropertyChanged(nameof(LastName));
+				OnPropertyChanged(nameof(CanSubmit));
 			}
 		}
 
@@ -44,6 +47,7 @@ namespace CRUD.WPF.ViewModels.Records
 			{
 				_age = value;
 				OnPropertyChanged(nameof(Age));
+				OnPropertyChanged(nameof(CanSubmit));
 			}
 		}
 
@@ -70,14 +74,41 @@ namespace CRUD.WPF.ViewModels.Records
             }
             set
             {
-                _isMaleChecked = value;
-                OnPropertyChanged(nameof(_isFemaleChecked));
+                _isFemaleChecked = value;
+                OnPropertyChanged(nameof(IsFemaleChecked));
+            }
+        }
+
+        public string Sex
+        {
+            get
+            {
+                if (IsMaleChecked)
+                {
+                    return "Male";
+                }
+                else if (IsFemaleChecked)
+                {
+                    return "Female";
+                }
+                else
+                {
+                    return "None";
+                }
             }
         }
 
         public bool CanSubmit => !string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(LastName) && !(Age < 0);
 		public ICommand SubmitCommand { get; }
 		public ICommand CancelCommand { get; }
+        #endregion
+
+        #region Constructor
+        public RecordsDetailsFormViewModel(ICommand submitCommand, ICommand cancelCommand)
+        {
+            SubmitCommand = submitCommand;
+			CancelCommand = cancelCommand;
+        }
         #endregion
     }
 }

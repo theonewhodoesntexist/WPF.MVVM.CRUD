@@ -1,9 +1,6 @@
-﻿using CRUD.WPF.ViewModels;
-
-namespace CRUD.WPF.Services
+﻿namespace CRUD.WPF.Services
 {
-    public interface INavigationService<TViewModel>
-        where TViewModel : ViewModelBase
+    public interface INavigationService
     {
         void Navigate();
     }

@@ -1,5 +1,4 @@
 ﻿using CRUD.WPF.Stores;
-using CRUD.WPF.ViewModels.Layout;
 
 namespace CRUD.WPF.ViewModels.Dashboard
 {

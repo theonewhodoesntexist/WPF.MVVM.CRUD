@@ -10,6 +10,8 @@
     xmlns:local="clr-namespace:CRUD.WPF"
     xmlns:loginViewModel="clr-namespace:CRUD.WPF.ViewModels.Login"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:modalcontrol="clr-namespace:ModalControl;assembly=ModalControl"
+    xmlns:records="clr-namespace:CRUD.WPF.Views.Records"
     xmlns:recordsViewModel="clr-namespace:CRUD.WPF.ViewModels.Records"
     xmlns:views="clr-namespace:CRUD.WPF.Views"
     Title="MainWindow"
@@ -18,8 +20,8 @@
     FontSize="14"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <ContentControl Content="{Binding CurrentViewModel}">
-        <ContentControl.Resources>
+    <Grid>
+        <Grid.Resources>
             <DataTemplate DataType="{x:Type loginViewModel:LoginViewModel}">
                 <views:LoginView />
             </DataTemplate>
@@ -35,6 +37,18 @@
             <DataTemplate DataType="{x:Type layoutViewModel:LayoutViewModel}">
                 <layout:Layout />
             </DataTemplate>
-        </ContentControl.Resources>
-    </ContentControl>
+            <DataTemplate DataType="{x:Type recordsViewModel:CreateRecordsViewModel}">
+                <records:CreateRecordsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type recordsViewModel:UpdateRecordsViewModel}">
+                <records:UpdateRecordsView />
+            </DataTemplate>
+        </Grid.Resources>
+
+        <ContentControl Content="{Binding CurrentViewModel}" />
+
+        <modalcontrol:Modal Panel.ZIndex="1" IsOpen="{Binding IsModalOpen}">
+            <ContentControl Margin="50" Content="{Binding CurrentModalViewModel}" />
+        </modalcontrol:Modal>
+    </Grid>
 </Window>

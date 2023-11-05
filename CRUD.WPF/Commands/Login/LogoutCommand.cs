@@ -1,6 +1,5 @@
 ﻿using CRUD.WPF.Services;
 using CRUD.WPF.Stores;
-using CRUD.WPF.ViewModels.Records;
 
 namespace CRUD.WPF.Commands.Login
 {
@@ -8,11 +7,11 @@ namespace CRUD.WPF.Commands.Login
     {
         #region Fields
         private readonly AccountStore _accountStore;
-        private readonly INavigationService<RecordsViewModel> _recordsNavigationService;
+        private readonly INavigationService _recordsNavigationService;
         #endregion
 
         #region Constructor
-        public LogoutCommand(AccountStore accountStore, INavigationService<RecordsViewModel> recordsNavigationService)
+        public LogoutCommand(AccountStore accountStore, INavigationService recordsNavigationService)
         {
             _accountStore = accountStore;
             _recordsNavigationService = recordsNavigationService;

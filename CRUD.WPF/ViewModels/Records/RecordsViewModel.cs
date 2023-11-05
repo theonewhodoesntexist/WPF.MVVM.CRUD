@@ -1,4 +1,6 @@
-﻿using CRUD.WPF.Stores;
+﻿using CRUD.WPF.Commands;
+using CRUD.WPF.Services;
+using CRUD.WPF.Stores;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Records
@@ -18,13 +20,15 @@ namespace CRUD.WPF.ViewModels.Records
         #endregion
 
         #region Constructor
-        public RecordsViewModel(NavigationStore navigationStore, AccountStore accountStore)
+        public RecordsViewModel(NavigationStore navigationStore, AccountStore accountStore, INavigationService createRecordsNavigationService, INavigationService updateRecordsNavigationService)
         {
-            RecordsListingViewModel = new RecordsListingViewModel();
+            RecordsListingViewModel = new RecordsListingViewModel(updateRecordsNavigationService);
             RecordsDetailsViewModel = new RecordsDetailsViewModel();
 
             _navigationStore = navigationStore;
             _accountStore = accountStore;
+
+            CreateCommand = new NavigateCommand(createRecordsNavigationService);
         }
         #endregion
     }

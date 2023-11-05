@@ -2,11 +2,6 @@
 using CRUD.WPF.Commands.Login;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores;
-using CRUD.WPF.ViewModels.Account;
-using CRUD.WPF.ViewModels.Dashboard;
-using CRUD.WPF.ViewModels.Login;
-using CRUD.WPF.ViewModels.Records;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Layout
@@ -29,20 +24,20 @@ namespace CRUD.WPF.ViewModels.Layout
 
         #region Constructor
         public LayoutViewModel(
-            INavigationService<DashboardViewModel> dashboardNavigationService,
-            INavigationService<RecordsViewModel> recordsNavigationService,
-            INavigationService<AccountViewModel> accountNavigationService,
-            INavigationService<LoginViewModel> loginNavigationService,
+            INavigationService dashboardNavigationService,
+            INavigationService recordsNavigationService,
+            INavigationService accountNavigationService,
+            INavigationService loginNavigationService,
             ViewModelBase contentViewModel,
             AccountStore accountStore)
         {
             ContentViewModel = contentViewModel;
             _accountStore = accountStore;
 
-            NavigateDashboardCommand = new NavigateCommand<DashboardViewModel>(dashboardNavigationService);
-            NavigateRecordsCommand = new NavigateCommand<RecordsViewModel>(recordsNavigationService);
-            NavigateAccountCommand = new NavigateCommand<AccountViewModel>(accountNavigationService);
-            LoginCommand = new NavigateCommand<LoginViewModel>(loginNavigationService);
+            NavigateDashboardCommand = new NavigateCommand(dashboardNavigationService);
+            NavigateRecordsCommand = new NavigateCommand(recordsNavigationService);
+            NavigateAccountCommand = new NavigateCommand(accountNavigationService);
+            LoginCommand = new NavigateCommand(loginNavigationService);
             LogoutCommand = new LogoutCommand(_accountStore, recordsNavigationService);
 
             _accountStore.CurrentAccountChanged += AccountStore_CurrentAccountChanged;

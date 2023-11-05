@@ -4,18 +4,18 @@ using System;
 
 namespace CRUD.WPF.Services
 {
-    public class NavigationService<TViewModel> : INavigationService
+    public class ModalNavigationService<TViewModel> : INavigationService
         where TViewModel : ViewModelBase
     {
         #region Fields
-        private readonly NavigationStore _navigationStore;
+        private readonly ModalNavigationStore _modalNavigationStore;
         private readonly Func<TViewModel> _createViewModel;
         #endregion
 
         #region Constructor
-        public NavigationService(NavigationStore navigationStore, Func<TViewModel> createViewModel)
+        public ModalNavigationService(ModalNavigationStore modalNavigationStore, Func<TViewModel> createViewModel)
         {
-            _navigationStore = navigationStore;
+            _modalNavigationStore = modalNavigationStore;
             _createViewModel = createViewModel;
         }
         #endregion
@@ -23,7 +23,7 @@ namespace CRUD.WPF.Services
         #region INavigationService
         public void Navigate()
         {
-            _navigationStore.CurrentViewModel = _createViewModel();
+            _modalNavigationStore.CurrentModalViewModel = _createViewModel();
         }
         #endregion
     }
