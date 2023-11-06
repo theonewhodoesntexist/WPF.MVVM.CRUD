@@ -19,6 +19,7 @@ namespace CRUD.WPF
         private readonly NavigationStore _navigationStore;
         private readonly AccountStore _accountStore;
         private readonly ModalNavigationStore _modalNavigationStore;
+        private readonly NavigationManager _navigationManager;
         #endregion
 
         #region Constructor
@@ -27,13 +28,14 @@ namespace CRUD.WPF
             _navigationStore = new NavigationStore();
             _accountStore = new AccountStore();
             _modalNavigationStore = new ModalNavigationStore();
+            _navigationManager = new NavigationManager(_navigationStore, _accountStore, _modalNavigationStore);
         }
         #endregion
 
         #region Startup configurations
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            INavigationService recordsNavigationService = CreateRecordsNavigationService();
+            INavigationService recordsNavigationService = _navigationManager.RecordsNavigationService();
             recordsNavigationService.Navigate();
 
             MainWindow = new MainWindow()
@@ -41,36 +43,6 @@ namespace CRUD.WPF
                 DataContext = new MainViewModel(_navigationStore, _modalNavigationStore) 
             };
             MainWindow.Show();
-        }
-        #endregion
-
-        #region Helper methods
-
-        private INavigationService CreateRecordsNavigationService()
-        {
-            return new LayoutNavigationService<RecordsViewModel>(
-                _navigationStore, 
-                () => new RecordsViewModel(_navigationStore, _accountStore, CreateCreateRecordsNavigationService(), CreateUpdateRecordsNavigationService()),
-                _accountStore,
-                CreateLoginNavigationService(),
-                _modalNavigationStore);
-        }
-
-        private INavigationService CreateLoginNavigationService()
-        {
-            return new NavigationService<LoginViewModel>(
-                _navigationStore,
-                () => new LoginViewModel(_navigationStore, _accountStore, CreateRecordsNavigationService()));
-        }
-
-        private INavigationService CreateCreateRecordsNavigationService()
-        {
-            return new ModalNavigationService<CreateRecordsViewModel>(_modalNavigationStore, () => new CreateRecordsViewModel(new CloseModalNavigationService(_modalNavigationStore)));
-        }
-
-        private INavigationService CreateUpdateRecordsNavigationService()
-        {
-            return new ModalNavigationService<UpdateRecordsViewModel>(_modalNavigationStore, () => new UpdateRecordsViewModel(new CloseModalNavigationService(_modalNavigationStore)));
         }
         #endregion
     }
