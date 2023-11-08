@@ -24,7 +24,11 @@
                 Background="White"
                 CornerRadius="10" />
 
-            <ListView BorderThickness="0" ItemsSource="{Binding RecordsListingItemViewModel}">
+            <ListView
+                BorderThickness="0"
+                ItemsSource="{Binding RecordsListingItemViewModel}"
+                SelectedItem="{Binding SelectedRecordsListingItemViewModel}"
+                SelectionMode="Single">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />

@@ -1,21 +1,47 @@
-﻿namespace CRUD.WPF.ViewModels.Records
+﻿using CRUD.WPF.Models;
+using CRUD.WPF.Stores;
+
+namespace CRUD.WPF.ViewModels.Records
 {
     public class RecordsDetailsViewModel : ViewModelBase
     {
+        #region Fields
+        private readonly SelectedStudentModelStore _selectedStudentModelStore;
+        #endregion
+
         #region Properties
-        public string FirstName { get; }
-        public string LastName { get; }
-        public int Age { get; }
-        public string Sex { get; }
+        public StudentModel SelectedStudentModel => _selectedStudentModelStore.SelectedStudentModel;
+        public string FirstName => SelectedStudentModel?.FirstName ?? "None";
+        public string LastName => SelectedStudentModel?.LastName ?? "None";
+        public int Age => SelectedStudentModel?.Age ?? 0;
+        public string Sex => SelectedStudentModel?.Sex ?? "None";
         #endregion
 
         #region Constructor
-        public RecordsDetailsViewModel()
+        public RecordsDetailsViewModel(SelectedStudentModelStore selectedStudentModelStore)
         {
-            FirstName = "John";
-            LastName = "Doe";
-            Age = 20;
-            Sex = "Male";
+            _selectedStudentModelStore = selectedStudentModelStore;
+
+            _selectedStudentModelStore.SelectedStudentModelChanged += SelectedStudentModelStore_SelectedStudentModelChanged;
+        }
+        #endregion
+
+        #region Subscribers
+        private void SelectedStudentModelStore_SelectedStudentModelChanged()
+        {
+            OnPropertyChanged(nameof(FirstName));
+            OnPropertyChanged(nameof(LastName));
+            OnPropertyChanged(nameof(Age));
+            OnPropertyChanged(nameof(Sex));
+        }
+        #endregion
+
+        #region Dispose
+        public override void Dispose()
+        {
+            _selectedStudentModelStore.SelectedStudentModelChanged -= SelectedStudentModelStore_SelectedStudentModelChanged;
+
+            base.Dispose();
         }
         #endregion
     }

@@ -1,11 +1,7 @@
 ﻿using CRUD.WPF.Services;
 using CRUD.WPF.Stores;
 using CRUD.WPF.ViewModels;
-using CRUD.WPF.ViewModels.Account;
-using CRUD.WPF.ViewModels.Dashboard;
-using CRUD.WPF.ViewModels.Login;
 using CRUD.WPF.ViewModels.Records;
-using System;
 using System.Windows;
 
 namespace CRUD.WPF
@@ -19,6 +15,8 @@ namespace CRUD.WPF
         private readonly NavigationStore _navigationStore;
         private readonly AccountStore _accountStore;
         private readonly ModalNavigationStore _modalNavigationStore;
+        private readonly SelectedStudentModelStore _selectedStudentModelStore;
+        private readonly StudentModelStore _studentModelStore;
         private readonly NavigationManager _navigationManager;
         #endregion
 
@@ -28,14 +26,27 @@ namespace CRUD.WPF
             _navigationStore = new NavigationStore();
             _accountStore = new AccountStore();
             _modalNavigationStore = new ModalNavigationStore();
-            _navigationManager = new NavigationManager(_navigationStore, _accountStore, _modalNavigationStore);
+            _studentModelStore = new StudentModelStore();
+            _selectedStudentModelStore = new SelectedStudentModelStore(_studentModelStore);
+            _navigationManager = new NavigationManager(
+                _navigationStore,
+                _accountStore, 
+                _modalNavigationStore,
+                _selectedStudentModelStore,
+                _studentModelStore);
         }
         #endregion
 
         #region Startup configurations
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            INavigationService recordsNavigationService = _navigationManager.RecordsNavigationService();
+            INavigationService recordsNavigationService = _navigationManager.CreateLayoutNavigationService(
+                () => new RecordsViewModel(
+                    _accountStore, 
+                    _selectedStudentModelStore, 
+                    _studentModelStore, 
+                    _navigationStore,
+                    _navigationManager));
             recordsNavigationService.Navigate();
 
             MainWindow = new MainWindow()

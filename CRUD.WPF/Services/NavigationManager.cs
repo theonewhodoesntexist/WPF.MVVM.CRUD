@@ -1,8 +1,6 @@
 ﻿using CRUD.WPF.Stores;
-using CRUD.WPF.ViewModels.Account;
-using CRUD.WPF.ViewModels.Dashboard;
-using CRUD.WPF.ViewModels.Login;
-using CRUD.WPF.ViewModels.Records;
+using CRUD.WPF.ViewModels;
+using System;
 
 namespace CRUD.WPF.Services
 {
@@ -12,74 +10,56 @@ namespace CRUD.WPF.Services
         private readonly NavigationStore _navigationStore;
         private readonly AccountStore _accountStore;
         private readonly ModalNavigationStore _modalNavigationStore;
+        private readonly SelectedStudentModelStore _selectedStudentModelStore;
+        private readonly StudentModelStore _studentModelStore;
         #endregion
 
         #region Constructor
         public NavigationManager(
-            NavigationStore navigationStore, 
-            AccountStore accountStore, 
-            ModalNavigationStore modalNavigationStore)
+            NavigationStore navigationStore,
+            AccountStore accountStore,
+            ModalNavigationStore modalNavigationStore,
+            SelectedStudentModelStore selectedStudentModelStore,
+            StudentModelStore studentModelStore)
         {
             _navigationStore = navigationStore;
             _accountStore = accountStore;
             _modalNavigationStore = modalNavigationStore;
+            _selectedStudentModelStore = selectedStudentModelStore;
+            _studentModelStore = studentModelStore;
         }
         #endregion
 
         #region Helper methods
-        public INavigationService DashboardNavigationService()
+        public INavigationService CreateNavigationService<TViewModel>(Func<TViewModel> createViewModel)
+            where TViewModel : ViewModelBase
         {
-            return new LayoutNavigationService<DashboardViewModel>(
+            return new NavigationService<TViewModel>(_navigationStore, createViewModel);
+        }
+
+        public INavigationService CreateLayoutNavigationService<TViewModel>(Func<TViewModel> createViewModel)
+            where TViewModel : ViewModelBase
+        {
+            return new LayoutNavigationService<TViewModel>(
                 _navigationStore,
-                () => new DashboardViewModel(_navigationStore, _accountStore),
+                createViewModel,
                 _accountStore,
-                this);
+                this,
+                _selectedStudentModelStore,
+                _studentModelStore);
         }
 
-        public INavigationService RecordsNavigationService()
+        public INavigationService CreateModalNavigationService<TViewModel>(Func<TViewModel> createViewModel)
+            where TViewModel : ViewModelBase
         {
-            return new LayoutNavigationService<RecordsViewModel>(
-                _navigationStore,
-                () => new RecordsViewModel(
-                    _navigationStore,
-                    _accountStore, 
-                    CreateRecordsNavigationService(), 
-                    UpdateRecordsNavigationService()),
-                _accountStore,
-                this);
-        }
-
-        public INavigationService CreateRecordsNavigationService()
-        {
-            return new ModalNavigationService<CreateRecordsViewModel>(
-                _modalNavigationStore, 
-                () => new CreateRecordsViewModel(new CloseModalNavigationService(_modalNavigationStore)));
-        }
-
-        public INavigationService UpdateRecordsNavigationService()
-        {
-            return new ModalNavigationService<UpdateRecordsViewModel>(
+            return new ModalNavigationService<TViewModel>(
                 _modalNavigationStore,
-                () => new UpdateRecordsViewModel(new CloseModalNavigationService(_modalNavigationStore)));
+                createViewModel);
         }
 
-        public INavigationService AccountNavigationService()
+        public INavigationService CreateCloseModalNavigationService()
         {
-            return new LayoutNavigationService<AccountViewModel>(
-                _navigationStore,
-                () => new AccountViewModel(_navigationStore, _accountStore),
-                _accountStore,
-                this);
-        }
-
-        public INavigationService LoginNavigationService()
-        {
-            return new NavigationService<LoginViewModel>(
-                _navigationStore, 
-                () => new LoginViewModel(
-                    _navigationStore,
-                    _accountStore, 
-                    RecordsNavigationService()));
+            return new CloseModalNavigationService(_modalNavigationStore);
         }
         #endregion
     }

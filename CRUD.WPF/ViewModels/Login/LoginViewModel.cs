@@ -2,6 +2,7 @@
 using CRUD.WPF.Commands.Login;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores;
+using CRUD.WPF.ViewModels.Records;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Login
@@ -11,6 +12,9 @@ namespace CRUD.WPF.ViewModels.Login
         #region Fields
         private readonly NavigationStore _navigationStore;
         private readonly AccountStore _accountStore;
+        private readonly NavigationManager _navigationManager;
+        private readonly SelectedStudentModelStore _selectedStudentModelStore;
+        private readonly StudentModelStore _studentModelStore;
         #endregion
 
         #region Properties
@@ -45,12 +49,20 @@ namespace CRUD.WPF.ViewModels.Login
         #endregion
 
         #region Constructor
-        public LoginViewModel(NavigationStore navigationStore, AccountStore accountStore, INavigationService recordsNavigationService)
+        public LoginViewModel(
+			NavigationStore navigationStore, 
+			AccountStore accountStore, 
+			NavigationManager navigationManager, 
+			SelectedStudentModelStore selectedStudentModelStore, 
+			StudentModelStore studentModelStore)
         {
             _navigationStore = navigationStore;
             _accountStore = accountStore;
-            LoginCommand = new LoginCommand(recordsNavigationService, this, _accountStore);
-			CancelCommand = new NavigateCommand(recordsNavigationService);
+            _navigationManager = navigationManager;
+            _selectedStudentModelStore = selectedStudentModelStore;
+            _studentModelStore = studentModelStore;
+            LoginCommand = new LoginCommand(_navigationManager.CreateLayoutNavigationService(() => new RecordsViewModel(_accountStore, _selectedStudentModelStore, _studentModelStore, _navigationStore, _navigationManager)), this, _accountStore);
+			CancelCommand = new NavigateCommand(_navigationManager.CreateLayoutNavigationService(() => new RecordsViewModel(_accountStore, _selectedStudentModelStore, _studentModelStore, _navigationStore, _navigationManager)));
         }
         #endregion
     }

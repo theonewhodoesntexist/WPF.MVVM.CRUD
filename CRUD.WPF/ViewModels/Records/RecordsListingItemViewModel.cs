@@ -1,14 +1,22 @@
 ﻿using CRUD.WPF.Commands;
+using CRUD.WPF.Commands.Records;
 using CRUD.WPF.Models;
 using CRUD.WPF.Services;
+using CRUD.WPF.Stores;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Records
 {
     public class RecordsListingItemViewModel : ViewModelBase
     {
+        #region Fields
+        private readonly StudentModelStore _studentModelStore;
+        private readonly NavigationStore _navigationStore;
+        private readonly NavigationManager _navigationManager;
+        #endregion
+
         #region Properties
-        public StudentModel StudentModel { get; }
+        public StudentModel StudentModel { get; private set; }
         public string FullName => $"{FirstName} {LastName}";
         public string FirstName => StudentModel.FirstName;
         public string LastName => StudentModel.LastName;
@@ -19,11 +27,31 @@ namespace CRUD.WPF.ViewModels.Records
         #endregion
 
         #region Constructor
-        public RecordsListingItemViewModel(StudentModel studentModel, INavigationService updateRecordsNavigationService)
+        public RecordsListingItemViewModel(
+            StudentModel studentModel,
+            StudentModelStore studentModelStore, 
+            NavigationStore navigationStore,
+            NavigationManager navigationManager)
+        {
+            StudentModel = studentModel;
+            _studentModelStore = studentModelStore;
+            _navigationStore = navigationStore;
+            _navigationManager = navigationManager;
+
+            UpdateCommand = new NavigateCommand(_navigationManager.CreateModalNavigationService(() => new UpdateRecordsViewModel(this, _studentModelStore, _navigationManager)));
+            DeleteCommand = new DeleteRecordsCommand(this, _studentModelStore);
+        }
+        #endregion
+
+        #region Helper methods
+        public void Update(StudentModel studentModel)
         {
             StudentModel = studentModel;
 
-            UpdateCommand = new NavigateCommand(updateRecordsNavigationService);
+            OnPropertyChanged(nameof(FullName));
+            OnPropertyChanged(nameof(FirstName));
+            OnPropertyChanged(nameof(LastName));
+            OnPropertyChanged(nameof(IsOutstanding));
         }
         #endregion
     }

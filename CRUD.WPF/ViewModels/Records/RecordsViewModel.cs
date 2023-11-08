@@ -8,8 +8,11 @@ namespace CRUD.WPF.ViewModels.Records
     public class RecordsViewModel : ViewModelBase
     {
         #region Fields
-        private readonly NavigationStore _navigationStore;
         private readonly AccountStore _accountStore;
+        private readonly SelectedStudentModelStore _selectedStudentModelStore;
+        private readonly StudentModelStore _studentModelStore;
+        private readonly NavigationStore _navigationStore;
+        private readonly NavigationManager _navigationManager;
         #endregion
 
         #region Properties
@@ -20,15 +23,22 @@ namespace CRUD.WPF.ViewModels.Records
         #endregion
 
         #region Constructor
-        public RecordsViewModel(NavigationStore navigationStore, AccountStore accountStore, INavigationService createRecordsNavigationService, INavigationService updateRecordsNavigationService)
+        public RecordsViewModel(
+            AccountStore accountStore, 
+            SelectedStudentModelStore selectedStudentModelStore,
+            StudentModelStore studentModelStore,
+            NavigationStore navigationStore,
+            NavigationManager navigationManager)
         {
-            RecordsListingViewModel = new RecordsListingViewModel(updateRecordsNavigationService);
-            RecordsDetailsViewModel = new RecordsDetailsViewModel();
-
-            _navigationStore = navigationStore;
             _accountStore = accountStore;
+            _selectedStudentModelStore = selectedStudentModelStore;
+            _studentModelStore = studentModelStore;
+            _navigationStore = navigationStore;
+            _navigationManager = navigationManager;
 
-            CreateCommand = new NavigateCommand(createRecordsNavigationService);
+            RecordsListingViewModel = new RecordsListingViewModel(_selectedStudentModelStore, _studentModelStore, _navigationStore, _navigationManager);
+            RecordsDetailsViewModel = new RecordsDetailsViewModel(_selectedStudentModelStore);
+            CreateCommand = new NavigateCommand(_navigationManager.CreateModalNavigationService(() => new CreateRecordsViewModel(_studentModelStore, _navigationManager)));
         }
         #endregion
     }

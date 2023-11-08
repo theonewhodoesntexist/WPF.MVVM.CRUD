@@ -1,6 +1,10 @@
 ﻿using CRUD.WPF.Commands;
+using CRUD.WPF.Commands.Records;
+using CRUD.WPF.Models;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores;
+using System;
+using System.Linq;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Records
@@ -9,15 +13,46 @@ namespace CRUD.WPF.ViewModels.Records
     {
         #region Properties
         public RecordsDetailsFormViewModel RecordsDetailsFormViewModel { get; }
+        public Guid StudentModelId { get; }
+        public bool StudentModelIsOutstanding { get; }
+        public bool StudentModelIsMaleChecked { get; }
+        public bool StudentModelIsFemaleChecked { get; }
         #endregion
 
         #region Contructor
-        public UpdateRecordsViewModel(INavigationService closeModalNavigationService)
+        public UpdateRecordsViewModel(RecordsListingItemViewModel recordsListingItemViewModel, StudentModelStore studentModelStore, NavigationManager navigationManager)
         {
-            ICommand submitCommand = null;
-            ICommand cancelCommand = new CloseModalCommand(closeModalNavigationService);
+            StudentModel studentModel = recordsListingItemViewModel.StudentModel;
+            StudentModelId = studentModel.Id;
+            StudentModelIsOutstanding = studentModel.IsOutstanding;
 
-            RecordsDetailsFormViewModel = new RecordsDetailsFormViewModel(submitCommand, cancelCommand);
+            ICommand submitCommand = new UpdateRecordsCommand(studentModelStore, navigationManager.CreateCloseModalNavigationService(), this);
+            ICommand cancelCommand = new CloseModalCommand(navigationManager.CreateCloseModalNavigationService());
+
+            if (studentModel.Sex == "Male")
+            {
+                StudentModelIsMaleChecked = true;
+                StudentModelIsFemaleChecked = false;
+            }
+            else if (studentModel.Sex == "Female")
+            {
+                StudentModelIsMaleChecked = false;
+                StudentModelIsFemaleChecked = true;
+            }
+            else
+            {
+                StudentModelIsMaleChecked = false;
+                StudentModelIsFemaleChecked = false;
+            }
+
+            RecordsDetailsFormViewModel = new RecordsDetailsFormViewModel(submitCommand, cancelCommand)
+            {
+                FirstName = studentModel.FirstName,
+                LastName = studentModel.LastName,
+                Age = studentModel.Age,
+                IsMaleChecked = StudentModelIsMaleChecked,
+                IsFemaleChecked = StudentModelIsFemaleChecked
+            };
         }
         #endregion
     }
