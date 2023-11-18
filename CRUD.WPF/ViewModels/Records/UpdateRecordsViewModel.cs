@@ -4,7 +4,6 @@ using CRUD.WPF.Models;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores;
 using System;
-using System.Linq;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Records
@@ -20,13 +19,19 @@ namespace CRUD.WPF.ViewModels.Records
         #endregion
 
         #region Contructor
-        public UpdateRecordsViewModel(RecordsListingItemViewModel recordsListingItemViewModel, StudentModelStore studentModelStore, NavigationManager navigationManager)
+        public UpdateRecordsViewModel(
+            RecordsListingItemViewModel recordsListingItemViewModel, 
+            StudentModelStore studentModelStore, 
+            NavigationManager navigationManager)
         {
             StudentModel studentModel = recordsListingItemViewModel.StudentModel;
             StudentModelId = studentModel.Id;
             StudentModelIsOutstanding = studentModel.IsOutstanding;
 
-            ICommand submitCommand = new UpdateRecordsCommand(studentModelStore, navigationManager.CreateCloseModalNavigationService(), this);
+            ICommand submitCommand = new UpdateRecordsCommand(
+                studentModelStore, 
+                navigationManager.CreateCloseModalNavigationService(),
+                this);
             ICommand cancelCommand = new CloseModalCommand(navigationManager.CreateCloseModalNavigationService());
 
             if (studentModel.Sex == "Male")

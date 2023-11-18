@@ -1,6 +1,7 @@
 ﻿using CRUD.WPF.Commands;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Records
@@ -11,7 +12,6 @@ namespace CRUD.WPF.ViewModels.Records
         private readonly AccountStore _accountStore;
         private readonly SelectedStudentModelStore _selectedStudentModelStore;
         private readonly StudentModelStore _studentModelStore;
-        private readonly NavigationStore _navigationStore;
         private readonly NavigationManager _navigationManager;
         #endregion
 
@@ -27,18 +27,20 @@ namespace CRUD.WPF.ViewModels.Records
             AccountStore accountStore, 
             SelectedStudentModelStore selectedStudentModelStore,
             StudentModelStore studentModelStore,
-            NavigationStore navigationStore,
             NavigationManager navigationManager)
         {
             _accountStore = accountStore;
             _selectedStudentModelStore = selectedStudentModelStore;
             _studentModelStore = studentModelStore;
-            _navigationStore = navigationStore;
             _navigationManager = navigationManager;
 
-            RecordsListingViewModel = new RecordsListingViewModel(_selectedStudentModelStore, _studentModelStore, _navigationStore, _navigationManager);
+            RecordsListingViewModel = new RecordsListingViewModel(_selectedStudentModelStore, _studentModelStore, _navigationManager);
             RecordsDetailsViewModel = new RecordsDetailsViewModel(_selectedStudentModelStore);
-            CreateCommand = new NavigateCommand(_navigationManager.CreateModalNavigationService(() => new CreateRecordsViewModel(_studentModelStore, _navigationManager)));
+            CreateCommand = new NavigateCommand(
+                _navigationManager.CreateModalNavigationService(
+                    () => new CreateRecordsViewModel(
+                        _studentModelStore,
+                        _navigationManager)));
         }
         #endregion
     }

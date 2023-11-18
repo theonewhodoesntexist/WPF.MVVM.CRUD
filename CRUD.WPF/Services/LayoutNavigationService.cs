@@ -13,8 +13,6 @@ namespace CRUD.WPF.Services
         private readonly Func<TViewModel> _createViewModel;
         private readonly AccountStore _accountStore;
         private readonly NavigationManager _navigationManager;
-        private readonly SelectedStudentModelStore _selectedStudentModelStore;
-        private readonly StudentModelStore _studentModelStore;
         #endregion
 
         #region Constructor
@@ -22,16 +20,12 @@ namespace CRUD.WPF.Services
             NavigationStore navigationStore, 
             Func<TViewModel> createViewModel,
             AccountStore accountStore,
-            NavigationManager navigationManager,
-            SelectedStudentModelStore selectedStudentModelStore,
-            StudentModelStore studentModelStore)
+            NavigationManager navigationManager)
         {
             _navigationStore = navigationStore;
             _createViewModel = createViewModel;
             _accountStore = accountStore;
             _navigationManager = navigationManager;
-            _selectedStudentModelStore = selectedStudentModelStore;
-            _studentModelStore = studentModelStore;
         }
         #endregion
 
@@ -41,10 +35,7 @@ namespace CRUD.WPF.Services
             _navigationStore.CurrentViewModel = new LayoutViewModel(
                 _navigationManager,
                 _createViewModel(),
-                _accountStore,
-                _navigationStore,
-                _selectedStudentModelStore,
-                _studentModelStore);
+                _accountStore);
         }
         #endregion
     }

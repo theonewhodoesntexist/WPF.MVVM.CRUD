@@ -1,7 +1,9 @@
-﻿using CRUD.WPF.Services;
+﻿using CRUD.WPF.Models;
+using CRUD.WPF.Services;
 using CRUD.WPF.Stores;
 using CRUD.WPF.ViewModels;
 using CRUD.WPF.ViewModels.Records;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace CRUD.WPF
@@ -18,6 +20,7 @@ namespace CRUD.WPF
         private readonly SelectedStudentModelStore _selectedStudentModelStore;
         private readonly StudentModelStore _studentModelStore;
         private readonly NavigationManager _navigationManager;
+        private readonly AccountModelStore _accountModelStore;
         #endregion
 
         #region Constructor
@@ -28,25 +31,21 @@ namespace CRUD.WPF
             _modalNavigationStore = new ModalNavigationStore();
             _studentModelStore = new StudentModelStore();
             _selectedStudentModelStore = new SelectedStudentModelStore(_studentModelStore);
+            _accountModelStore = new AccountModelStore();
             _navigationManager = new NavigationManager(
                 _navigationStore,
                 _accountStore, 
                 _modalNavigationStore,
                 _selectedStudentModelStore,
-                _studentModelStore);
+                _studentModelStore,
+                _accountModelStore);
         }
         #endregion
 
         #region Startup configurations
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            INavigationService recordsNavigationService = _navigationManager.CreateLayoutNavigationService(
-                () => new RecordsViewModel(
-                    _accountStore, 
-                    _selectedStudentModelStore, 
-                    _studentModelStore, 
-                    _navigationStore,
-                    _navigationManager));
+            INavigationService recordsNavigationService = _navigationManager.RecordsNavigationService();
             recordsNavigationService.Navigate();
 
             MainWindow = new MainWindow()

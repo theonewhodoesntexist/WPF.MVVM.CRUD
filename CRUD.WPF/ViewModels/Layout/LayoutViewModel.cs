@@ -15,9 +15,6 @@ namespace CRUD.WPF.ViewModels.Layout
         #region Fields
         private readonly NavigationManager _navigationManager;
         private readonly AccountStore _accountStore;
-        private readonly NavigationStore _navigationStore;
-        private readonly SelectedStudentModelStore _selectedStudentModelStore;
-        private readonly StudentModelStore _studentModelStore;
         #endregion
         #region Properties
         public ICommand NavigateDashboardCommand { get; }
@@ -34,49 +31,19 @@ namespace CRUD.WPF.ViewModels.Layout
         public LayoutViewModel(
             NavigationManager navigationManager,
             ViewModelBase contentViewModel,
-            AccountStore accountStore,
-            NavigationStore navigationStore,
-            SelectedStudentModelStore selectedStudentModelStore,
-            StudentModelStore studentModelStore)
+            AccountStore accountStore)
         {
             _navigationManager = navigationManager;
             ContentViewModel = contentViewModel;
             _accountStore = accountStore;
-            _navigationStore = navigationStore;
-            _selectedStudentModelStore = selectedStudentModelStore;
-            _studentModelStore = studentModelStore;
 
-            NavigateDashboardCommand = new NavigateCommand(_navigationManager.CreateLayoutNavigationService(
-                () => new DashboardViewModel(
-                    _navigationStore,
-                    _accountStore)));
-            NavigateRecordsCommand = new NavigateCommand(_navigationManager.CreateLayoutNavigationService(
-                () => new RecordsViewModel(
-                    _accountStore, 
-                    _selectedStudentModelStore,
-                    _studentModelStore,
-                    _navigationStore, 
-                    _navigationManager)));
-            NavigateAccountCommand = new NavigateCommand(_navigationManager.CreateLayoutNavigationService(
-                () => new AccountViewModel(
-                    _navigationStore, 
-                    _accountStore)));
-            LoginCommand = new NavigateCommand(_navigationManager.CreateNavigationService(
-                () => new LoginViewModel(
-                    _navigationStore,
-                    _accountStore,
-                    _navigationManager,
-                    _selectedStudentModelStore,
-                    _studentModelStore)));
+            NavigateDashboardCommand = new NavigateCommand(_navigationManager.DashboardNavigationService());
+            NavigateRecordsCommand = new NavigateCommand(_navigationManager.RecordsNavigationService());
+            NavigateAccountCommand = new NavigateCommand(_navigationManager.AccountNavigationService());
+            LoginCommand = new NavigateCommand(_navigationManager.LoginNavigationService());
             LogoutCommand = new LogoutCommand(
                 _accountStore, 
-                _navigationManager.CreateLayoutNavigationService(
-                    () => new RecordsViewModel(
-                        _accountStore, 
-                        _selectedStudentModelStore,
-                        _studentModelStore, 
-                        _navigationStore,
-                        _navigationManager)));
+                _navigationManager.RecordsNavigationService());
 
             _accountStore.CurrentAccountChanged += AccountStore_CurrentAccountChanged;
         }

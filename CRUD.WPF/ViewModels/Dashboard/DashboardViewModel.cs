@@ -4,11 +4,6 @@ namespace CRUD.WPF.ViewModels.Dashboard
 {
     public class DashboardViewModel : ViewModelBase
     {
-        #region Fields
-        private readonly NavigationStore _navigationStore;
-        private readonly AccountStore _accountStore;
-        #endregion
-
         #region Properties
         public TotalStudentsViewModel TotalStudentsViewModel { get; }
         public MaleStudentsViewModel MaleStudentsViewModel { get; }
@@ -19,7 +14,7 @@ namespace CRUD.WPF.ViewModels.Dashboard
         #endregion
 
         #region Constructor
-        public DashboardViewModel(NavigationStore navigationStore, AccountStore accountStore)
+        public DashboardViewModel()
         {
             TotalStudentsViewModel = new TotalStudentsViewModel();
             MaleStudentsViewModel = new MaleStudentsViewModel();
@@ -27,9 +22,6 @@ namespace CRUD.WPF.ViewModels.Dashboard
             OldestStudentViewModel = new OldestStudentViewModel();
             YoungestStudentViewModel = new YoungestStudentViewModel();
             OutstandingStudentsViewModel = new OutstandingStudentsViewModel();
-
-            _navigationStore = navigationStore;
-            _accountStore = accountStore;
         }
         #endregion
     }

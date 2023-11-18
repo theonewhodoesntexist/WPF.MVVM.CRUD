@@ -10,7 +10,6 @@ namespace CRUD.WPF.ViewModels.Login
     public class LoginViewModel : ViewModelBase
     {
         #region Fields
-        private readonly NavigationStore _navigationStore;
         private readonly AccountStore _accountStore;
         private readonly NavigationManager _navigationManager;
         private readonly SelectedStudentModelStore _selectedStudentModelStore;
@@ -50,19 +49,22 @@ namespace CRUD.WPF.ViewModels.Login
 
         #region Constructor
         public LoginViewModel(
-			NavigationStore navigationStore, 
 			AccountStore accountStore, 
 			NavigationManager navigationManager, 
 			SelectedStudentModelStore selectedStudentModelStore, 
 			StudentModelStore studentModelStore)
         {
-            _navigationStore = navigationStore;
             _accountStore = accountStore;
             _navigationManager = navigationManager;
             _selectedStudentModelStore = selectedStudentModelStore;
             _studentModelStore = studentModelStore;
-            LoginCommand = new LoginCommand(_navigationManager.CreateLayoutNavigationService(() => new RecordsViewModel(_accountStore, _selectedStudentModelStore, _studentModelStore, _navigationStore, _navigationManager)), this, _accountStore);
-			CancelCommand = new NavigateCommand(_navigationManager.CreateLayoutNavigationService(() => new RecordsViewModel(_accountStore, _selectedStudentModelStore, _studentModelStore, _navigationStore, _navigationManager)));
+
+            LoginCommand = new LoginCommand(
+				_navigationManager.RecordsNavigationService(), 
+				this, 
+				_accountStore);
+			CancelCommand = new NavigateCommand(
+				_navigationManager.RecordsNavigationService());
         }
         #endregion
     }

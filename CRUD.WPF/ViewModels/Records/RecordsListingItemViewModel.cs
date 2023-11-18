@@ -11,7 +11,6 @@ namespace CRUD.WPF.ViewModels.Records
     {
         #region Fields
         private readonly StudentModelStore _studentModelStore;
-        private readonly NavigationStore _navigationStore;
         private readonly NavigationManager _navigationManager;
         #endregion
 
@@ -30,15 +29,17 @@ namespace CRUD.WPF.ViewModels.Records
         public RecordsListingItemViewModel(
             StudentModel studentModel,
             StudentModelStore studentModelStore, 
-            NavigationStore navigationStore,
             NavigationManager navigationManager)
         {
             StudentModel = studentModel;
             _studentModelStore = studentModelStore;
-            _navigationStore = navigationStore;
             _navigationManager = navigationManager;
 
-            UpdateCommand = new NavigateCommand(_navigationManager.CreateModalNavigationService(() => new UpdateRecordsViewModel(this, _studentModelStore, _navigationManager)));
+            UpdateCommand = new NavigateCommand(_navigationManager.CreateModalNavigationService(
+                () => new UpdateRecordsViewModel(
+                    this,
+                    _studentModelStore, 
+                    _navigationManager)));
             DeleteCommand = new DeleteRecordsCommand(this, _studentModelStore);
         }
         #endregion
@@ -51,7 +52,6 @@ namespace CRUD.WPF.ViewModels.Records
             OnPropertyChanged(nameof(FullName));
             OnPropertyChanged(nameof(FirstName));
             OnPropertyChanged(nameof(LastName));
-            OnPropertyChanged(nameof(IsOutstanding));
         }
         #endregion
     }

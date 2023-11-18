@@ -1,7 +1,6 @@
 ﻿using CRUD.WPF.Models;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,7 +13,6 @@ namespace CRUD.WPF.ViewModels.Records
         private readonly ObservableCollection<RecordsListingItemViewModel> _recordsListingItemViewModel;
         private readonly SelectedStudentModelStore _selectedStudentModelStore;
         private readonly StudentModelStore _studentModelStore;
-        private readonly NavigationStore _navigationStore;
         private readonly NavigationManager _navigationManager;
         #endregion
 
@@ -42,16 +40,13 @@ namespace CRUD.WPF.ViewModels.Records
         public RecordsListingViewModel(
             SelectedStudentModelStore selectedStudentModelStore,
             StudentModelStore studentModelStore,
-            NavigationStore navigationStore,
             NavigationManager navigationManager)
         {
             _recordsListingItemViewModel = new ObservableCollection<RecordsListingItemViewModel>();
             _selectedStudentModelStore = selectedStudentModelStore;
             _studentModelStore = studentModelStore;
-            _navigationStore = navigationStore;
             _navigationManager = navigationManager;
 
-            _selectedStudentModelStore.SelectedStudentModelChanged += SelectedStudentModelStore_SelectedStudentModelChanged;
             _studentModelStore.StudentModelCreated += StudentModelStore_StudentModelCreated;
             _studentModelStore.StudentModelUpdated += StudentModelStore_StudentModelUpdated;
             _studentModelStore.StudentModelDeleted += StudentModelStore_StudentModelDeleted;
@@ -59,11 +54,6 @@ namespace CRUD.WPF.ViewModels.Records
         #endregion
 
         #region Subscribers
-        private void SelectedStudentModelStore_SelectedStudentModelChanged()
-        {
-            OnPropertyChanged(nameof(SelectedRecordsListingItemViewModel));
-        }
-
         private void StudentModelStore_StudentModelCreated(StudentModel studentModel)
         {
             CreateStudentModel(studentModel);
@@ -93,7 +83,6 @@ namespace CRUD.WPF.ViewModels.Records
         #region Dispose
         public override void Dispose()
         {
-            _selectedStudentModelStore.SelectedStudentModelChanged -= SelectedStudentModelStore_SelectedStudentModelChanged;
             _studentModelStore.StudentModelCreated -= StudentModelStore_StudentModelCreated;
             _studentModelStore.StudentModelUpdated -= StudentModelStore_StudentModelUpdated;
             _studentModelStore.StudentModelDeleted -= StudentModelStore_StudentModelDeleted;
@@ -105,13 +94,13 @@ namespace CRUD.WPF.ViewModels.Records
         #region Helper methods
         public void CreateStudentModel(StudentModel studentModel)
         {
-            RecordsListingItemViewModel newStudentModel = new RecordsListingItemViewModel(studentModel, _studentModelStore, _navigationStore, _navigationManager);
+            RecordsListingItemViewModel newStudentModel = new RecordsListingItemViewModel(studentModel, _studentModelStore, _navigationManager);
             _recordsListingItemViewModel.Add(newStudentModel);
         }
 
         public RecordsListingItemViewModel FindStudentModel(StudentModel studentModel)
         {
-            return _recordsListingItemViewModel.FirstOrDefault(r => r.StudentModel.Id == studentModel.Id);
+            return _recordsListingItemViewModel.FirstOrDefault(records => records.StudentModel.Id == studentModel.Id);
         }
         #endregion
     }

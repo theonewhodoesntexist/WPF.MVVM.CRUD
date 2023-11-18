@@ -46,8 +46,8 @@
             Grid.Row="2"
             Margin="0,10,0,0"
             HorizontalAlignment="Left"
-            Command="{Binding EditAccountCommand}"
-            Content="Edit Account"
+            Command="{Binding UpdateAccountCommand}"
+            Content="Update Account"
             FontSize="16" />
     </Grid>
 </UserControl>

@@ -4,6 +4,7 @@ using CRUD.WPF.Stores;
 using CRUD.WPF.ViewModels.Dashboard;
 using CRUD.WPF.ViewModels.Login;
 using CRUD.WPF.ViewModels.Records;
+using System;
 using System.Windows;
 
 namespace CRUD.WPF.Commands.Login
@@ -32,14 +33,12 @@ namespace CRUD.WPF.Commands.Login
             {
                 AccountModel accountModel = new AccountModel("moriarity99", "99", "Jim", "Moriarity");
                 _accountStore.CurrentAccount = accountModel;
+                _recordsNavigationService.Navigate();
             }
             else
             {
                 MessageBox.Show("Wrong username or password!", "Login Authentication", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
             }
-
-            _recordsNavigationService.Navigate();
         }
         #endregion
     }

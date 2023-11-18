@@ -13,7 +13,18 @@ namespace CRUD.WPF.ViewModels.Records
         public StudentModel SelectedStudentModel => _selectedStudentModelStore.SelectedStudentModel;
         public string FirstName => SelectedStudentModel?.FirstName ?? "None";
         public string LastName => SelectedStudentModel?.LastName ?? "None";
-        public int Age => SelectedStudentModel?.Age ?? 0;
+        public string Age
+        {
+            get
+            {
+                int? age = SelectedStudentModel?.Age;
+                if (age.HasValue && age.Value == 0)
+                {
+                    return "None";
+                }
+                return age.HasValue ? age.ToString() : "None";
+            }
+        }
         public string Sex => SelectedStudentModel?.Sex ?? "None";
         #endregion
 

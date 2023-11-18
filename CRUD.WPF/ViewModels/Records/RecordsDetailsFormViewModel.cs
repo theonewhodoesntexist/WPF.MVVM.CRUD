@@ -1,5 +1,4 @@
-﻿using CRUD.WPF.Services;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Records
 {

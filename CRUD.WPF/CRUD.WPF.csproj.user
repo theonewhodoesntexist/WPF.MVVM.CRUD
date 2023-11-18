@@ -43,6 +43,9 @@
     <Compile Update="Views\Account\AccountView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Account\UpdateAccountView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Dashboard\DashboardView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -97,6 +100,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Account\AccountView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Account\UpdateAccountView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Dashboard\DashboardView.xaml">

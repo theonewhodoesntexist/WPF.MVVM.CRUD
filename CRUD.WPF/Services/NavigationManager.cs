@@ -1,6 +1,11 @@
 ﻿using CRUD.WPF.Stores;
 using CRUD.WPF.ViewModels;
+using CRUD.WPF.ViewModels.Account;
+using CRUD.WPF.ViewModels.Dashboard;
+using CRUD.WPF.ViewModels.Login;
+using CRUD.WPF.ViewModels.Records;
 using System;
+using System.Collections.ObjectModel;
 
 namespace CRUD.WPF.Services
 {
@@ -12,6 +17,7 @@ namespace CRUD.WPF.Services
         private readonly ModalNavigationStore _modalNavigationStore;
         private readonly SelectedStudentModelStore _selectedStudentModelStore;
         private readonly StudentModelStore _studentModelStore;
+        private readonly AccountModelStore _accountModelStore;
         #endregion
 
         #region Constructor
@@ -20,13 +26,15 @@ namespace CRUD.WPF.Services
             AccountStore accountStore,
             ModalNavigationStore modalNavigationStore,
             SelectedStudentModelStore selectedStudentModelStore,
-            StudentModelStore studentModelStore)
+            StudentModelStore studentModelStore,
+            AccountModelStore accountModelStore)
         {
             _navigationStore = navigationStore;
             _accountStore = accountStore;
             _modalNavigationStore = modalNavigationStore;
             _selectedStudentModelStore = selectedStudentModelStore;
             _studentModelStore = studentModelStore;
+            _accountModelStore = accountModelStore;
         }
         #endregion
 
@@ -44,9 +52,7 @@ namespace CRUD.WPF.Services
                 _navigationStore,
                 createViewModel,
                 _accountStore,
-                this,
-                _selectedStudentModelStore,
-                _studentModelStore);
+                this);
         }
 
         public INavigationService CreateModalNavigationService<TViewModel>(Func<TViewModel> createViewModel)
@@ -60,6 +66,40 @@ namespace CRUD.WPF.Services
         public INavigationService CreateCloseModalNavigationService()
         {
             return new CloseModalNavigationService(_modalNavigationStore);
+        }
+
+        public INavigationService DashboardNavigationService()
+        {
+            return CreateLayoutNavigationService(() => new DashboardViewModel());
+        }
+
+        public INavigationService RecordsNavigationService()
+        {
+            return CreateLayoutNavigationService(
+                () => new RecordsViewModel( 
+                    _accountStore,
+                    _selectedStudentModelStore, 
+                    _studentModelStore,
+                    this));
+        }
+
+        public INavigationService AccountNavigationService()
+        {
+            return CreateLayoutNavigationService(
+                () => new AccountViewModel(
+                    _accountStore, 
+                    this,
+                    _accountModelStore));
+        }
+
+        public INavigationService LoginNavigationService()
+        {
+            return CreateNavigationService(
+                () => new LoginViewModel(
+                    _accountStore, 
+                    this,
+                    _selectedStudentModelStore,
+                    _studentModelStore));
         }
         #endregion
     }

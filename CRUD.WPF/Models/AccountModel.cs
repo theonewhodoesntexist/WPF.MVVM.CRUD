@@ -1,4 +1,6 @@
-﻿namespace CRUD.WPF.Models
+﻿using System;
+
+namespace CRUD.WPF.Models
 {
     public class AccountModel
     {
