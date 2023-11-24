@@ -1,5 +1,5 @@
 ﻿using CRUD.WPF.Services;
-using CRUD.WPF.Stores;
+using CRUD.WPF.Stores.Accounts;
 
 namespace CRUD.WPF.Commands.Login
 {

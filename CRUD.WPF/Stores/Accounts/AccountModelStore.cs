@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace CRUD.WPF.Stores
+namespace CRUD.WPF.Stores.Accounts
 {
     public class AccountModelStore
     {

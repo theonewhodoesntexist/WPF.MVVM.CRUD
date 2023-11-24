@@ -36,6 +36,11 @@
                         <Setter Property="IsHitTestVisible" Value="False" />
                     </Style>
                 </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Grid.Column="0" Text="{Binding FullName}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
         </Grid>
     </Border>

@@ -2,7 +2,7 @@
 using CRUD.WPF.Commands.Accounts;
 using CRUD.WPF.Models;
 using CRUD.WPF.Services;
-using CRUD.WPF.Stores;
+using CRUD.WPF.Stores.Accounts;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Account

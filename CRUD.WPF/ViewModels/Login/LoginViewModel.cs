@@ -1,7 +1,8 @@
 ﻿using CRUD.WPF.Commands;
 using CRUD.WPF.Commands.Login;
 using CRUD.WPF.Services;
-using CRUD.WPF.Stores;
+using CRUD.WPF.Stores.Accounts;
+using CRUD.WPF.Stores.Records;
 using CRUD.WPF.ViewModels.Records;
 using System.Windows.Input;
 

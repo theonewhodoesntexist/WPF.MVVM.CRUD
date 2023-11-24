@@ -1,5 +1,5 @@
 ﻿using CRUD.WPF.Models;
-using CRUD.WPF.Stores;
+using CRUD.WPF.Stores.Records;
 
 namespace CRUD.WPF.ViewModels.Records
 {

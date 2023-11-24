@@ -10,7 +10,9 @@
     mc:Ignorable="d">
     <Border
         MinWidth="300"
+        MaxHeight="250"
         Padding="20"
+        VerticalAlignment="Top"
         BorderBrush="Gray"
         BorderThickness="1"
         CornerRadius="10"

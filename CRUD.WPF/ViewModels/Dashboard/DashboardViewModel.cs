@@ -1,4 +1,5 @@
 ﻿using CRUD.WPF.Stores;
+using CRUD.WPF.Stores.Dashboard;
 
 namespace CRUD.WPF.ViewModels.Dashboard
 {
@@ -14,13 +15,13 @@ namespace CRUD.WPF.ViewModels.Dashboard
         #endregion
 
         #region Constructor
-        public DashboardViewModel()
+        public DashboardViewModel(DashboardStudentsStores dashboardStudentsStores)
         {
-            TotalStudentsViewModel = new TotalStudentsViewModel();
-            MaleStudentsViewModel = new MaleStudentsViewModel();
-            FemaleStudentsViewModel = new FemaleStudentsViewModel();
-            OldestStudentViewModel = new OldestStudentViewModel();
-            YoungestStudentViewModel = new YoungestStudentViewModel();
+            TotalStudentsViewModel = new TotalStudentsViewModel(dashboardStudentsStores);
+            MaleStudentsViewModel = new MaleStudentsViewModel(dashboardStudentsStores);
+            FemaleStudentsViewModel = new FemaleStudentsViewModel(dashboardStudentsStores);
+            OldestStudentViewModel = new OldestStudentViewModel(dashboardStudentsStores);
+            YoungestStudentViewModel = new YoungestStudentViewModel(dashboardStudentsStores);
             OutstandingStudentsViewModel = new OutstandingStudentsViewModel();
         }
         #endregion

@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace CRUD.WPF.Stores
+namespace CRUD.WPF.Stores.Records
 {
     public class StudentModelStore
     {
@@ -16,7 +16,7 @@ namespace CRUD.WPF.Stores
         public async Task Create(StudentModel studentModel)
         {
             StudentModelCreated?.Invoke(studentModel);
-        } 
+        }
 
         public async Task Update(StudentModel studentModel)
         {

@@ -1,7 +1,7 @@
 ﻿using CRUD.WPF.Commands;
 using CRUD.WPF.Commands.Records;
 using CRUD.WPF.Services;
-using CRUD.WPF.Stores;
+using CRUD.WPF.Stores.Records;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Records

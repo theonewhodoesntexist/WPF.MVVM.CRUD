@@ -2,28 +2,28 @@
 using CRUD.WPF.ViewModels;
 using System;
 
-namespace CRUD.WPF.Stores
+namespace CRUD.WPF.Stores.Records
 {
     public class SelectedStudentModelStore
     {
         #region Fields
-		private readonly StudentModelStore _studentModelStore;
+        private readonly StudentModelStore _studentModelStore;
         #endregion
 
         #region Properties
         private StudentModel _selectedStudentModel;
-		public StudentModel SelectedStudentModel
+        public StudentModel SelectedStudentModel
         {
-			get
-			{
-				return _selectedStudentModel;
-			}
-			set
-			{
-                _selectedStudentModel = value;
-				SelectedStudentModelChanged?.Invoke();
+            get
+            {
+                return _selectedStudentModel;
             }
-		}
+            set
+            {
+                _selectedStudentModel = value;
+                SelectedStudentModelChanged?.Invoke();
+            }
+        }
         #endregion
 
         #region Constructor

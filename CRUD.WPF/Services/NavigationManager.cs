@@ -1,11 +1,13 @@
 ﻿using CRUD.WPF.Stores;
+using CRUD.WPF.Stores.Accounts;
+using CRUD.WPF.Stores.Dashboard;
+using CRUD.WPF.Stores.Records;
 using CRUD.WPF.ViewModels;
 using CRUD.WPF.ViewModels.Account;
 using CRUD.WPF.ViewModels.Dashboard;
 using CRUD.WPF.ViewModels.Login;
 using CRUD.WPF.ViewModels.Records;
 using System;
-using System.Collections.ObjectModel;
 
 namespace CRUD.WPF.Services
 {
@@ -18,6 +20,7 @@ namespace CRUD.WPF.Services
         private readonly SelectedStudentModelStore _selectedStudentModelStore;
         private readonly StudentModelStore _studentModelStore;
         private readonly AccountModelStore _accountModelStore;
+        private readonly DashboardStudentsStores _dashboardStudentsStores;
         #endregion
 
         #region Constructor
@@ -27,7 +30,8 @@ namespace CRUD.WPF.Services
             ModalNavigationStore modalNavigationStore,
             SelectedStudentModelStore selectedStudentModelStore,
             StudentModelStore studentModelStore,
-            AccountModelStore accountModelStore)
+            AccountModelStore accountModelStore,
+            DashboardStudentsStores dashboardStudentsStores)
         {
             _navigationStore = navigationStore;
             _accountStore = accountStore;
@@ -35,6 +39,7 @@ namespace CRUD.WPF.Services
             _selectedStudentModelStore = selectedStudentModelStore;
             _studentModelStore = studentModelStore;
             _accountModelStore = accountModelStore;
+            _dashboardStudentsStores = dashboardStudentsStores;
         }
         #endregion
 
@@ -70,7 +75,7 @@ namespace CRUD.WPF.Services
 
         public INavigationService DashboardNavigationService()
         {
-            return CreateLayoutNavigationService(() => new DashboardViewModel());
+            return CreateLayoutNavigationService(() => new DashboardViewModel(_dashboardStudentsStores));
         }
 
         public INavigationService RecordsNavigationService()
@@ -80,7 +85,8 @@ namespace CRUD.WPF.Services
                     _accountStore,
                     _selectedStudentModelStore, 
                     _studentModelStore,
-                    this));
+                    this,
+                    _dashboardStudentsStores));
         }
 
         public INavigationService AccountNavigationService()
