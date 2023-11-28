@@ -2,8 +2,6 @@
 using CRUD.WPF.Commands.Login;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores.Accounts;
-using CRUD.WPF.Stores.Records;
-using CRUD.WPF.ViewModels.Records;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Login
@@ -13,8 +11,6 @@ namespace CRUD.WPF.ViewModels.Login
         #region Fields
         private readonly AccountStore _accountStore;
         private readonly NavigationManager _navigationManager;
-        private readonly SelectedStudentModelStore _selectedStudentModelStore;
-        private readonly StudentModelStore _studentModelStore;
         #endregion
 
         #region Properties
@@ -51,14 +47,10 @@ namespace CRUD.WPF.ViewModels.Login
         #region Constructor
         public LoginViewModel(
 			AccountStore accountStore, 
-			NavigationManager navigationManager, 
-			SelectedStudentModelStore selectedStudentModelStore, 
-			StudentModelStore studentModelStore)
+			NavigationManager navigationManager)
         {
             _accountStore = accountStore;
             _navigationManager = navigationManager;
-            _selectedStudentModelStore = selectedStudentModelStore;
-            _studentModelStore = studentModelStore;
 
             LoginCommand = new LoginCommand(
 				_navigationManager.RecordsNavigationService(), 

@@ -31,7 +31,7 @@ namespace CRUD.WPF.ViewModels.Dashboard
         #region Dispose
         public override void Dispose()
         {
-            _dashboardStudentsStores.MaleStudentsChanged += DashboardStudentsStores_MaleStudentsChanged;
+            _dashboardStudentsStores.MaleStudentsChanged -= DashboardStudentsStores_MaleStudentsChanged;
 
             base.Dispose();
         }

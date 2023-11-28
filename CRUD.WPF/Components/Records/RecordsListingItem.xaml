@@ -40,74 +40,87 @@
                 <TextBlock Grid.Row="1" Text="{Binding FullName}" />
             </Grid>
 
-            <dropdownmenucontrol:DropdownMenu x:Name="Dropdown" Grid.Column="1">
-                <Border
-                    Background="White"
-                    BorderBrush="Gray"
-                    BorderThickness="1">
-                    <StackPanel MinWidth="125">
-                        <StackPanel.Resources>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="#F0F0F0" />
-                                <Setter Property="Foreground" Value="Black" />
-                                <Setter Property="Padding" Value="20,10" />
-                                <EventSetter Event="Click" Handler="Button_Click" />
+            <Grid Grid.Column="1">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsLoggedIn}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
 
-                                <!--#region To remove the default border of the button and the highlight on hover-->
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border
-                                                Margin="{TemplateBinding Margin}"
-                                                Padding="{TemplateBinding Padding}"
-                                                Background="{TemplateBinding Background}">
-                                                <ContentPresenter />
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                                <!--#endregion-->
+                <dropdownmenucontrol:DropdownMenu x:Name="Dropdown">
+                    <Border
+                        Background="White"
+                        BorderBrush="Gray"
+                        BorderThickness="1">
+                        <StackPanel MinWidth="125">
+                            <StackPanel.Resources>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#F0F0F0" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="Padding" Value="20,10" />
+                                    <EventSetter Event="Click" Handler="Button_Click" />
 
-                                <!--#region Animate the highlight on hover of the button-->
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <!--#region Animate the highlight on hover of the button when entering-->
-                                        <Trigger.EnterActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <ColorAnimation
-                                                        Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                                        To="#c7c7c7"
-                                                        Duration="0:0:0.1" />
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </Trigger.EnterActions>
-                                        <!--#endregion-->
+                                    <!--#region To remove the default border of the button and the highlight on hover-->
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border
+                                                    Margin="{TemplateBinding Margin}"
+                                                    Padding="{TemplateBinding Padding}"
+                                                    Background="{TemplateBinding Background}">
+                                                    <ContentPresenter />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <!--#endregion-->
 
-                                        <!--#region Animate the highlight on hover of the button when exiting-->
-                                        <Trigger.ExitActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <ColorAnimation
-                                                        Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                                        To="#F0F0F0"
-                                                        Duration="0:0:0.1" />
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </Trigger.ExitActions>
-                                        <!--#endregion-->
-                                    </Trigger>
-                                </Style.Triggers>
-                                <!--#endregion-->
-                            </Style>
-                        </StackPanel.Resources>
+                                    <!--#region Animate the highlight on hover of the button-->
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <!--#region Animate the highlight on hover of the button when entering-->
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation
+                                                            Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                                            To="#c7c7c7"
+                                                            Duration="0:0:0.1" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <!--#endregion-->
 
-                        <Button Command="{Binding OutstandingCommand}" Content="Mark as Outstanding" />
-                        <Button Command="{Binding UpdateCommand}" Content="Update" />
-                        <Button Command="{Binding DeleteCommand}" Content="Delete" />
-                    </StackPanel>
-                </Border>
-            </dropdownmenucontrol:DropdownMenu>
+                                            <!--#region Animate the highlight on hover of the button when exiting-->
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation
+                                                            Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                                            To="#F0F0F0"
+                                                            Duration="0:0:0.1" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                            <!--#endregion-->
+                                        </Trigger>
+                                    </Style.Triggers>
+                                    <!--#endregion-->
+                                </Style>
+                            </StackPanel.Resources>
+
+                            <Button Command="{Binding OutstandingCommand}" Content="Mark as Outstanding" />
+                            <Button Command="{Binding UpdateCommand}" Content="Update" />
+                            <Button Command="{Binding DeleteCommand}" Content="Delete" />
+                        </StackPanel>
+                    </Border>
+                </dropdownmenucontrol:DropdownMenu>
+            </Grid>
         </Grid>
     </Border>
 </UserControl>

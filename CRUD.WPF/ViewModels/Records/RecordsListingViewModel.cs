@@ -1,5 +1,6 @@
 ﻿using CRUD.WPF.Models;
 using CRUD.WPF.Services;
+using CRUD.WPF.Stores.Accounts;
 using CRUD.WPF.Stores.Dashboard;
 using CRUD.WPF.Stores.Records;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace CRUD.WPF.ViewModels.Records
         private readonly StudentModelStore _studentModelStore;
         private readonly NavigationManager _navigationManager;
         private readonly DashboardStudentsStores _dashboardStudentsStores;
+        private readonly AccountStore _accountStore;
         #endregion
 
         #region Properties
@@ -43,18 +45,21 @@ namespace CRUD.WPF.ViewModels.Records
             SelectedStudentModelStore selectedStudentModelStore,
             StudentModelStore studentModelStore,
             NavigationManager navigationManager,
-            DashboardStudentsStores dashboardStudentsStores)
+            DashboardStudentsStores dashboardStudentsStores,
+            AccountStore accountStore)
         {
             _selectedStudentModelStore = selectedStudentModelStore;
             _studentModelStore = studentModelStore;
             _navigationManager = navigationManager;
             _dashboardStudentsStores = dashboardStudentsStores;
+            _accountStore = accountStore;
 
             UpdateDashboard();
 
             _studentModelStore.StudentModelCreated += StudentModelStore_StudentModelCreated;
             _studentModelStore.StudentModelUpdated += StudentModelStore_StudentModelUpdated;
             _studentModelStore.StudentModelDeleted += StudentModelStore_StudentModelDeleted;
+            _studentModelStore.StudentModelOutstanding += StudentModelStore_StudentModelOutstanding;
         }
         #endregion
 
@@ -65,7 +70,11 @@ namespace CRUD.WPF.ViewModels.Records
 
             if (foundStudentModel == null)
             {
-                RecordsListingItemViewModel newStudentModel = new RecordsListingItemViewModel(studentModel, _studentModelStore, _navigationManager);
+                RecordsListingItemViewModel newStudentModel = new RecordsListingItemViewModel(
+                    studentModel,
+                    _studentModelStore,
+                    _navigationManager,
+                    _accountStore);
                 _recordsListingItemViewModel.Add(newStudentModel);
                 UpdateDashboard();
             }
@@ -92,6 +101,16 @@ namespace CRUD.WPF.ViewModels.Records
                 UpdateDashboard();
             } 
         }
+
+        private void StudentModelStore_StudentModelOutstanding(StudentModel studentModel)
+        {
+            RecordsListingItemViewModel foundStudentModel = FindStudentModel(studentModel);
+
+            if (foundStudentModel != null)
+            {
+                foundStudentModel.Outstanding(studentModel);
+            }
+        }
         #endregion
 
         #region Dispose
@@ -100,6 +119,8 @@ namespace CRUD.WPF.ViewModels.Records
             _studentModelStore.StudentModelCreated -= StudentModelStore_StudentModelCreated;
             _studentModelStore.StudentModelUpdated -= StudentModelStore_StudentModelUpdated;
             _studentModelStore.StudentModelDeleted -= StudentModelStore_StudentModelDeleted;
+            _studentModelStore.StudentModelOutstanding -= StudentModelStore_StudentModelOutstanding;
+            _selectedRecordsListingItemViewModel?.Dispose();
 
             base.Dispose();
         }

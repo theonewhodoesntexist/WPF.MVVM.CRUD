@@ -1,5 +1,4 @@
-﻿using CRUD.WPF.Stores;
-using CRUD.WPF.Stores.Dashboard;
+﻿using CRUD.WPF.Stores.Dashboard;
 
 namespace CRUD.WPF.ViewModels.Dashboard
 {
@@ -23,6 +22,19 @@ namespace CRUD.WPF.ViewModels.Dashboard
             OldestStudentViewModel = new OldestStudentViewModel(dashboardStudentsStores);
             YoungestStudentViewModel = new YoungestStudentViewModel(dashboardStudentsStores);
             OutstandingStudentsViewModel = new OutstandingStudentsViewModel();
+        }
+        #endregion
+
+        #region Dispose
+        public override void Dispose()
+        {
+            TotalStudentsViewModel.Dispose();
+            MaleStudentsViewModel.Dispose();
+            FemaleStudentsViewModel.Dispose();
+            OldestStudentViewModel.Dispose();
+            YoungestStudentViewModel.Dispose();
+
+            base.Dispose();
         }
         #endregion
     }

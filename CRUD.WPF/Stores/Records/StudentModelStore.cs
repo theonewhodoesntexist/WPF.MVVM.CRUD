@@ -10,6 +10,7 @@ namespace CRUD.WPF.Stores.Records
         public event Action<StudentModel> StudentModelCreated;
         public event Action<StudentModel> StudentModelUpdated;
         public event Action<StudentModel> StudentModelDeleted;
+        public event Action<StudentModel> StudentModelOutstanding;
         #endregion
 
         #region Helper methods
@@ -26,6 +27,11 @@ namespace CRUD.WPF.Stores.Records
         public async Task Delete(StudentModel studentModel)
         {
             StudentModelDeleted?.Invoke(studentModel);
+        }
+
+        public async Task Outstanding(StudentModel studentModel)
+        {
+            StudentModelOutstanding?.Invoke(studentModel);
         }
         #endregion
     }

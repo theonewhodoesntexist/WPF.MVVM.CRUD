@@ -52,7 +52,7 @@ namespace CRUD.WPF
             INavigationService recordsNavigationService = _navigationManager.RecordsNavigationService();
             recordsNavigationService.Navigate();
 
-            RecordsStorage.InitializeRecords(_studentModelStore, _navigationManager);
+            RecordsStorage.InitializeRecords(_studentModelStore, _navigationManager, _accountStore);
 
             MainWindow = new MainWindow()
             {

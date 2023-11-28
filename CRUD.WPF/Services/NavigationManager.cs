@@ -81,9 +81,9 @@ namespace CRUD.WPF.Services
         public INavigationService RecordsNavigationService()
         {
             return CreateLayoutNavigationService(
-                () => new RecordsViewModel( 
+                () => new RecordsViewModel(
                     _accountStore,
-                    _selectedStudentModelStore, 
+                    _selectedStudentModelStore,
                     _studentModelStore,
                     this,
                     _dashboardStudentsStores));
@@ -103,9 +103,7 @@ namespace CRUD.WPF.Services
             return CreateNavigationService(
                 () => new LoginViewModel(
                     _accountStore, 
-                    this,
-                    _selectedStudentModelStore,
-                    _studentModelStore));
+                    this));
         }
         #endregion
     }

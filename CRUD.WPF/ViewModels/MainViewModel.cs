@@ -38,5 +38,17 @@ namespace CRUD.WPF.ViewModels
             OnPropertyChanged(nameof(IsModalOpen));
         }
         #endregion
+
+        #region Dispose
+        public override void Dispose()
+        {
+            CurrentViewModel.Dispose();
+            CurrentModalViewModel.Dispose();
+            _navigationStore.CurrentViewModelChanged -= NavigationStore_CurrentViewModelChanged;
+            _modalNavigationStore.CurrentModalViewModelChanged -= ModalNavigationStore_CurrentModalViewModelChanged;
+
+            base.Dispose();
+        }
+        #endregion
     }
 }

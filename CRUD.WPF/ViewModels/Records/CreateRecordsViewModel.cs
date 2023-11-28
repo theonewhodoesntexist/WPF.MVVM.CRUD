@@ -15,7 +15,10 @@ namespace CRUD.WPF.ViewModels.Records
         #region Contructor
         public CreateRecordsViewModel(StudentModelStore studentModelStore, NavigationManager navigationManager)
         {
-            ICommand submitCommand = new CreateRecordsCommand(studentModelStore, navigationManager.CreateCloseModalNavigationService(), this);
+            ICommand submitCommand = new CreateRecordsCommand(
+                studentModelStore,
+                navigationManager.CreateCloseModalNavigationService(), 
+                this);
             ICommand cancelCommand = new CloseModalCommand(navigationManager.CreateCloseModalNavigationService());
 
             RecordsDetailsFormViewModel = new RecordsDetailsFormViewModel(submitCommand, cancelCommand);

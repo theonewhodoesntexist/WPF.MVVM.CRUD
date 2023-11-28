@@ -1,5 +1,6 @@
 ﻿using CRUD.WPF.Models;
 using CRUD.WPF.Services;
+using CRUD.WPF.Stores.Accounts;
 using CRUD.WPF.Stores.Records;
 using System;
 using System.Collections.ObjectModel;
@@ -13,15 +14,15 @@ namespace CRUD.WPF.ViewModels.Records
         #endregion
 
         #region Helper methods
-        public static void InitializeRecords(StudentModelStore studentModelStore, NavigationManager navigationManager)
+        public static void InitializeRecords(StudentModelStore studentModelStore, NavigationManager navigationManager, AccountStore accountStore)
         {
             StudentModel studentModel1 = new StudentModel(Guid.NewGuid(), "Joan", "Doe", 24, "Female", true);
             StudentModel studentModel2 = new StudentModel(Guid.NewGuid(), "Johan", "Liebert", 22, "Male", true);
             StudentModel studentModel3 = new StudentModel(Guid.NewGuid(), "Jordan", "Faciol", 20, "Male", false);
 
-            RecordsListingItemViewModel initialRecord1 = new RecordsListingItemViewModel(studentModel1, studentModelStore, navigationManager);
-            RecordsListingItemViewModel initialRecord2 = new RecordsListingItemViewModel(studentModel2, studentModelStore, navigationManager);
-            RecordsListingItemViewModel initialRecord3 = new RecordsListingItemViewModel(studentModel3, studentModelStore, navigationManager);
+            RecordsListingItemViewModel initialRecord1 = new RecordsListingItemViewModel(studentModel1, studentModelStore, navigationManager, accountStore);
+            RecordsListingItemViewModel initialRecord2 = new RecordsListingItemViewModel(studentModel2, studentModelStore, navigationManager, accountStore);
+            RecordsListingItemViewModel initialRecord3 = new RecordsListingItemViewModel(studentModel3, studentModelStore, navigationManager, accountStore);
 
             RecordsCollection.Add(initialRecord1);
             RecordsCollection.Add(initialRecord2);

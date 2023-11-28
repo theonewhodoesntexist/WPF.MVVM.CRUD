@@ -1,10 +1,7 @@
 ﻿using CRUD.WPF.Models;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores.Accounts;
-using CRUD.WPF.ViewModels.Dashboard;
 using CRUD.WPF.ViewModels.Login;
-using CRUD.WPF.ViewModels.Records;
-using System;
 using System.Windows;
 
 namespace CRUD.WPF.Commands.Login

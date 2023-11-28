@@ -17,78 +17,89 @@ namespace CRUD.WPF.ViewModels.Account
 
 		#region Properties
 		public AccountModel AccountModel => _accountViewModel.AccountModel;
-        private string _initialUsername;
+
+        private string _username;
 		public string Username
 		{
 			get
 			{
-                return _initialUsername;
+                return _username;
             }
 			set
 			{
-                _initialUsername = value;
+                _username = value;
 				OnPropertyChanged(nameof(Username));
 				OnPropertyChanged(nameof(CanUpdate));
 			}
 		}
 
-		private string _initialFirstName;
+		private string _firstName;
 		public string FirstName
 		{
 			get
 			{
-                return _initialFirstName;
+                return _firstName;
             }
 			set
 			{
-				_initialFirstName = value;
+                _firstName = value;
 				OnPropertyChanged(nameof(FirstName));
 				OnPropertyChanged(nameof(CanUpdate));
 			}
 		}
 
-		private string _initialLastName;
+		private string _lastName;
 		public string LastName
 		{
 			get
 			{
-				return _initialLastName;
+				return _lastName;
             }
 			set
 			{
-				_initialLastName = value;
+                _lastName = value;
 				OnPropertyChanged(nameof(LastName));
 				OnPropertyChanged(nameof(CanUpdate));
 			}
 		}
 
-		private string _initialPassword;
+		private string _password;
         public string Password
 		{
 			get
 			{
-				return _initialPassword;
+				return _password;
             }
 			set
 			{
-				_initialPassword = value;
+                _password = value;
 				OnPropertyChanged(nameof(Password));
 				OnPropertyChanged(nameof(CanUpdate));
 			}
 		}
-		public bool CanUpdate => AccountModel.Username != Username || AccountModel.FirstName != FirstName || AccountModel.LastName != LastName || AccountModel.Password != Password;
+		public bool CanUpdate => 
+			AccountModel.Username != Username ||
+			AccountModel.FirstName != FirstName || 
+			AccountModel.LastName != LastName ||
+			AccountModel.Password != Password;
         public ICommand UpdateCommand { get; }
         public ICommand CancelCommand { get; }
         #endregion
 
         #region Constructor
-        public UpdateAccountViewModel(NavigationManager navigationManager, AccountModelStore accountModelStore, AccountViewModel accountViewModel)
+        public UpdateAccountViewModel(
+			NavigationManager navigationManager,
+			AccountModelStore accountModelStore,
+			AccountViewModel accountViewModel)
         {
             _navigationManager = navigationManager;
             _accountModelStore = accountModelStore;
             _accountViewModel = accountViewModel;
 
-            UpdateCommand = new UpdateAccountCommand(_accountModelStore, _navigationManager.CreateCloseModalNavigationService(), this);
+            UpdateCommand = new UpdateAccountCommand(
+				_accountModelStore,
+				_navigationManager.CreateCloseModalNavigationService(),
+				this);
 			CancelCommand = new NavigateCommand(_navigationManager.CreateCloseModalNavigationService());
         }
         #endregion

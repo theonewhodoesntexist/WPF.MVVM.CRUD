@@ -42,13 +42,34 @@ namespace CRUD.WPF.ViewModels.Records
                 _selectedStudentModelStore, 
                 _studentModelStore, 
                 _navigationManager,
-                _dashboardStudentsStores);
+                _dashboardStudentsStores,
+                _accountStore);
             RecordsDetailsViewModel = new RecordsDetailsViewModel(_selectedStudentModelStore);
             CreateCommand = new NavigateCommand(
                 _navigationManager.CreateModalNavigationService(
                     () => new CreateRecordsViewModel(
                         _studentModelStore,
                         _navigationManager)));
+
+            _accountStore.CurrentAccountChanged += AccountStore_CurrentAccountChanged;
+        }
+        #endregion
+
+        #region Subscribers
+        private void AccountStore_CurrentAccountChanged()
+        {
+            OnPropertyChanged(nameof(IsLoggedIn));
+        }
+        #endregion
+
+        #region Dispose
+        public override void Dispose()
+        {
+            RecordsListingViewModel.Dispose();
+            RecordsDetailsViewModel.Dispose();
+            _accountStore.CurrentAccountChanged -= AccountStore_CurrentAccountChanged;
+
+            base.Dispose();
         }
         #endregion
     }
