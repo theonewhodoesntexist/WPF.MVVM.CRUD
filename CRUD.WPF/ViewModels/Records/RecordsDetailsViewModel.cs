@@ -1,4 +1,4 @@
-﻿using CRUD.WPF.Models;
+﻿using CRUD.Domain.Models;
 using CRUD.WPF.Stores.Records;
 
 namespace CRUD.WPF.ViewModels.Records

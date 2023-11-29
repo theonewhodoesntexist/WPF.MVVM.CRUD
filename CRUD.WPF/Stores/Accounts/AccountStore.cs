@@ -1,4 +1,4 @@
-﻿using CRUD.WPF.Models;
+﻿using CRUD.Domain.Models;
 using System;
 
 namespace CRUD.WPF.Stores.Accounts

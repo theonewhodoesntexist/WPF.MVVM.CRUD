@@ -1,4 +1,4 @@
-﻿using CRUD.WPF.Models;
+﻿using CRUD.Domain.Models;
 using System;
 using System.Threading.Tasks;
 

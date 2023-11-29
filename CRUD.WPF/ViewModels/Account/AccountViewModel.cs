@@ -1,5 +1,5 @@
 ﻿using CRUD.WPF.Commands;
-using CRUD.WPF.Models;
+using CRUD.Domain.Models;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores.Accounts;
 using System.Windows.Input;

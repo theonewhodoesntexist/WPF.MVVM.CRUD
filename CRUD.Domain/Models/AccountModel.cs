@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CRUD.WPF.Models
+namespace CRUD.Domain.Models
 {
     public class AccountModel
     {
