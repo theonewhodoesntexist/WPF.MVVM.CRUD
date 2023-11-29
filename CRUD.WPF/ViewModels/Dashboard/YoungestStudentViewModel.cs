@@ -29,9 +29,9 @@ namespace CRUD.WPF.ViewModels.Dashboard
                 int? age = _dashboardStudentsStores.YoungestStudentAge;
                 if (age.HasValue && age.Value == 0)
                 {
-                    return "None";
+                    return string.Empty;
                 }
-                return age.HasValue ? $"{age} years old" : "None";
+                return age.HasValue ? $"{age} years old" : string.Empty;
             }
         }
         #endregion

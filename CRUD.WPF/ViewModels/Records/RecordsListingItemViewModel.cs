@@ -1,10 +1,9 @@
-﻿using CRUD.WPF.Commands;
+﻿using CRUD.Domain.Models;
+using CRUD.WPF.Commands;
 using CRUD.WPF.Commands.Records;
-using CRUD.Domain.Models;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores.Accounts;
 using CRUD.WPF.Stores.Records;
-using System.Diagnostics;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Records

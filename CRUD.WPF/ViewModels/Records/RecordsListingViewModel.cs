@@ -145,20 +145,15 @@ namespace CRUD.WPF.ViewModels.Records
             var oldestStudent = _recordsListingItemViewModel
                     .OrderByDescending(record => record.StudentModel.Age)
                     .FirstOrDefault();
-            if (oldestStudent != null)
-            {
-                _dashboardStudentsStores.OldestStudentName = oldestStudent.FullName;
-                _dashboardStudentsStores.OldestStudentAge = oldestStudent.StudentModel.Age;
-            }
+            _dashboardStudentsStores.OldestStudentName = oldestStudent?.FullName?? "None";
+            _dashboardStudentsStores.OldestStudentAge = oldestStudent?.StudentModel.Age ?? 0;
+            
 
             var youngestStudent = _recordsListingItemViewModel
                 .OrderBy(record => record.StudentModel.Age)
                 .FirstOrDefault();
-            if (youngestStudent != null)
-            {
-                _dashboardStudentsStores.YoungestStudentName = youngestStudent.FullName;
-                _dashboardStudentsStores.YoungestStudentAge = youngestStudent.StudentModel.Age;
-            }
+            _dashboardStudentsStores.YoungestStudentName = youngestStudent?.FullName ?? "None";
+            _dashboardStudentsStores.YoungestStudentAge = youngestStudent?.StudentModel.Age ?? 0;
         }
         #endregion
     }

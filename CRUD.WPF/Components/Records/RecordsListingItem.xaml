@@ -114,7 +114,38 @@
                                 </Style>
                             </StackPanel.Resources>
 
-                            <Button Command="{Binding OutstandingCommand}" Content="Mark as Outstanding" />
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsOutstanding}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+
+                                    <Button Command="{Binding OutstandingCommand}" Content="Unmark as Outstanding" />
+                                </Grid>
+
+                                <Grid>
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsOutstanding}" Value="False">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+
+                                    <Button Command="{Binding OutstandingCommand}" Content="Mark as Outstanding" />
+                                </Grid>
+                            </StackPanel>
+
                             <Button Command="{Binding UpdateCommand}" Content="Update" />
                             <Button Command="{Binding DeleteCommand}" Content="Delete" />
                         </StackPanel>
