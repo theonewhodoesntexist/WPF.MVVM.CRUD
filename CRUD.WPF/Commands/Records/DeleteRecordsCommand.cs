@@ -1,5 +1,4 @@
-﻿using CRUD.Domain.Models;
-using CRUD.WPF.Stores.Records;
+﻿using CRUD.WPF.Stores.Records;
 using CRUD.WPF.ViewModels.Records;
 using System;
 using System.Threading.Tasks;
@@ -24,11 +23,11 @@ namespace CRUD.WPF.Commands.Records
         #region AsyncCommandBase
         public override async Task ExecuteAsync(object? parameter)
         {
-            StudentModel studentModel = _recordsListingItemViewModel.StudentModel;
+            Guid id = _recordsListingItemViewModel.StudentModel.Id;
 
             try
             {
-                await _studentModelStore.Delete(studentModel);
+                await _studentModelStore.Delete(id);
             }
             catch (Exception)
             {

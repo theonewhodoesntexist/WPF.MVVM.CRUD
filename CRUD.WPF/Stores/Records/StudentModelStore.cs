@@ -9,7 +9,7 @@ namespace CRUD.WPF.Stores.Records
         #region Events
         public event Action<StudentModel> StudentModelCreated;
         public event Action<StudentModel> StudentModelUpdated;
-        public event Action<StudentModel> StudentModelDeleted;
+        public event Action<Guid> StudentModelDeleted;
         public event Action<StudentModel> StudentModelOutstanding;
         #endregion
 
@@ -24,9 +24,9 @@ namespace CRUD.WPF.Stores.Records
             StudentModelUpdated?.Invoke(studentModel);
         }
 
-        public async Task Delete(StudentModel studentModel)
+        public async Task Delete(Guid id)
         {
-            StudentModelDeleted?.Invoke(studentModel);
+            StudentModelDeleted?.Invoke(id);
         }
 
         public async Task Outstanding(StudentModel studentModel)

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CRUD.Domain.Models
+﻿namespace CRUD.Domain.Models
 {
     public class StudentModel
     {
@@ -10,21 +8,10 @@ namespace CRUD.Domain.Models
         public string LastName { get; }
         public int Age { get; }
         public string Sex { get; }
-
-        private bool _isOutstanding;
-        public bool IsOutstanding
-        {
-            get
-            {
-                return _isOutstanding;
-            }
-            set
-            {
-                _isOutstanding = value;
-            }
-        }
+        public bool IsOutstanding { get; set; }
         #endregion
 
+        #region Constructor
         public StudentModel(Guid id, string firstName, string lastName, int age, string sex, bool isOutstanding)
         {
             Id = id;
@@ -34,5 +21,6 @@ namespace CRUD.Domain.Models
             Sex = sex;
             IsOutstanding = isOutstanding;
         }
+        #endregion
     }
 }

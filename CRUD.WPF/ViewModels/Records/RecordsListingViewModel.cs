@@ -3,6 +3,7 @@ using CRUD.WPF.Services;
 using CRUD.WPF.Stores.Accounts;
 using CRUD.WPF.Stores.Dashboard;
 using CRUD.WPF.Stores.Records;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -91,15 +92,15 @@ namespace CRUD.WPF.ViewModels.Records
             }
         }
 
-        private void StudentModelStore_StudentModelDeleted(StudentModel studentModel)
+        private void StudentModelStore_StudentModelDeleted(Guid id)
         {
-            RecordsListingItemViewModel foundStudentModel = FindStudentModel(studentModel);
+            RecordsListingItemViewModel foundStudentModel = _recordsListingItemViewModel.FirstOrDefault(records => records.StudentModel.Id == id);
 
             if (foundStudentModel != null)
             {
                 _recordsListingItemViewModel.Remove(foundStudentModel);
                 UpdateDashboard();
-            } 
+            }
         }
 
         private void StudentModelStore_StudentModelOutstanding(StudentModel studentModel)

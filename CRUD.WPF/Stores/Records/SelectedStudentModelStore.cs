@@ -1,5 +1,4 @@
 ﻿using CRUD.Domain.Models;
-using CRUD.WPF.ViewModels;
 using System;
 
 namespace CRUD.WPF.Stores.Records
@@ -52,10 +51,12 @@ namespace CRUD.WPF.Stores.Records
             SelectedStudentModel = studentModel;
         }
 
-        private void StudentModelStore_StudentModelDeleted(StudentModel studentModel)
+        private void StudentModelStore_StudentModelDeleted(Guid id)
         {
-            studentModel = null;
-            SelectedStudentModel = studentModel;
+            if (SelectedStudentModel.Id == id)
+            {
+                SelectedStudentModel = null;
+            }
         }
         #endregion
     }

@@ -12,5 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CRUD.Domain\CRUD.Domain.csproj" />
+    <ProjectReference Include="..\CRUD.EntityFramework\CRUD.EntityFramework.csproj" />
   </ItemGroup>
 </Project>
