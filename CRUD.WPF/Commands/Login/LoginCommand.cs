@@ -2,6 +2,7 @@
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores.Accounts;
 using CRUD.WPF.ViewModels.Login;
+using System.Linq;
 using System.Windows;
 
 namespace CRUD.WPF.Commands.Login
@@ -12,23 +13,32 @@ namespace CRUD.WPF.Commands.Login
         private readonly INavigationService _recordsNavigationService;
         private readonly LoginViewModel _loginViewModel;
         private readonly AccountStore _accountStore;
+        private readonly AccountModelStore _accountModelStore;
         #endregion
 
         #region Contructor
-        public LoginCommand(INavigationService recordsNavigationService, LoginViewModel loginViewModel, AccountStore accountStore)
+        public LoginCommand(
+            INavigationService recordsNavigationService, 
+            LoginViewModel loginViewModel, 
+            AccountStore accountStore,
+            AccountModelStore accountModelStore)
         {
             _recordsNavigationService = recordsNavigationService;
             _loginViewModel = loginViewModel;
             _accountStore = accountStore;
+            _accountModelStore = accountModelStore;
         }
         #endregion
 
         #region CommandBase
         public override void Execute(object? parameter)
         {
-            if (_loginViewModel.Username == "99" && _loginViewModel.Password == "99")
+            AccountModel accountModel = _accountModelStore.AccountModel.FirstOrDefault(account =>
+                account.Username == _loginViewModel.Username &&
+                account.Password == _loginViewModel.Password);
+
+            if (accountModel != null)
             {
-                AccountModel accountModel = new AccountModel("moriarity99", "99", "Jim", "Moriarity");
                 _accountStore.CurrentAccount = accountModel;
                 _recordsNavigationService.Navigate();
             }

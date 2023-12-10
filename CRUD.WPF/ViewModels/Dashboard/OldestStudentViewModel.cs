@@ -1,59 +1,80 @@
-﻿using CRUD.WPF.Stores.Dashboard;
+﻿using CRUD.Domain.Models;
+using CRUD.WPF.Stores.Records;
+using System;
+using System.Linq;
 
 namespace CRUD.WPF.ViewModels.Dashboard
 {
     public class OldestStudentViewModel : ViewModelBase
     {
         #region Fields
-        private readonly DashboardStudentsStores _dashboardStudentsStores;
+        private readonly StudentModelStore _studentModelStore;
         #endregion
 
         #region Properties
-        public string OldestStudentName
-        {
-            get
-            {
-                int? age = _dashboardStudentsStores.OldestStudentAge;
-                if (age.HasValue && age.Value == 0)
-                {
-                    return "None";
-                }
-                return _dashboardStudentsStores.OldestStudentName;
-            }
-        }
-
+        public StudentModel StudentModel => _studentModelStore.StudentModel
+            .Where(student => student.Age > 0)
+            .OrderByDescending(student => student.Age)
+            .FirstOrDefault();
+        public string FirstName => StudentModel?.FirstName ?? "None";
+        public string LastName => StudentModel?.FirstName ?? string.Empty;
+        public string OldestStudentName => $"{FirstName} {LastName}";
         public string OldestStudentAge
         {
             get
             {
-                int? age = _dashboardStudentsStores.OldestStudentAge;
-                if (age.HasValue && age.Value == 0)
-                {
-                    return string.Empty;
-                }
-                return age.HasValue ? $"{age} years old" : string.Empty;
+                int? age = StudentModel?.Age ?? 0;
+                return age.Value > 0? $"{age} years old" : string.Empty;
             }
         }
         #endregion
 
         #region Constructor
-        public OldestStudentViewModel(DashboardStudentsStores dashboardStudentsStores)
+        public OldestStudentViewModel(StudentModelStore studentModelStore)
         {
-            _dashboardStudentsStores = dashboardStudentsStores;
+            _studentModelStore = studentModelStore;
 
-            _dashboardStudentsStores.OldestStudentNameChanged += DashboardStudentsStores_OldestStudentNameChanged;
-            _dashboardStudentsStores.OldestStudentAgeChanged += DashboardStudentsStores_OldestStudentAgeChanged;
+            _studentModelStore.StudentModelLoaded += StudentModelStore_StudentModelLoaded;
+            _studentModelStore.StudentModelCreated += StudentModelStore_StudentModelCreated;
+            _studentModelStore.StudentModelUpdated += StudentModelStore_StudentModelUpdated;
+            _studentModelStore.StudentModelDeleted += StudentModelStore_StudentModelDeleted;
         }
         #endregion
 
         #region Subscribers
-        private void DashboardStudentsStores_OldestStudentNameChanged()
+        private void StudentModelStore_StudentModelLoaded()
         {
+            OnPropertyChanged(nameof(StudentModel));
+            OnPropertyChanged(nameof(FirstName));
+            OnPropertyChanged(nameof(LastName));
             OnPropertyChanged(nameof(OldestStudentName));
+            OnPropertyChanged(nameof(OldestStudentAge));
         }
 
-        private void DashboardStudentsStores_OldestStudentAgeChanged()
+        private void StudentModelStore_StudentModelCreated(StudentModel obj)
         {
+            OnPropertyChanged(nameof(StudentModel));
+            OnPropertyChanged(nameof(FirstName));
+            OnPropertyChanged(nameof(LastName));
+            OnPropertyChanged(nameof(OldestStudentName));
+            OnPropertyChanged(nameof(OldestStudentAge));
+        }
+
+        private void StudentModelStore_StudentModelUpdated(StudentModel obj)
+        {
+            OnPropertyChanged(nameof(StudentModel));
+            OnPropertyChanged(nameof(FirstName));
+            OnPropertyChanged(nameof(LastName));
+            OnPropertyChanged(nameof(OldestStudentName));
+            OnPropertyChanged(nameof(OldestStudentAge));
+        }
+
+        private void StudentModelStore_StudentModelDeleted(Guid obj)
+        {
+            OnPropertyChanged(nameof(StudentModel));
+            OnPropertyChanged(nameof(FirstName));
+            OnPropertyChanged(nameof(LastName));
+            OnPropertyChanged(nameof(OldestStudentName));
             OnPropertyChanged(nameof(OldestStudentAge));
         }
         #endregion
@@ -61,9 +82,11 @@ namespace CRUD.WPF.ViewModels.Dashboard
         #region Dispose
         public override void Dispose()
         {
-            _dashboardStudentsStores.OldestStudentNameChanged -= DashboardStudentsStores_OldestStudentNameChanged;
-            _dashboardStudentsStores.OldestStudentAgeChanged -= DashboardStudentsStores_OldestStudentAgeChanged;
-            
+            _studentModelStore.StudentModelLoaded -= StudentModelStore_StudentModelLoaded;
+            _studentModelStore.StudentModelCreated -= StudentModelStore_StudentModelCreated;
+            _studentModelStore.StudentModelUpdated -= StudentModelStore_StudentModelUpdated;
+            _studentModelStore.StudentModelDeleted -= StudentModelStore_StudentModelDeleted;
+
             base.Dispose();
         }
         #endregion

@@ -2,23 +2,23 @@
 
 namespace CRUD.EntityFramework
 {
-    public class StudentModelDbContextFactory
+    public class ClassManagementSystemDbContextFactory
     {
         #region Fields
         private readonly DbContextOptions _options;
         #endregion
 
         #region Constructor
-        public StudentModelDbContextFactory(DbContextOptions options)
+        public ClassManagementSystemDbContextFactory(DbContextOptions options)
         {
             _options = options;
         }
         #endregion
 
         #region Helper methods
-        public StudentModelDbContext Create()
+        public ClassManagementSystemDbContext Create()
         {
-            return new StudentModelDbContext(_options);
+            return new ClassManagementSystemDbContext(_options);
         }
         #endregion
     }

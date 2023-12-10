@@ -3,14 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CRUD.EntityFramework
 {
-    public class StudentModelDbContext : DbContext
+    public class ClassManagementSystemDbContext : DbContext
     {
         #region Properties
         public DbSet<StudentModelDto> StudentModel { get; set; }
+        public DbSet<AccountModelDto> AccountModel { get; set; }
         #endregion
 
         #region Constructor
-        public StudentModelDbContext(DbContextOptions options) : base(options)
+        public ClassManagementSystemDbContext(DbContextOptions options) : base(options)
         {
         }
         #endregion

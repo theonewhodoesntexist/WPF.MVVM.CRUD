@@ -25,9 +25,12 @@ namespace CRUD.WPF.Commands.Records
         public override async Task ExecuteAsync(object? parameter)
         {
             StudentModel studentModel = _recordsListingItemViewModel.StudentModel;
+
+            studentModel.IsOutstanding = !studentModel.IsOutstanding;
+
             try
             {
-                await _studentModelStore.Outstanding(studentModel);
+                await _studentModelStore.Update(studentModel);
             }
             catch (Exception)
             {

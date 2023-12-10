@@ -1,6 +1,6 @@
 ﻿namespace CRUD.Domain.Models
 {
-    public class StudentModel
+    public class StudentModel : IModel
     {
         #region Properties
         public Guid Id { get; }

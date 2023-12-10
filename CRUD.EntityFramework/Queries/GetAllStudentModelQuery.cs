@@ -5,23 +5,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CRUD.EntityFramework.Queries
 {
-    public class GetAllStudentModelQuery : IGetAllStudentModelQuery
+    public class GetAllStudentModelQuery : IGetAllQuery<StudentModel>
     {
         #region Fields
-        private readonly StudentModelDbContextFactory _studentModelDbContextFactory;
+        private readonly ClassManagementSystemDbContextFactory _classManagementSystemDbContextFactory;
         #endregion
 
         #region Constructor
-        public GetAllStudentModelQuery(StudentModelDbContextFactory studentModelDbContextFactory)
+        public GetAllStudentModelQuery(ClassManagementSystemDbContextFactory classManagementSystemDbContextFactory)
         {
-            _studentModelDbContextFactory = studentModelDbContextFactory;
+            _classManagementSystemDbContextFactory = classManagementSystemDbContextFactory;
         }
         #endregion
 
         #region IGetAllStudentModelQuery
         public async Task<IEnumerable<StudentModel>> Execute()
         {
-            using (StudentModelDbContext context = _studentModelDbContextFactory.Create())
+            using (ClassManagementSystemDbContext context = _classManagementSystemDbContextFactory.Create())
             {
                 IEnumerable<StudentModelDto> studentModelDtos = await context.StudentModel.ToListAsync();
 

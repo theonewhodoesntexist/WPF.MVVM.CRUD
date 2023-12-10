@@ -1,4 +1,4 @@
-﻿using CRUD.WPF.Stores.Dashboard;
+﻿using CRUD.WPF.Stores.Records;
 
 namespace CRUD.WPF.ViewModels.Dashboard
 {
@@ -14,14 +14,14 @@ namespace CRUD.WPF.ViewModels.Dashboard
         #endregion
 
         #region Constructor
-        public DashboardViewModel(DashboardStudentsStores dashboardStudentsStores)
+        public DashboardViewModel(StudentModelStore studentModelStore)
         {
-            TotalStudentsViewModel = new TotalStudentsViewModel(dashboardStudentsStores);
-            MaleStudentsViewModel = new MaleStudentsViewModel(dashboardStudentsStores);
-            FemaleStudentsViewModel = new FemaleStudentsViewModel(dashboardStudentsStores);
-            OldestStudentViewModel = new OldestStudentViewModel(dashboardStudentsStores);
-            YoungestStudentViewModel = new YoungestStudentViewModel(dashboardStudentsStores);
-            OutstandingStudentsViewModel = new OutstandingStudentsViewModel();
+            TotalStudentsViewModel = new TotalStudentsViewModel(studentModelStore);
+            MaleStudentsViewModel = new MaleStudentsViewModel(studentModelStore);
+            FemaleStudentsViewModel = new FemaleStudentsViewModel(studentModelStore);
+            OldestStudentViewModel = new OldestStudentViewModel(studentModelStore);
+            YoungestStudentViewModel = new YoungestStudentViewModel(studentModelStore);
+            OutstandingStudentsViewModel = new OutstandingStudentsViewModel(studentModelStore);
         }
         #endregion
 
@@ -33,6 +33,7 @@ namespace CRUD.WPF.ViewModels.Dashboard
             FemaleStudentsViewModel.Dispose();
             OldestStudentViewModel.Dispose();
             YoungestStudentViewModel.Dispose();
+            OutstandingStudentsViewModel.Dispose();
 
             base.Dispose();
         }

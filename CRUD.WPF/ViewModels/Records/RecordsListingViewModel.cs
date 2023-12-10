@@ -1,23 +1,23 @@
 ﻿using CRUD.Domain.Models;
+using CRUD.WPF.Commands.Records;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores.Accounts;
-using CRUD.WPF.Stores.Dashboard;
 using CRUD.WPF.Stores.Records;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Records
 {
     public class RecordsListingViewModel : ViewModelBase
     {
         #region Fields
-        private readonly ObservableCollection<RecordsListingItemViewModel> _recordsListingItemViewModel = RecordsStorage.RecordsCollection;
+        private readonly ObservableCollection<RecordsListingItemViewModel> _recordsListingItemViewModel;
         private readonly SelectedStudentModelStore _selectedStudentModelStore;
         private readonly StudentModelStore _studentModelStore;
         private readonly NavigationManager _navigationManager;
-        private readonly DashboardStudentsStores _dashboardStudentsStores;
         private readonly AccountStore _accountStore;
         #endregion
 
@@ -39,6 +39,8 @@ namespace CRUD.WPF.ViewModels.Records
                 _selectedStudentModelStore.SelectedStudentModel = _selectedRecordsListingItemViewModel?.StudentModel;
             }
         }
+
+        public ICommand LoadRecordsCommand { get; }
         #endregion
 
         #region Constructor
@@ -46,39 +48,37 @@ namespace CRUD.WPF.ViewModels.Records
             SelectedStudentModelStore selectedStudentModelStore,
             StudentModelStore studentModelStore,
             NavigationManager navigationManager,
-            DashboardStudentsStores dashboardStudentsStores,
             AccountStore accountStore)
         {
+            _recordsListingItemViewModel = new ObservableCollection<RecordsListingItemViewModel>();
             _selectedStudentModelStore = selectedStudentModelStore;
             _studentModelStore = studentModelStore;
             _navigationManager = navigationManager;
-            _dashboardStudentsStores = dashboardStudentsStores;
             _accountStore = accountStore;
 
-            UpdateDashboard();
+            LoadRecordsCommand = new LoadRecordsCommand(_studentModelStore);
 
+            _studentModelStore.StudentModelLoaded += StudentModelStore_StudentModelLoaded;
             _studentModelStore.StudentModelCreated += StudentModelStore_StudentModelCreated;
             _studentModelStore.StudentModelUpdated += StudentModelStore_StudentModelUpdated;
             _studentModelStore.StudentModelDeleted += StudentModelStore_StudentModelDeleted;
-            _studentModelStore.StudentModelOutstanding += StudentModelStore_StudentModelOutstanding;
         }
         #endregion
 
         #region Subscribers
+        private void StudentModelStore_StudentModelLoaded()
+        {
+            _recordsListingItemViewModel.Clear();
+
+            foreach (StudentModel studentModel in _studentModelStore.StudentModel)
+            {
+                CreateStudentModel(studentModel);
+            }
+        }
+
         private void StudentModelStore_StudentModelCreated(StudentModel studentModel)
         {
-            RecordsListingItemViewModel foundStudentModel = FindStudentModel(studentModel);
-
-            if (foundStudentModel == null)
-            {
-                RecordsListingItemViewModel newStudentModel = new RecordsListingItemViewModel(
-                    studentModel,
-                    _studentModelStore,
-                    _navigationManager,
-                    _accountStore);
-                _recordsListingItemViewModel.Add(newStudentModel);
-                UpdateDashboard();
-            }
+            CreateStudentModel(studentModel);
         }
 
         private void StudentModelStore_StudentModelUpdated(StudentModel studentModel)
@@ -88,7 +88,6 @@ namespace CRUD.WPF.ViewModels.Records
             if (foundStudentModel != null)
             {
                 foundStudentModel.Update(studentModel);
-                UpdateDashboard();
             }
         }
 
@@ -99,17 +98,6 @@ namespace CRUD.WPF.ViewModels.Records
             if (foundStudentModel != null)
             {
                 _recordsListingItemViewModel.Remove(foundStudentModel);
-                UpdateDashboard();
-            }
-        }
-
-        private void StudentModelStore_StudentModelOutstanding(StudentModel studentModel)
-        {
-            RecordsListingItemViewModel foundStudentModel = FindStudentModel(studentModel);
-
-            if (foundStudentModel != null)
-            {
-                foundStudentModel.Outstanding(studentModel);
             }
         }
         #endregion
@@ -117,10 +105,10 @@ namespace CRUD.WPF.ViewModels.Records
         #region Dispose
         public override void Dispose()
         {
+            _studentModelStore.StudentModelLoaded -= StudentModelStore_StudentModelLoaded;
             _studentModelStore.StudentModelCreated -= StudentModelStore_StudentModelCreated;
             _studentModelStore.StudentModelUpdated -= StudentModelStore_StudentModelUpdated;
             _studentModelStore.StudentModelDeleted -= StudentModelStore_StudentModelDeleted;
-            _studentModelStore.StudentModelOutstanding -= StudentModelStore_StudentModelOutstanding;
             _selectedRecordsListingItemViewModel?.Dispose();
 
             base.Dispose();
@@ -128,33 +116,36 @@ namespace CRUD.WPF.ViewModels.Records
         #endregion
 
         #region Helper methods
+        public static RecordsListingViewModel LoadViewModel(
+            SelectedStudentModelStore selectedStudentModelStore,
+            StudentModelStore studentModelStore,
+            NavigationManager navigationManager,
+            AccountStore accountStore)
+        {
+            RecordsListingViewModel recordsListingViewModel = new RecordsListingViewModel(
+                selectedStudentModelStore,
+                studentModelStore,
+                navigationManager,
+                accountStore);
+
+            recordsListingViewModel.LoadRecordsCommand.Execute(null);
+
+            return recordsListingViewModel;
+        }
+
+        public void CreateStudentModel(StudentModel studentModel)
+        {
+            RecordsListingItemViewModel newRecord = new RecordsListingItemViewModel(
+                studentModel,
+                _studentModelStore,
+                _navigationManager,
+                _accountStore);
+            _recordsListingItemViewModel.Add(newRecord);
+        }
+
         public RecordsListingItemViewModel FindStudentModel(StudentModel studentModel)
         {
             return _recordsListingItemViewModel.FirstOrDefault(records => records.StudentModel.Id == studentModel.Id);
-        }
-
-        public void UpdateDashboard()
-        {
-            _dashboardStudentsStores.TotalStudents = _recordsListingItemViewModel.Count;
-
-            int maleStudentsCount = _recordsListingItemViewModel.Count(record => record.StudentModel.Sex == "Male");
-            _dashboardStudentsStores.MaleStudents = maleStudentsCount;
-
-            int femaleStudentsCount = _recordsListingItemViewModel.Count(record => record.StudentModel.Sex == "Female");
-            _dashboardStudentsStores.FemaleStudents = femaleStudentsCount;
-
-            var oldestStudent = _recordsListingItemViewModel
-                    .OrderByDescending(record => record.StudentModel.Age)
-                    .FirstOrDefault();
-            _dashboardStudentsStores.OldestStudentName = oldestStudent?.FullName?? "None";
-            _dashboardStudentsStores.OldestStudentAge = oldestStudent?.StudentModel.Age ?? 0;
-            
-
-            var youngestStudent = _recordsListingItemViewModel
-                .OrderBy(record => record.StudentModel.Age)
-                .FirstOrDefault();
-            _dashboardStudentsStores.YoungestStudentName = youngestStudent?.FullName ?? "None";
-            _dashboardStudentsStores.YoungestStudentAge = youngestStudent?.StudentModel.Age ?? 0;
         }
         #endregion
     }

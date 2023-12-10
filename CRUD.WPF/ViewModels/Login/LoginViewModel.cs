@@ -2,17 +2,14 @@
 using CRUD.WPF.Commands.Login;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores.Accounts;
+using CRUD.WPF.ViewModels.Account;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Login
 {
     public class LoginViewModel : ViewModelBase
     {
-        #region Fields
-        private readonly AccountStore _accountStore;
-        private readonly NavigationManager _navigationManager;
-        #endregion
-
         #region Properties
         private string _username;
 		public string Username
@@ -47,17 +44,16 @@ namespace CRUD.WPF.ViewModels.Login
         #region Constructor
         public LoginViewModel(
 			AccountStore accountStore, 
-			NavigationManager navigationManager)
+			NavigationManager navigationManager,
+            AccountModelStore accountModelStore)
         {
-            _accountStore = accountStore;
-            _navigationManager = navigationManager;
-
             LoginCommand = new LoginCommand(
-				_navigationManager.RecordsNavigationService(), 
-				this, 
-				_accountStore);
+                navigationManager.RecordsNavigationService(), 
+				this,
+                accountStore,
+				accountModelStore);
 			CancelCommand = new NavigateCommand(
-				_navigationManager.RecordsNavigationService());
+                navigationManager.RecordsNavigationService());
         }
         #endregion
     }

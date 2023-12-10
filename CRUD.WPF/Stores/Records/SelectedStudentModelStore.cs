@@ -53,7 +53,7 @@ namespace CRUD.WPF.Stores.Records
 
         private void StudentModelStore_StudentModelDeleted(Guid id)
         {
-            if (SelectedStudentModel.Id == id)
+            if (SelectedStudentModel?.Id == id)
             {
                 SelectedStudentModel = null;
             }

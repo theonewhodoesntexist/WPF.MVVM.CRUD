@@ -18,6 +18,10 @@
     Title="MainWindow"
     Width="1000"
     Height="600"
+    MinWidth="1000"
+    MinHeight="600"
+    MaxWidth="1000"
+    MaxHeight="600"
     FontSize="14"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">

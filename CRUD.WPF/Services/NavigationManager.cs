@@ -1,6 +1,5 @@
 ﻿using CRUD.WPF.Stores;
 using CRUD.WPF.Stores.Accounts;
-using CRUD.WPF.Stores.Dashboard;
 using CRUD.WPF.Stores.Records;
 using CRUD.WPF.ViewModels;
 using CRUD.WPF.ViewModels.Account;
@@ -20,7 +19,6 @@ namespace CRUD.WPF.Services
         private readonly SelectedStudentModelStore _selectedStudentModelStore;
         private readonly StudentModelStore _studentModelStore;
         private readonly AccountModelStore _accountModelStore;
-        private readonly DashboardStudentsStores _dashboardStudentsStores;
         #endregion
 
         #region Constructor
@@ -30,8 +28,7 @@ namespace CRUD.WPF.Services
             ModalNavigationStore modalNavigationStore,
             SelectedStudentModelStore selectedStudentModelStore,
             StudentModelStore studentModelStore,
-            AccountModelStore accountModelStore,
-            DashboardStudentsStores dashboardStudentsStores)
+            AccountModelStore accountModelStore)
         {
             _navigationStore = navigationStore;
             _accountStore = accountStore;
@@ -39,7 +36,6 @@ namespace CRUD.WPF.Services
             _selectedStudentModelStore = selectedStudentModelStore;
             _studentModelStore = studentModelStore;
             _accountModelStore = accountModelStore;
-            _dashboardStudentsStores = dashboardStudentsStores;
         }
         #endregion
 
@@ -75,7 +71,7 @@ namespace CRUD.WPF.Services
 
         public INavigationService DashboardNavigationService()
         {
-            return CreateLayoutNavigationService(() => new DashboardViewModel(_dashboardStudentsStores));
+            return CreateLayoutNavigationService(() => new DashboardViewModel(_studentModelStore));
         }
 
         public INavigationService RecordsNavigationService()
@@ -85,8 +81,7 @@ namespace CRUD.WPF.Services
                     _accountStore,
                     _selectedStudentModelStore,
                     _studentModelStore,
-                    this,
-                    _dashboardStudentsStores));
+                    this));
         }
 
         public INavigationService AccountNavigationService()
@@ -103,7 +98,8 @@ namespace CRUD.WPF.Services
             return CreateNavigationService(
                 () => new LoginViewModel(
                     _accountStore, 
-                    this));
+                    this,
+                    _accountModelStore));
         }
         #endregion
     }

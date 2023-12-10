@@ -3,6 +3,8 @@ using CRUD.WPF.Services;
 using CRUD.WPF.Stores.Accounts;
 using CRUD.WPF.ViewModels.Account;
 using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CRUD.WPF.Commands.Accounts
@@ -30,13 +32,12 @@ namespace CRUD.WPF.Commands.Accounts
         #region AsyncCommandBase
         public override async Task ExecuteAsync(object? parameter)
         {
-            UpdateAccountViewModel account = _updateAccountViewModel;
-
             AccountModel accountModel = new AccountModel(
-                account.Username,
-                account.Password,
-                account.FirstName,
-                account.LastName);
+                _updateAccountViewModel.AccountModel.Id, 
+                _updateAccountViewModel.Username,
+                _updateAccountViewModel.Password,
+                _updateAccountViewModel.FirstName,
+                _updateAccountViewModel.LastName);
 
             try
             {

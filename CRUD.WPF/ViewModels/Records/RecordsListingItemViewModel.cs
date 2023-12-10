@@ -67,19 +67,6 @@ namespace CRUD.WPF.ViewModels.Records
             OnPropertyChanged(nameof(FullName));
             OnPropertyChanged(nameof(FirstName));
             OnPropertyChanged(nameof(LastName));
-        }
-
-        public void Outstanding(StudentModel studentModel)
-        {
-            if (studentModel.IsOutstanding == true)
-            {
-                StudentModel.IsOutstanding = false;
-            }
-            else
-            {
-                StudentModel.IsOutstanding = true;
-            }
-
             OnPropertyChanged(nameof(IsOutstanding));
         }
         #endregion

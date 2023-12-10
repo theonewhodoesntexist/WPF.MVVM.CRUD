@@ -2,25 +2,25 @@
 using CRUD.Domain.Models;
 using CRUD.EntityFramework.DTOs;
 
-namespace CRUD.EntityFramework.Commands
+namespace CRUD.EntityFramework.Commands.StudentModelCommands
 {
-    public class UpdateStudentModelCommand : IUpdateStudentModelCommand
+    public class UpdateStudentModelCommand : IUpdateCommand<StudentModel>
     {
         #region Fields
-        private readonly StudentModelDbContextFactory _studentModelDbContextFactory;
+        private readonly ClassManagementSystemDbContextFactory _classManagementSystemDbContextFactory;
         #endregion
 
         #region Constructor
-        public UpdateStudentModelCommand(StudentModelDbContextFactory studentModelDbContextFactory)
+        public UpdateStudentModelCommand(ClassManagementSystemDbContextFactory classManagementSystemDbContextFactory)
         {
-            _studentModelDbContextFactory = studentModelDbContextFactory;
+            _classManagementSystemDbContextFactory = classManagementSystemDbContextFactory;
         }
         #endregion
 
         #region IUpdateStudentModelCommand
         public async Task Execute(StudentModel studentModel)
         {
-            using (StudentModelDbContext context = _studentModelDbContextFactory.Create())
+            using (ClassManagementSystemDbContext context = _classManagementSystemDbContextFactory.Create())
             {
                 StudentModelDto studentModelDto = new StudentModelDto()
                 {

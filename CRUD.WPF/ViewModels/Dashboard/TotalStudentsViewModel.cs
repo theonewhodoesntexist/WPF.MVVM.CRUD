@@ -1,28 +1,49 @@
-﻿using CRUD.WPF.Stores.Dashboard;
+﻿using CRUD.Domain.Models;
+using CRUD.WPF.Stores.Records;
+using System;
+using System.Linq;
 
 namespace CRUD.WPF.ViewModels.Dashboard
 {
     public class TotalStudentsViewModel : ViewModelBase
     {
         #region Fields
-        private readonly DashboardStudentsStores _dashboardStudentsStores;
+        private readonly StudentModelStore _studentModelStore;
         #endregion
 
         #region Properties
-        public int TotalStudents => _dashboardStudentsStores.TotalStudents;
+        public int TotalStudents => _studentModelStore.StudentModel.Count();
         #endregion
 
         #region Constructor
-        public TotalStudentsViewModel(DashboardStudentsStores dashboardStudentsStores)
+        public TotalStudentsViewModel(StudentModelStore studentModelStore)
         {
-            _dashboardStudentsStores = dashboardStudentsStores;
+            _studentModelStore = studentModelStore;
 
-            _dashboardStudentsStores.TotalStudentsChanged += DashboardStudentsStores_TotalStudentsChanged;
+            _studentModelStore.StudentModelLoaded += StudentModelStore_StudentModelLoaded;
+            _studentModelStore.StudentModelCreated += StudentModelStore_StudentModelCreated;
+            _studentModelStore.StudentModelUpdated += StudentModelStore_StudentModelUpdated;
+            _studentModelStore.StudentModelDeleted += StudentModelStore_StudentModelDeleted;
         }
         #endregion
 
         #region Subscribers
-        private void DashboardStudentsStores_TotalStudentsChanged()
+        private void StudentModelStore_StudentModelLoaded()
+        {
+            OnPropertyChanged(nameof(TotalStudents));
+        }
+
+        private void StudentModelStore_StudentModelCreated(StudentModel obj)
+        {
+            OnPropertyChanged(nameof(TotalStudents));
+        }
+
+        private void StudentModelStore_StudentModelUpdated(StudentModel obj)
+        {
+            OnPropertyChanged(nameof(TotalStudents));
+        }
+
+        private void StudentModelStore_StudentModelDeleted(Guid obj)
         {
             OnPropertyChanged(nameof(TotalStudents));
         }
@@ -31,7 +52,10 @@ namespace CRUD.WPF.ViewModels.Dashboard
         #region Dispose
         public override void Dispose()
         {
-            _dashboardStudentsStores.TotalStudentsChanged -= DashboardStudentsStores_TotalStudentsChanged;
+            _studentModelStore.StudentModelLoaded -= StudentModelStore_StudentModelLoaded;
+            _studentModelStore.StudentModelCreated -= StudentModelStore_StudentModelCreated;
+            _studentModelStore.StudentModelUpdated -= StudentModelStore_StudentModelUpdated;
+            _studentModelStore.StudentModelDeleted -= StudentModelStore_StudentModelDeleted;
 
             base.Dispose();
         }

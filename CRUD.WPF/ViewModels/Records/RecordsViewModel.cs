@@ -1,7 +1,6 @@
 ﻿using CRUD.WPF.Commands;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores.Accounts;
-using CRUD.WPF.Stores.Dashboard;
 using CRUD.WPF.Stores.Records;
 using System.Windows.Input;
 
@@ -14,7 +13,6 @@ namespace CRUD.WPF.ViewModels.Records
         private readonly SelectedStudentModelStore _selectedStudentModelStore;
         private readonly StudentModelStore _studentModelStore;
         private readonly NavigationManager _navigationManager;
-        private readonly DashboardStudentsStores _dashboardStudentsStores;
         #endregion
 
         #region Properties
@@ -29,20 +27,17 @@ namespace CRUD.WPF.ViewModels.Records
             AccountStore accountStore, 
             SelectedStudentModelStore selectedStudentModelStore,
             StudentModelStore studentModelStore,
-            NavigationManager navigationManager,
-            DashboardStudentsStores dashboardStudentsStores)
+            NavigationManager navigationManager)
         {
             _accountStore = accountStore;
             _selectedStudentModelStore = selectedStudentModelStore;
             _studentModelStore = studentModelStore;
             _navigationManager = navigationManager;
-            _dashboardStudentsStores = dashboardStudentsStores;
 
-            RecordsListingViewModel = new RecordsListingViewModel(
+            RecordsListingViewModel = RecordsListingViewModel.LoadViewModel(
                 _selectedStudentModelStore, 
                 _studentModelStore, 
                 _navigationManager,
-                _dashboardStudentsStores,
                 _accountStore);
             RecordsDetailsViewModel = new RecordsDetailsViewModel(_selectedStudentModelStore);
             CreateCommand = new NavigateCommand(

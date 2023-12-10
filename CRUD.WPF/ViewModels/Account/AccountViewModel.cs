@@ -1,7 +1,9 @@
-﻿using CRUD.WPF.Commands;
-using CRUD.Domain.Models;
+﻿using CRUD.Domain.Models;
+using CRUD.WPF.Commands;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores.Accounts;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Account
@@ -37,36 +39,29 @@ namespace CRUD.WPF.ViewModels.Account
                         _accountModelStore,
                         this)
                     {
-                        Username = AccountModel.Username,
-                        FirstName = AccountModel.FirstName,
-                        LastName = AccountModel.LastName,
-                        Password = AccountModel.Password
+                        Username = AccountModel?.Username,
+                        FirstName = AccountModel?.FirstName,
+                        LastName = AccountModel?.LastName,
+                        Password = AccountModel?.Password
                     }));
 
-            _accountStore.CurrentAccountChanged += AccountStore_CurrentAccountChanged;
             _accountModelStore.AccountModelUpdated += AccountModelStore_AccountModelUpdated;
-        }
-        #endregion
-
-        #region Subscribers
-        private void AccountStore_CurrentAccountChanged()
-        {
-            OnPropertyChanged(nameof(Username));
-            OnPropertyChanged(nameof(FullName));
-            OnPropertyChanged(nameof(FirstName));
-            OnPropertyChanged(nameof(LastName));
         }
 
         private void AccountModelStore_AccountModelUpdated(AccountModel accountModel)
         {
             _accountStore.CurrentAccount = accountModel;
+
+            OnPropertyChanged(nameof(Username));
+            OnPropertyChanged(nameof(FullName));
+            OnPropertyChanged(nameof(FirstName));
+            OnPropertyChanged(nameof(LastName));
         }
         #endregion
 
         #region Dispose
         public override void Dispose()
         {
-            _accountStore.CurrentAccountChanged -= AccountStore_CurrentAccountChanged;
             _accountModelStore.AccountModelUpdated -= AccountModelStore_AccountModelUpdated;
 
             base.Dispose();

@@ -1,26 +1,25 @@
 ﻿using CRUD.Domain.Commands;
-using CRUD.Domain.Models;
 using CRUD.EntityFramework.DTOs;
 
-namespace CRUD.EntityFramework.Commands
+namespace CRUD.EntityFramework.Commands.StudentModelCommands
 {
-    public class DeleteStudentModelCommand : IDeleteStudentModelCommand
+    public class DeleteStudentModelCommand : IDeleteCommand<Guid>
     {
         #region Fields
-        private readonly StudentModelDbContextFactory _studentModelDbContextFactory;
+        private readonly ClassManagementSystemDbContextFactory _classManagementSystemDbContextFactory;
         #endregion
 
         #region Constructor
-        public DeleteStudentModelCommand(StudentModelDbContextFactory studentModelDbContextFactory)
+        public DeleteStudentModelCommand(ClassManagementSystemDbContextFactory classManagementSystemDbContextFactory)
         {
-            _studentModelDbContextFactory = studentModelDbContextFactory;
+            _classManagementSystemDbContextFactory = classManagementSystemDbContextFactory;
         }
         #endregion
 
         #region IDeleteStudentModelCommand
         public async Task Execute(Guid id)
         {
-            using (StudentModelDbContext context = _studentModelDbContextFactory.Create())
+            using (ClassManagementSystemDbContext context = _classManagementSystemDbContextFactory.Create())
             {
                 StudentModelDto studentModelDto = new StudentModelDto()
                 {

@@ -17,12 +17,8 @@ namespace CRUD.WPF.ViewModels.Records
         {
             get
             {
-                int? age = SelectedStudentModel?.Age;
-                if (age.HasValue && age.Value == 0)
-                {
-                    return "None";
-                }
-                return age.HasValue ? age.ToString() : "None";
+                int? age = SelectedStudentModel?.Age ?? 0;
+                return age.Value > 0 ? $"{age} years old" : "None";
             }
         }
         public string Sex => SelectedStudentModel?.Sex ?? "None";
