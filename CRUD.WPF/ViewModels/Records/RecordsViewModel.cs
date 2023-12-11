@@ -36,6 +36,24 @@ namespace CRUD.WPF.ViewModels.Records
                 OnPropertyChanged(nameof(IsLoading));
             }
         }
+
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get
+            {
+                return _errorMessage;
+            }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+                OnPropertyChanged(nameof(HasErrorMessage));
+            }
+        }
+
+        public bool HasErrorMessage => !string.IsNullOrEmpty(ErrorMessage);
+        public ICommand ErrorCommand { get; }
         #endregion
 
         #region Constructor
@@ -63,6 +81,7 @@ namespace CRUD.WPF.ViewModels.Records
                         _navigationManager)));
 
             LoadRecordsCommand = new LoadRecordsCommand(_studentModelStore, this);
+            ErrorCommand = new LoadRecordsCommand(_studentModelStore, this);
 
             _accountStore.CurrentAccountChanged += AccountStore_CurrentAccountChanged;
         }

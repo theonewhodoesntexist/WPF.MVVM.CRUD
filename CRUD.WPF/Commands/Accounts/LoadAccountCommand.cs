@@ -1,5 +1,5 @@
 ﻿using CRUD.WPF.Stores.Accounts;
-using CRUD.WPF.ViewModels;
+using CRUD.WPF.ViewModels.Login;
 using System;
 using System.Threading.Tasks;
 
@@ -9,21 +9,22 @@ namespace CRUD.WPF.Commands.Accounts
     {
         #region Fields
         private readonly AccountModelStore _accountModelStore;
-        private readonly MainViewModel _mainViewModel;
+        private readonly LoginViewModel _loginViewModel;
         #endregion
 
         #region Constructor
-        public LoadAccountCommand(AccountModelStore accountModelStore, MainViewModel mainViewModel)
+        public LoadAccountCommand(AccountModelStore accountModelStore, LoginViewModel loginViewModel)
         {
             _accountModelStore = accountModelStore;
-            _mainViewModel = mainViewModel;
+            _loginViewModel = loginViewModel;
         }
         #endregion
 
         #region AsyncCommandBase
         public async override Task ExecuteAsync(object? parameter)
         {
-            _mainViewModel.IsLoading = true;
+            _loginViewModel.ErrorMessage = null;
+            _loginViewModel.IsLoading = true;
 
             try
             {
@@ -31,11 +32,11 @@ namespace CRUD.WPF.Commands.Accounts
             }
             catch (Exception)
             {
-                throw;
+                _loginViewModel.ErrorMessage = "Failed to fetch Account!";
             }
             finally 
-            { 
-                _mainViewModel.IsLoading = false;
+            {
+                _loginViewModel.IsLoading = false;
             }
         }
         #endregion

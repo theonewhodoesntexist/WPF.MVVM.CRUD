@@ -40,6 +40,23 @@ namespace CRUD.WPF.ViewModels.Records
                 OnPropertyChanged(nameof(HasClicked));
             }
         }
+
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get
+            {
+                return _errorMessage;
+            }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+                OnPropertyChanged(nameof(HasErrorMessage));
+            }
+        }
+
+        public bool HasErrorMessage => !string.IsNullOrEmpty(ErrorMessage);
         #endregion
 
         #region Constructor

@@ -96,7 +96,7 @@ namespace CRUD.WPF.Services
         public INavigationService LoginNavigationService()
         {
             return CreateNavigationService(
-                () => new LoginViewModel(
+                () => LoginViewModel.LoadViewModel(
                     _accountStore, 
                     this,
                     _accountModelStore));

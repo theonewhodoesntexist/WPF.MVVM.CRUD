@@ -9,117 +9,160 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Grid HorizontalAlignment="Center">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
+    <Grid>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding HasErrorMessage}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
 
-        <TextBlock
-            Grid.Row="0"
-            HorizontalAlignment="Center"
-            Style="{StaticResource PageHeader}"
-            Text="UPDATE ACCOUNT DETAILS" />
-
-        <Grid
-            Grid.Row="1"
-            Margin="0,20,0,0"
-            HorizontalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
-            <Grid
+            <TextBlock
+                Grid.Row="0"
+                Style="{StaticResource ErrorMessage}"
+                Text="{Binding ErrorMessage}" />
+
+            <Button
+                Grid.Row="1"
+                Margin="0,10,0,0"
+                Command="{Binding ErrorCommand}"
+                Content="Try Again"
+                Style="{StaticResource ButtonWarning}" />
+        </Grid>
+
+        <Grid HorizontalAlignment="Center">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding HasErrorMessage}" Value="False">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
                 Grid.Row="0"
                 HorizontalAlignment="Center"
-                Grid.IsSharedSizeScope="True">
+                Style="{StaticResource PageHeader}"
+                Text="UPDATE ACCOUNT DETAILS" />
+
+            <Grid
+                Grid.Row="1"
+                Margin="0,20,0,0"
+                HorizontalAlignment="Center">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Margin="0,0,0,20">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
+                <Grid
+                    Grid.Row="0"
+                    HorizontalAlignment="Center"
+                    Grid.IsSharedSizeScope="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
 
-                    <TextBlock
-                        Grid.Column="0"
-                        Margin="0,0,20,0"
-                        Text="Username:" />
-                    <TextBox
-                        Grid.Column="1"
-                        Width="150"
-                        Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+                    <Grid Grid.Row="0" Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="0,0,20,0"
+                            Text="Username:" />
+                        <TextBox
+                            Grid.Column="1"
+                            Width="150"
+                            Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+
+                    <Grid Grid.Row="1" Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="0,0,20,0"
+                            Text="First Name:" />
+                        <TextBox
+                            Grid.Column="1"
+                            Width="150"
+                            Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+
+                    <Grid Grid.Row="2" Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="0,0,20,0"
+                            Text="Last Name:" />
+                        <TextBox
+                            Grid.Column="1"
+                            Width="150"
+                            Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+
+                    <Grid Grid.Row="3" Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="0,0,20,0"
+                            Text="Password:" />
+                        <TextBox
+                            Grid.Column="1"
+                            Width="150"
+                            Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
                 </Grid>
 
-                <Grid Grid.Row="1" Margin="0,0,0,20">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock
-                        Grid.Column="0"
-                        Margin="0,0,20,0"
-                        Text="First Name:" />
-                    <TextBox
-                        Grid.Column="1"
+                <WrapPanel Grid.Row="1" Margin="0,20,0,0">
+                    <loadingspinnercontrol:LoadingSpinner Diameter="25" IsLoading="{Binding IsSubmitting}" />
+                    <Button
+                        Margin="5,0,0,0"
+                        Command="{Binding UpdateCommand}"
+                        Content="Update"
+                        IsEnabled="{Binding CanUpdate}" />
+                    <Button
                         Width="150"
-                        Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" />
-                </Grid>
-
-                <Grid Grid.Row="2" Margin="0,0,0,20">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock
-                        Grid.Column="0"
-                        Margin="0,0,20,0"
-                        Text="Last Name:" />
-                    <TextBox
-                        Grid.Column="1"
-                        Width="150"
-                        Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
-                </Grid>
-
-                <Grid Grid.Row="3" Margin="0,0,0,20">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" SharedSizeGroup="Label" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock
-                        Grid.Column="0"
-                        Margin="0,0,20,0"
-                        Text="Password:" />
-                    <TextBox
-                        Grid.Column="1"
-                        Width="150"
-                        Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
-                </Grid>
+                        Margin="10,0,0,0"
+                        Command="{Binding CloseCommand}"
+                        Content="Close"
+                        Style="{StaticResource ButtonSecondary}" />
+                </WrapPanel>
             </Grid>
-
-            <WrapPanel Grid.Row="1" Margin="0,20,0,0">
-                <loadingspinnercontrol:LoadingSpinner Diameter="25" IsLoading="{Binding IsSubmitting}" />
-                <Button
-                    Margin="5,0,0,0"
-                    Command="{Binding UpdateCommand}"
-                    Content="Update"
-                    IsEnabled="{Binding CanUpdate}" />
-                <Button
-                    Width="150"
-                    Margin="10,0,0,0"
-                    Command="{Binding CloseCommand}"
-                    Content="Close"
-                    Style="{StaticResource ButtonSecondary}" />
-            </WrapPanel>
         </Grid>
     </Grid>
 </UserControl>

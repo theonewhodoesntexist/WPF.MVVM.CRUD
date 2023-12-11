@@ -32,6 +32,7 @@ namespace CRUD.WPF.Commands.Accounts
         #region AsyncCommandBase
         public override async Task ExecuteAsync(object? parameter)
         {
+            _updateAccountViewModel.ErrorMessage = null;
             _updateAccountViewModel.IsSubmitting = true;
 
             AccountModel accountModel = new AccountModel(
@@ -49,7 +50,7 @@ namespace CRUD.WPF.Commands.Accounts
             }
             catch (Exception)
             {
-                throw;
+                _updateAccountViewModel.ErrorMessage = "Failed to update Account!";
             }
             finally
             {

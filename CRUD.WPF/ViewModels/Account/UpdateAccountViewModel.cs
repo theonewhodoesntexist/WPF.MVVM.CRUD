@@ -103,6 +103,24 @@ namespace CRUD.WPF.ViewModels.Account
             !string.IsNullOrEmpty(Password);
         public ICommand UpdateCommand { get; }
         public ICommand CloseCommand { get; }
+
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get
+            {
+                return _errorMessage;
+            }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+                OnPropertyChanged(nameof(HasErrorMessage));
+            }
+        }
+
+        public bool HasErrorMessage => !string.IsNullOrEmpty(ErrorMessage);
+        public ICommand ErrorCommand { get; }
         #endregion
 
         #region Constructor
@@ -120,6 +138,7 @@ namespace CRUD.WPF.ViewModels.Account
 				_navigationManager.CreateCloseModalNavigationService(),
 				this);
             CloseCommand = new NavigateCommand(_navigationManager.CreateCloseModalNavigationService());
+            ErrorCommand = CloseCommand;
         }
         #endregion
     }

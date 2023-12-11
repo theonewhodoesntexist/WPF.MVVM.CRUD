@@ -23,6 +23,7 @@ namespace CRUD.WPF.Commands.Records
         #region AsyncCommandBase
         public async override Task ExecuteAsync(object? parameter)
         {
+            _recordsViewModel.ErrorMessage = null;
             _recordsViewModel.IsLoading = true;
 
             try
@@ -31,7 +32,7 @@ namespace CRUD.WPF.Commands.Records
             }
             catch (Exception)
             {
-                throw;
+                _recordsViewModel.ErrorMessage = "Failed to load Records!";
             }
             finally
             {

@@ -12,6 +12,13 @@
             </Style>
             <!--#endregion-->
 
+            <!--#region Error Message-->
+            <Style x:Key="ErrorMessage" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="Red" />
+                <Setter Property="FontSize" Value="18" />
+            </Style>
+            <!--#endregion-->
+
             <!--#region Custom style for all buttons-->
             <Style TargetType="Button">
                 <Setter Property="Foreground" Value="White" />
@@ -125,6 +132,64 @@
                                     <ColorAnimation
                                         Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
                                         To="#E1E1E1"
+                                        Duration="0:0:0.1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.ExitActions>
+                        <!--#endregion-->
+                    </Trigger>
+                </Style.Triggers>
+                <!--#endregion-->
+            </Style>
+            <!--#endregion-->
+
+            <!--#region Custom style for error button-->
+            <Style
+                x:Key="ButtonWarning"
+                BasedOn="{StaticResource {x:Type Button}}"
+                TargetType="Button">
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="Background" Value="#d64058" />
+
+                <!--#region To remove the default border of the button and the highlight on hover-->
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border
+                                Margin="{TemplateBinding Margin}"
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="3">
+                                <ContentPresenter />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <!--#endregion-->
+
+                <!--#region Animate the highlight on hover of the button-->
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <!--#region Animate the highlight on hover of the button when entering-->
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation
+                                        Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                        To="#de0e30"
+                                        Duration="0:0:0.1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                        <!--#endregion-->
+
+                        <!--#region Animate the highlight on hover of the button when exiting-->
+                        <Trigger.ExitActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation
+                                        Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                        To="#d64058"
                                         Duration="0:0:0.1" />
                                 </Storyboard>
                             </BeginStoryboard>

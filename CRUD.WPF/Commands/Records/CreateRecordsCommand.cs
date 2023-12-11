@@ -32,6 +32,7 @@ namespace CRUD.WPF.Commands.Records
         {
             RecordsDetailsFormViewModel recordsDetailsFormViewModel = _createRecordsViewModel.RecordsDetailsFormViewModel;
 
+            _createRecordsViewModel.ErrorMessage = null;
             recordsDetailsFormViewModel.IsSubmitting = true;
 
             StudentModel studentModel = new StudentModel(
@@ -50,7 +51,7 @@ namespace CRUD.WPF.Commands.Records
             }
             catch (Exception)
             {
-                throw;
+                _createRecordsViewModel.ErrorMessage = "Failed to create a new record! Please try again!";
             }
             finally
             {

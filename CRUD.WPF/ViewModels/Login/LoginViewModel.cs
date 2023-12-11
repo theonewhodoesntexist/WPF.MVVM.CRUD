@@ -1,9 +1,8 @@
 ﻿using CRUD.WPF.Commands;
+using CRUD.WPF.Commands.Accounts;
 using CRUD.WPF.Commands.Login;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores.Accounts;
-using CRUD.WPF.ViewModels.Account;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Login
@@ -39,6 +38,39 @@ namespace CRUD.WPF.ViewModels.Login
 		
 		public ICommand LoginCommand { get; }
 		public ICommand CancelCommand { get; }
+        public ICommand LoadAccountCommand { get; }
+
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get
+            {
+                return _isLoading;
+            }
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged(nameof(IsLoading));
+            }
+        }
+
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get
+            {
+                return _errorMessage;
+            }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+                OnPropertyChanged(nameof(HasErrorMessage));
+            }
+        }
+
+        public bool HasErrorMessage => !string.IsNullOrEmpty(ErrorMessage);
+        public ICommand ErrorCommand { get; }
         #endregion
 
         #region Constructor
@@ -47,6 +79,7 @@ namespace CRUD.WPF.ViewModels.Login
 			NavigationManager navigationManager,
             AccountModelStore accountModelStore)
         {
+            LoadAccountCommand = new LoadAccountCommand(accountModelStore, this);
             LoginCommand = new LoginCommand(
                 navigationManager.RecordsNavigationService(), 
 				this,
@@ -54,6 +87,21 @@ namespace CRUD.WPF.ViewModels.Login
 				accountModelStore);
 			CancelCommand = new NavigateCommand(
                 navigationManager.RecordsNavigationService());
+            ErrorCommand = CancelCommand;
+        }
+        #endregion
+
+        #region Helper methods
+        public static LoginViewModel LoadViewModel(
+            AccountStore accountStore,
+            NavigationManager navigationManager,
+            AccountModelStore accountModelStor)
+        {
+            LoginViewModel loginViewModel = new LoginViewModel(accountStore, navigationManager, accountModelStor);
+
+            loginViewModel.LoadAccountCommand.Execute(null);
+
+            return loginViewModel;
         }
         #endregion
     }

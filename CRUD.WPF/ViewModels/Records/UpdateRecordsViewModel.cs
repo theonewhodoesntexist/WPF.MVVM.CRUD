@@ -16,6 +16,24 @@ namespace CRUD.WPF.ViewModels.Records
         public bool StudentModelIsOutstanding { get; }
         public bool StudentModelIsMaleChecked { get; }
         public bool StudentModelIsFemaleChecked { get; }
+
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get
+            {
+                return _errorMessage;
+            }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+                OnPropertyChanged(nameof(HasErrorMessage));
+            }
+        }
+
+        public bool HasErrorMessage => !string.IsNullOrEmpty(ErrorMessage);
+        public ICommand ErrorCommand { get; }
         #endregion
 
         #region Contructor
@@ -33,6 +51,7 @@ namespace CRUD.WPF.ViewModels.Records
                 navigationManager.CreateCloseModalNavigationService(),
                 this);
             ICommand closeCommand = new CloseModalCommand(navigationManager.CreateCloseModalNavigationService());
+            ErrorCommand = closeCommand;
 
             if (studentModel.Sex == "Male")
             {

@@ -77,7 +77,7 @@ namespace CRUD.WPF
                 _updateAccountModelCommand);
             _navigationManager = new NavigationManager(
                 _navigationStore,
-                _accountStore, 
+                _accountStore,
                 _modalNavigationStore,
                 _selectedStudentModelStore,
                 _studentModelStore,
@@ -88,7 +88,7 @@ namespace CRUD.WPF
         #region Startup configurations
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            using(ClassManagementSystemDbContext context = _classManagementSystemDbContextFactory.Create())
+            using (ClassManagementSystemDbContext context = _classManagementSystemDbContextFactory.Create())
             {
                 context.Database.Migrate();
             }
@@ -96,10 +96,9 @@ namespace CRUD.WPF
             INavigationService recordsNavigationService = _navigationManager.RecordsNavigationService();
             recordsNavigationService.Navigate();
 
-            MainViewModel mainViewModel = MainViewModel.LoadViewModel(_navigationStore, _modalNavigationStore, _accountModelStore);
             MainWindow = new MainWindow()
             {
-                DataContext = mainViewModel
+                DataContext = new MainViewModel(_navigationStore, _modalNavigationStore)
             };
             MainWindow.Show();
         }

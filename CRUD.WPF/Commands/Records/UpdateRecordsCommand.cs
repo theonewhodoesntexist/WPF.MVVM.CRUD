@@ -32,6 +32,7 @@ namespace CRUD.WPF.Commands.Records
         {
             RecordsDetailsFormViewModel recordsDetailsFormViewModel = _updateRecordsViewModel.RecordsDetailsFormViewModel;
 
+            _updateRecordsViewModel.ErrorMessage = null;
             recordsDetailsFormViewModel.IsSubmitting = true;
 
             StudentModel studentModel = new StudentModel(
@@ -50,7 +51,7 @@ namespace CRUD.WPF.Commands.Records
             }
             catch (Exception)
             {
-                throw;
+                _updateRecordsViewModel.ErrorMessage = "Failed to update a record! Please try again!";
             }
             finally
             {
