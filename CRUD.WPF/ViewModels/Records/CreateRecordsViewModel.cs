@@ -19,9 +19,9 @@ namespace CRUD.WPF.ViewModels.Records
                 studentModelStore,
                 navigationManager.CreateCloseModalNavigationService(), 
                 this);
-            ICommand cancelCommand = new CloseModalCommand(navigationManager.CreateCloseModalNavigationService());
+            ICommand closeCommand = new CloseModalCommand(navigationManager.CreateCloseModalNavigationService());
 
-            RecordsDetailsFormViewModel = new RecordsDetailsFormViewModel(submitCommand, cancelCommand);
+            RecordsDetailsFormViewModel = new RecordsDetailsFormViewModel(submitCommand, closeCommand);
         }
         #endregion
     }

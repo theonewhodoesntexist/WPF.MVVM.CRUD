@@ -32,6 +32,8 @@ namespace CRUD.WPF.Commands.Records
         {
             RecordsDetailsFormViewModel recordsDetailsFormViewModel = _updateRecordsViewModel.RecordsDetailsFormViewModel;
 
+            recordsDetailsFormViewModel.IsSubmitting = true;
+
             StudentModel studentModel = new StudentModel(
                 _updateRecordsViewModel.StudentModelId,
                 recordsDetailsFormViewModel.FirstName,
@@ -49,6 +51,10 @@ namespace CRUD.WPF.Commands.Records
             catch (Exception)
             {
                 throw;
+            }
+            finally
+            {
+                recordsDetailsFormViewModel.IsSubmitting = false;
             }
         }
         #endregion

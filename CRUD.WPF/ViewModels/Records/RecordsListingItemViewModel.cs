@@ -26,6 +26,20 @@ namespace CRUD.WPF.ViewModels.Records
         public ICommand UpdateCommand { get; }
         public ICommand DeleteCommand { get; }
         public bool IsLoggedIn => _accountStore.IsLoggedIn;
+
+        private bool _hasClicked;
+        public bool HasClicked
+        {
+            get
+            {
+                return _hasClicked;
+            }
+            set
+            {
+                _hasClicked = value;
+                OnPropertyChanged(nameof(HasClicked));
+            }
+        }
         #endregion
 
         #region Constructor

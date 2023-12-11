@@ -77,13 +77,32 @@ namespace CRUD.WPF.ViewModels.Account
 				OnPropertyChanged(nameof(CanUpdate));
 			}
 		}
-		public bool CanUpdate => 
-			AccountModel.Username != Username ||
+
+        private bool _isSubmitting;
+        public bool IsSubmitting
+        {
+            get
+            {
+                return _isSubmitting;
+            }
+            set
+            {
+                _isSubmitting = value;
+                OnPropertyChanged(nameof(IsSubmitting));
+            }
+        }
+
+        public bool CanUpdate => 
+			(AccountModel.Username != Username ||
 			AccountModel.FirstName != FirstName || 
 			AccountModel.LastName != LastName ||
-			AccountModel.Password != Password;
+			AccountModel.Password != Password) &&
+            !string.IsNullOrEmpty(Username) &&
+            !string.IsNullOrEmpty(FirstName) &&
+            !string.IsNullOrEmpty(LastName) &&
+            !string.IsNullOrEmpty(Password);
         public ICommand UpdateCommand { get; }
-        public ICommand CancelCommand { get; }
+        public ICommand CloseCommand { get; }
         #endregion
 
         #region Constructor
@@ -100,7 +119,7 @@ namespace CRUD.WPF.ViewModels.Account
 				_accountModelStore,
 				_navigationManager.CreateCloseModalNavigationService(),
 				this);
-			CancelCommand = new NavigateCommand(_navigationManager.CreateCloseModalNavigationService());
+            CloseCommand = new NavigateCommand(_navigationManager.CreateCloseModalNavigationService());
         }
         #endregion
     }

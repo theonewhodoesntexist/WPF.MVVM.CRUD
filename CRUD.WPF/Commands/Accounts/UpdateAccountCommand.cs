@@ -32,6 +32,8 @@ namespace CRUD.WPF.Commands.Accounts
         #region AsyncCommandBase
         public override async Task ExecuteAsync(object? parameter)
         {
+            _updateAccountViewModel.IsSubmitting = true;
+
             AccountModel accountModel = new AccountModel(
                 _updateAccountViewModel.AccountModel.Id, 
                 _updateAccountViewModel.Username,
@@ -48,6 +50,10 @@ namespace CRUD.WPF.Commands.Accounts
             catch (Exception)
             {
                 throw;
+            }
+            finally
+            {
+                _updateAccountViewModel.IsSubmitting = false;
             }
         }
         #endregion

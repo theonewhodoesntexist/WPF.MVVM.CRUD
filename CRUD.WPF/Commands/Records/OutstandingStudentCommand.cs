@@ -26,6 +26,8 @@ namespace CRUD.WPF.Commands.Records
         {
             StudentModel studentModel = _recordsListingItemViewModel.StudentModel;
 
+            _recordsListingItemViewModel.HasClicked = true;
+
             studentModel.IsOutstanding = !studentModel.IsOutstanding;
 
             try
@@ -35,6 +37,10 @@ namespace CRUD.WPF.Commands.Records
             catch (Exception)
             {
                 throw;
+            }
+            finally
+            {
+                _recordsListingItemViewModel.HasClicked = false;
             }
         }
         #endregion

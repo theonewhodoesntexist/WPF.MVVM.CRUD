@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:layout="clr-namespace:CRUD.WPF.Components.Layout"
+    xmlns:loadingspinnercontrol="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
     xmlns:local="clr-namespace:CRUD.WPF.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:records="clr-namespace:CRUD.WPF.Components.Records"
@@ -15,32 +16,59 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoading}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
 
+            <loadingspinnercontrol:LoadingSpinner Diameter="100" IsLoading="True" />
+        </Grid>
 
-        <Button
-            Grid.Row="0"
-            Margin="0,0,0,10"
-            HorizontalAlignment="Left"
-            Command="{Binding CreateCommand}"
-            Content="Create a new student record"
-            FontSize="16"
-            Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <Grid>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoading}" Value="False">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-            <records:RecordsListing Grid.Column="0" DataContext="{Binding RecordsListingViewModel}" />
-            <records:RecordsDetails
-                Grid.Column="1"
-                Margin="20,0,0,0"
-                DataContext="{Binding RecordsDetailsViewModel}" />
+            <Button
+                Grid.Row="0"
+                Margin="0,0,0,10"
+                HorizontalAlignment="Left"
+                Command="{Binding CreateCommand}"
+                Content="Create a new student record"
+                FontSize="16"
+                Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <records:RecordsListing Grid.Column="0" DataContext="{Binding RecordsListingViewModel}" />
+                <records:RecordsDetails
+                    Grid.Column="1"
+                    Margin="20,0,0,0"
+                    DataContext="{Binding RecordsDetailsViewModel}" />
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

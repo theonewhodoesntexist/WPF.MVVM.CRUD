@@ -97,16 +97,30 @@ namespace CRUD.WPF.ViewModels.Records
             }
         }
 
-        public bool CanSubmit => !string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(LastName) && !(Age < 0);
+		private bool _isSubmitting;
+		public bool IsSubmitting
+		{
+			get
+			{
+				return _isSubmitting;
+			}
+			set
+			{
+				_isSubmitting = value;
+				OnPropertyChanged(nameof(IsSubmitting));
+			}
+		}
+
+		public bool CanSubmit => !string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(LastName) && !(Age < 0);
 		public ICommand SubmitCommand { get; }
-		public ICommand CancelCommand { get; }
+		public ICommand CloseCommand { get; }
         #endregion
 
         #region Constructor
-        public RecordsDetailsFormViewModel(ICommand submitCommand, ICommand cancelCommand)
+        public RecordsDetailsFormViewModel(ICommand submitCommand, ICommand closeCommand)
         {
             SubmitCommand = submitCommand;
-			CancelCommand = cancelCommand;
+            CloseCommand = closeCommand;
         }
         #endregion
     }

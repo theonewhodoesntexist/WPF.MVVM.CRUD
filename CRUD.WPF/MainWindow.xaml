@@ -8,6 +8,7 @@
     xmlns:dashboardViewModel="clr-namespace:CRUD.WPF.ViewModels.Dashboard"
     xmlns:layout="clr-namespace:CRUD.WPF.Components.Layout"
     xmlns:layoutViewModel="clr-namespace:CRUD.WPF.ViewModels.Layout"
+    xmlns:loadingspinnercontrol="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
     xmlns:local="clr-namespace:CRUD.WPF"
     xmlns:loginViewModel="clr-namespace:CRUD.WPF.ViewModels.Login"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -26,37 +27,65 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
-        <Grid.Resources>
-            <DataTemplate DataType="{x:Type loginViewModel:LoginViewModel}">
-                <views:LoginView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type dashboardViewModel:DashboardViewModel}">
-                <views:DashboardView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type recordsViewModel:RecordsViewModel}">
-                <views:RecordsView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type accountViewModel:AccountViewModel}">
-                <views:AccountView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type layoutViewModel:LayoutViewModel}">
-                <layout:Layout />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type recordsViewModel:CreateRecordsViewModel}">
-                <records:CreateRecordsView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type recordsViewModel:UpdateRecordsViewModel}">
-                <records:UpdateRecordsView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type accountViewModel:UpdateAccountViewModel}">
-                <account:UpdateAccountView />
-            </DataTemplate>
-        </Grid.Resources>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoading}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
 
-        <ContentControl Content="{Binding CurrentViewModel}" />
+            <loadingspinnercontrol:LoadingSpinner Diameter="100" IsLoading="True" />
+        </Grid>
 
-        <modalcontrol:Modal Panel.ZIndex="1" IsOpen="{Binding IsModalOpen}">
-            <ContentControl Margin="50" Content="{Binding CurrentModalViewModel}" />
-        </modalcontrol:Modal>
+        <Grid>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoading}" Value="False">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+
+            <Grid.Resources>
+                <DataTemplate DataType="{x:Type loginViewModel:LoginViewModel}">
+                    <views:LoginView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type dashboardViewModel:DashboardViewModel}">
+                    <views:DashboardView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type recordsViewModel:RecordsViewModel}">
+                    <views:RecordsView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type accountViewModel:AccountViewModel}">
+                    <views:AccountView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type layoutViewModel:LayoutViewModel}">
+                    <layout:Layout />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type recordsViewModel:CreateRecordsViewModel}">
+                    <records:CreateRecordsView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type recordsViewModel:UpdateRecordsViewModel}">
+                    <records:UpdateRecordsView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type accountViewModel:UpdateAccountViewModel}">
+                    <account:UpdateAccountView />
+                </DataTemplate>
+            </Grid.Resources>
+
+            <ContentControl Content="{Binding CurrentViewModel}" />
+
+            <modalcontrol:Modal Panel.ZIndex="1" IsOpen="{Binding IsModalOpen}">
+                <ContentControl Margin="50" Content="{Binding CurrentModalViewModel}" />
+            </modalcontrol:Modal>
+        </Grid>
     </Grid>
 </Window>

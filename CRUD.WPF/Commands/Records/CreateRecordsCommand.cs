@@ -31,6 +31,9 @@ namespace CRUD.WPF.Commands.Records
         public override async Task ExecuteAsync(object? parameter)
         {
             RecordsDetailsFormViewModel recordsDetailsFormViewModel = _createRecordsViewModel.RecordsDetailsFormViewModel;
+
+            recordsDetailsFormViewModel.IsSubmitting = true;
+
             StudentModel studentModel = new StudentModel(
                 Guid.NewGuid(),
                 recordsDetailsFormViewModel.FirstName,
@@ -48,6 +51,10 @@ namespace CRUD.WPF.Commands.Records
             catch (Exception)
             {
                 throw;
+            }
+            finally
+            {
+                recordsDetailsFormViewModel.IsSubmitting = false;
             }
         }
         #endregion

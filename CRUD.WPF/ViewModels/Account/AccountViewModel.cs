@@ -2,8 +2,6 @@
 using CRUD.WPF.Commands;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores.Accounts;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
 
 namespace CRUD.WPF.ViewModels.Account
@@ -18,10 +16,10 @@ namespace CRUD.WPF.ViewModels.Account
 
         #region Properties
         public AccountModel AccountModel => _accountStore.CurrentAccount;
-        public string Username => AccountModel?.Username ?? "None";
+        public string Username => string.IsNullOrWhiteSpace(AccountModel?.Username) ? "None" : AccountModel.Username;
         public string FullName => $"{FirstName} {LastName}";
-        public string FirstName => AccountModel?.FirstName ?? "None";
-        public string LastName => AccountModel?.LastName ?? string.Empty;
+        public string FirstName => string.IsNullOrWhiteSpace(AccountModel?.FirstName) ? "None" : AccountModel.FirstName;
+        public string LastName => string.IsNullOrWhiteSpace(AccountModel?.LastName) ? string.Empty : AccountModel.LastName;
         public ICommand UpdateAccountCommand { get; }
         #endregion
 

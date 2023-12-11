@@ -1,4 +1,5 @@
 ﻿using CRUD.WPF.Commands;
+using CRUD.WPF.Commands.Records;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores.Accounts;
 using CRUD.WPF.Stores.Records;
@@ -20,6 +21,21 @@ namespace CRUD.WPF.ViewModels.Records
         public RecordsDetailsViewModel RecordsDetailsViewModel { get; }
         public ICommand CreateCommand { get; }
         public bool IsLoggedIn => _accountStore.IsLoggedIn;
+        public ICommand LoadRecordsCommand { get; }
+
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get
+            {
+                return _isLoading;
+            }
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged(nameof(IsLoading));
+            }
+        }
         #endregion
 
         #region Constructor
@@ -34,7 +50,7 @@ namespace CRUD.WPF.ViewModels.Records
             _studentModelStore = studentModelStore;
             _navigationManager = navigationManager;
 
-            RecordsListingViewModel = RecordsListingViewModel.LoadViewModel(
+            RecordsListingViewModel = new RecordsListingViewModel(
                 _selectedStudentModelStore, 
                 _studentModelStore, 
                 _navigationManager,
@@ -45,6 +61,8 @@ namespace CRUD.WPF.ViewModels.Records
                     () => new CreateRecordsViewModel(
                         _studentModelStore,
                         _navigationManager)));
+
+            LoadRecordsCommand = new LoadRecordsCommand(_studentModelStore, this);
 
             _accountStore.CurrentAccountChanged += AccountStore_CurrentAccountChanged;
         }
@@ -65,6 +83,25 @@ namespace CRUD.WPF.ViewModels.Records
             _accountStore.CurrentAccountChanged -= AccountStore_CurrentAccountChanged;
 
             base.Dispose();
+        }
+        #endregion
+
+        #region Helper methods
+        public static RecordsViewModel LoadViewModel(
+            AccountStore accountStore,
+            SelectedStudentModelStore selectedStudentModelStore,
+            StudentModelStore studentModelStore,
+            NavigationManager navigationManager)
+        {
+            RecordsViewModel recordsViewModel = new RecordsViewModel(
+                accountStore, 
+                selectedStudentModelStore,
+                studentModelStore, 
+                navigationManager);
+
+            recordsViewModel.LoadRecordsCommand.Execute(null);
+
+            return recordsViewModel;
         }
         #endregion
     }

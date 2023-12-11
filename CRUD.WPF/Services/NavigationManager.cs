@@ -77,7 +77,7 @@ namespace CRUD.WPF.Services
         public INavigationService RecordsNavigationService()
         {
             return CreateLayoutNavigationService(
-                () => new RecordsViewModel(
+                () => RecordsViewModel.LoadViewModel(
                     _accountStore,
                     _selectedStudentModelStore,
                     _studentModelStore,

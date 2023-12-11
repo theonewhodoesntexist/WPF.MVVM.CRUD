@@ -39,8 +39,6 @@ namespace CRUD.WPF.ViewModels.Records
                 _selectedStudentModelStore.SelectedStudentModel = _selectedRecordsListingItemViewModel?.StudentModel;
             }
         }
-
-        public ICommand LoadRecordsCommand { get; }
         #endregion
 
         #region Constructor
@@ -55,8 +53,6 @@ namespace CRUD.WPF.ViewModels.Records
             _studentModelStore = studentModelStore;
             _navigationManager = navigationManager;
             _accountStore = accountStore;
-
-            LoadRecordsCommand = new LoadRecordsCommand(_studentModelStore);
 
             _studentModelStore.StudentModelLoaded += StudentModelStore_StudentModelLoaded;
             _studentModelStore.StudentModelCreated += StudentModelStore_StudentModelCreated;
@@ -116,23 +112,6 @@ namespace CRUD.WPF.ViewModels.Records
         #endregion
 
         #region Helper methods
-        public static RecordsListingViewModel LoadViewModel(
-            SelectedStudentModelStore selectedStudentModelStore,
-            StudentModelStore studentModelStore,
-            NavigationManager navigationManager,
-            AccountStore accountStore)
-        {
-            RecordsListingViewModel recordsListingViewModel = new RecordsListingViewModel(
-                selectedStudentModelStore,
-                studentModelStore,
-                navigationManager,
-                accountStore);
-
-            recordsListingViewModel.LoadRecordsCommand.Execute(null);
-
-            return recordsListingViewModel;
-        }
-
         public void CreateStudentModel(StudentModel studentModel)
         {
             RecordsListingItemViewModel newRecord = new RecordsListingItemViewModel(

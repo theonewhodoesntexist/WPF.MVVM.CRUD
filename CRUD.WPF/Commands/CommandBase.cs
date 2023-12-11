@@ -8,7 +8,7 @@ namespace CRUD.WPF.Commands
         #region ICommand
         public event EventHandler? CanExecuteChanged;
 
-        public bool CanExecute(object? parameter)
+        public virtual bool CanExecute(object? parameter)
         {
             return true;
         }
@@ -17,7 +17,7 @@ namespace CRUD.WPF.Commands
         #endregion
 
         #region Helper methods
-        protected void OnCanExecuteChanged (object? parameter)
+        protected void OnCanExecuteChanged ()
         {
             CanExecuteChanged?.Invoke (this, new EventArgs ());
         }

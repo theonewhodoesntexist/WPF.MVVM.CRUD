@@ -78,7 +78,7 @@
             </Style>
             <!--#endregion-->
 
-            <!--#region Custom style for cancel button-->
+            <!--#region Custom style for close button-->
             <Style
                 x:Key="ButtonSecondary"
                 BasedOn="{StaticResource {x:Type Button}}"

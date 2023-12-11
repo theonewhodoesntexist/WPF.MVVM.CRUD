@@ -25,6 +25,8 @@ namespace CRUD.WPF.Commands.Records
         {
             Guid id = _recordsListingItemViewModel.StudentModel.Id;
 
+            _recordsListingItemViewModel.HasClicked = true;
+
             try
             {
                 await _studentModelStore.Delete(id);
@@ -32,6 +34,10 @@ namespace CRUD.WPF.Commands.Records
             catch (Exception)
             {
                 throw;
+            }
+            finally
+            {
+                _recordsListingItemViewModel.HasClicked = false;
             }
         }
         #endregion

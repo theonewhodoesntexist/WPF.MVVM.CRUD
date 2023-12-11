@@ -44,10 +44,6 @@ namespace CRUD.WPF
         private readonly IUpdateCommand<AccountModel> _updateAccountModelCommand;
         #endregion
 
-        #region Properties
-        public ICommand LoadAccountCommand { get; }
-        #endregion
-
         #region Constructor
         public App()
         {
@@ -86,8 +82,6 @@ namespace CRUD.WPF
                 _selectedStudentModelStore,
                 _studentModelStore,
                 _accountModelStore);
-
-            LoadAccountCommand = new LoadAccountCommand(_accountModelStore);
         }
         #endregion
 
@@ -99,14 +93,13 @@ namespace CRUD.WPF
                 context.Database.Migrate();
             }
 
-            LoadAccountCommand.Execute(null);
-
             INavigationService recordsNavigationService = _navigationManager.RecordsNavigationService();
             recordsNavigationService.Navigate();
 
+            MainViewModel mainViewModel = MainViewModel.LoadViewModel(_navigationStore, _modalNavigationStore, _accountModelStore);
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel(_navigationStore, _modalNavigationStore) 
+                DataContext = mainViewModel
             };
             MainWindow.Show();
         }

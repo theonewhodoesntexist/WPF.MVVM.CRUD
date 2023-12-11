@@ -32,7 +32,7 @@ namespace CRUD.WPF.ViewModels.Records
                 studentModelStore, 
                 navigationManager.CreateCloseModalNavigationService(),
                 this);
-            ICommand cancelCommand = new CloseModalCommand(navigationManager.CreateCloseModalNavigationService());
+            ICommand closeCommand = new CloseModalCommand(navigationManager.CreateCloseModalNavigationService());
 
             if (studentModel.Sex == "Male")
             {
@@ -50,7 +50,7 @@ namespace CRUD.WPF.ViewModels.Records
                 StudentModelIsFemaleChecked = false;
             }
 
-            RecordsDetailsFormViewModel = new RecordsDetailsFormViewModel(submitCommand, cancelCommand)
+            RecordsDetailsFormViewModel = new RecordsDetailsFormViewModel(submitCommand, closeCommand)
             {
                 FirstName = studentModel.FirstName,
                 LastName = studentModel.LastName,
