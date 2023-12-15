@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace CRUD.WPF.Stores.Accounts
 {
@@ -20,6 +21,7 @@ namespace CRUD.WPF.Stores.Accounts
 
         #region Properties
         public IEnumerable<AccountModel> AccountModel => _accountModels;
+        public ICommand CreateAccountCommand { get; }
         #endregion
 
         #region Constructor
@@ -48,19 +50,9 @@ namespace CRUD.WPF.Stores.Accounts
 
             _accountModels.Clear();
 
-            int count = accountModels.Count();
-
-            if (count == 0)
+            foreach (AccountModel accountModel in accountModels)
             {
-                AccountModel accountModel = new AccountModel(Guid.NewGuid(), "99", "99", "Jim", "Moriarity");
-                await Create(accountModel);
-            }
-            else
-            {
-                foreach (AccountModel accountModel in accountModels)
-                {
-                    _accountModels.Add(accountModel);
-                }
+                _accountModels.Add(accountModel);
             }
 
             AccountModelLoaded?.Invoke();
@@ -74,6 +66,7 @@ namespace CRUD.WPF.Stores.Accounts
 
             AccountModelCreated?.Invoke(accountModel);
         }
+
         public async Task Update(AccountModel accountModel)
         {
             await _updateAccountModelCommand.Execute(accountModel);

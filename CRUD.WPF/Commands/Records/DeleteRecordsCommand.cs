@@ -1,6 +1,5 @@
 ﻿using CRUD.WPF.Stores.Records;
 using CRUD.WPF.ViewModels.Records;
-using CRUD.WPF.Views.Records;
 using System;
 using System.Threading.Tasks;
 
@@ -34,7 +33,7 @@ namespace CRUD.WPF.Commands.Records
             }
             catch (Exception)
             {
-                _recordsListingItemViewModel.ErrorMessage = "Failed to delete a record!";
+                _recordsListingItemViewModel.ErrorMessage = "Failed to delete record!";
                 await Task.Delay(3000);
                 _recordsListingItemViewModel.ErrorMessage = null;
             }

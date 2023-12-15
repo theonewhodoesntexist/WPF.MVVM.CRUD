@@ -100,7 +100,11 @@ namespace CRUD.WPF.ViewModels.Account
             !string.IsNullOrEmpty(Username) &&
             !string.IsNullOrEmpty(FirstName) &&
             !string.IsNullOrEmpty(LastName) &&
-            !string.IsNullOrEmpty(Password);
+            !string.IsNullOrEmpty(Password) &&
+            Username.Length <= 40 &&
+            FirstName.Length <= 40 &&
+            LastName.Length <= 40 &&
+            Password.Length <= 40;
         public ICommand UpdateCommand { get; }
         public ICommand CloseCommand { get; }
 

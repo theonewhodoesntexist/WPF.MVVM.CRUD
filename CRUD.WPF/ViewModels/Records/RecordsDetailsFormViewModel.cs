@@ -111,7 +111,13 @@ namespace CRUD.WPF.ViewModels.Records
 			}
 		}
 
-		public bool CanSubmit => !string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(LastName) && !(Age < 0);
+		public bool CanSubmit => 
+			!string.IsNullOrEmpty(FirstName) &&
+			FirstName.Length <= 40 &&
+			!string.IsNullOrEmpty(LastName) &&
+			LastName.Length <= 40 &&
+			!(Age < 0) &&
+			!(Age > 150);
 		public ICommand SubmitCommand { get; }
 		public ICommand CloseCommand { get; }
         #endregion

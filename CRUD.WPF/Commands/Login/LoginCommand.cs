@@ -37,15 +37,14 @@ namespace CRUD.WPF.Commands.Login
                 account.Username == _loginViewModel.Username &&
                 account.Password == _loginViewModel.Password);
 
-            if (accountModel != null)
-            {
-                _accountStore.CurrentAccount = accountModel;
-                _recordsNavigationService.Navigate();
-            }
-            else
+            if (accountModel == null) 
             {
                 MessageBox.Show("Wrong username or password!", "Login Authentication", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
+
+            _accountStore.CurrentAccount = accountModel;
+            _recordsNavigationService.Navigate();
         }
         #endregion
     }

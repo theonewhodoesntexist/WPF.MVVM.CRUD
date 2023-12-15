@@ -51,7 +51,7 @@ namespace CRUD.WPF.Commands.Records
             }
             catch (Exception)
             {
-                _updateRecordsViewModel.ErrorMessage = "Failed to update a record! Please try again!";
+                _updateRecordsViewModel.ErrorMessage = "Failed to update record! Please try again!";
             }
             finally
             {

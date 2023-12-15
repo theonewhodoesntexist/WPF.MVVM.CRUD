@@ -39,6 +39,7 @@ namespace CRUD.WPF.ViewModels.Login
 		public ICommand LoginCommand { get; }
 		public ICommand CancelCommand { get; }
         public ICommand LoadAccountCommand { get; }
+        public ICommand CreateAccountCommand { get; }
 
         private bool _isLoading;
         public bool IsLoading
@@ -80,6 +81,7 @@ namespace CRUD.WPF.ViewModels.Login
             AccountModelStore accountModelStore)
         {
             LoadAccountCommand = new LoadAccountCommand(accountModelStore, this);
+            CreateAccountCommand = new CreateAccountCommand(accountModelStore, this);
             LoginCommand = new LoginCommand(
                 navigationManager.RecordsNavigationService(), 
 				this,
@@ -100,6 +102,7 @@ namespace CRUD.WPF.ViewModels.Login
             LoginViewModel loginViewModel = new LoginViewModel(accountStore, navigationManager, accountModelStor);
 
             loginViewModel.LoadAccountCommand.Execute(null);
+            loginViewModel.CreateAccountCommand.Execute(null);
 
             return loginViewModel;
         }

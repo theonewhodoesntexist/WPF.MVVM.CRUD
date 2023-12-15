@@ -36,7 +36,9 @@ namespace CRUD.WPF.Commands.Records
             }
             catch (Exception)
             {
-                throw;
+                _recordsListingItemViewModel.ErrorMessage = "Failed to update record!";
+                await Task.Delay(3000);
+                _recordsListingItemViewModel.ErrorMessage = null;
             }
             finally
             {

@@ -1,6 +1,6 @@
-﻿using CRUD.WPF.Commands;
+﻿using CRUD.Domain.Models;
+using CRUD.WPF.Commands;
 using CRUD.WPF.Commands.Records;
-using CRUD.Domain.Models;
 using CRUD.WPF.Services;
 using CRUD.WPF.Stores.Records;
 using System;
