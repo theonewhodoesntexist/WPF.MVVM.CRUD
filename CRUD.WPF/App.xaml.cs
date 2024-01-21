@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.IO;
 using System.Windows;
 
 namespace CRUD.WPF
@@ -68,6 +69,14 @@ namespace CRUD.WPF
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             _host.Start();
+
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string programFolder = Path.Combine(appDataPath, "Class Management System");
+            AppDomain.CurrentDomain.SetData("DataDirectory", programFolder);
+            if (!Directory.Exists(programFolder))
+            {
+                Directory.CreateDirectory(programFolder);
+            }
 
             ClassManagementSystemDbContextFactory classManagementSystemDbContextFactory = _host.Services.GetRequiredService<ClassManagementSystemDbContextFactory>();
             using (ClassManagementSystemDbContext context = classManagementSystemDbContextFactory.Create())

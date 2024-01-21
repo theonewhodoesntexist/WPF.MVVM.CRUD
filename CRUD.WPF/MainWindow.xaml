@@ -16,7 +16,7 @@
     xmlns:records="clr-namespace:CRUD.WPF.Views.Records"
     xmlns:recordsViewModel="clr-namespace:CRUD.WPF.ViewModels.Records"
     xmlns:views="clr-namespace:CRUD.WPF.Views"
-    Title="MainWindow"
+    Title="Class Management System"
     Width="1000"
     Height="600"
     MinWidth="1000"
